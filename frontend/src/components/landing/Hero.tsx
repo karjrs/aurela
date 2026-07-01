@@ -1,4 +1,4 @@
-export function Hero() {
+export const Hero = () => {
   return (
     <section className="relative flex flex-col items-center gap-8 px-6 pt-28 pb-20 text-center sm:pt-36 sm:pb-28">
       <div
@@ -20,4 +20,4 @@ export function Hero() {
       </button>
     </section>
   );
-}
+};

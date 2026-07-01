@@ -1,4 +1,4 @@
-export function ClosingStatement() {
+export const ClosingStatement = () => {
   return (
     <section className="flex flex-col items-center gap-8 px-6 py-28 text-center sm:py-36">
       <p className="font-display max-w-md text-3xl leading-snug font-medium text-dawn-50 sm:text-4xl">
@@ -12,4 +12,4 @@ export function ClosingStatement() {
       </button>
     </section>
   );
-}
+};

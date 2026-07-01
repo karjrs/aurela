@@ -16,7 +16,7 @@ const moments = [
   },
 ];
 
-export function DayMoments() {
+export const DayMoments = () => {
   return (
     <section className="mx-auto grid max-w-4xl grid-cols-1 gap-12 px-6 py-20 sm:grid-cols-3 sm:gap-8">
       {moments.map((moment) => (
@@ -31,4 +31,4 @@ export function DayMoments() {
       ))}
     </section>
   );
-}
+};
