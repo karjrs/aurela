@@ -1,6 +1,6 @@
-# app
+# Aurela
 
-Application skeleton (working name): Next.js frontend + Express backend, both in TypeScript.
+Next.js frontend + Express backend, both in TypeScript.
 
 ## Structure
 
