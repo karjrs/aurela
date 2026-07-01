@@ -19,10 +19,12 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 
 ### `frontend/`
 
-- `src/app/layout.tsx` — root Next.js layout: Fraunces/Manrope fonts and metadata.
+- `src/app/layout.tsx` — root Next.js layout: Fraunces/Manrope fonts, metadata, and the `next-intl` message provider.
 - `src/app/page.tsx` — landing page, composed from the section components in `src/components/landing/`.
 - `src/app/page.test.tsx` — Testing Library unit test for the home page.
-- `src/components/landing/` — landing page sections (`Hero`, `DayMoments`, `ClosingStatement`).
+- `src/components/landing/` — landing page sections (`Hero`, `DayMoments`, `ClosingStatement`), each a client component reading its copy from `next-intl`.
+- `src/i18n/request.ts` — `next-intl` request config; resolves the active locale's message catalog.
+- `messages/en.json` — English message catalog for the landing page copy.
 
 The backend is still an intentionally minimal skeleton (just the shared tooling and a health endpoint), while the frontend now has its first real page.
 
@@ -50,6 +52,7 @@ The backend is still an intentionally minimal skeleton (just the shared tooling 
 | `react` / `react-dom` | UI rendering |
 | `react-hook-form` | Form state and validation |
 | `zod` | Runtime schema validation (shared pattern with the backend) |
+| `next-intl` | Internationalization (message catalogs, translations) |
 | `tailwindcss` / `@tailwindcss/postcss` | Utility-first styling |
 | `typescript` | Type-checking |
 | `eslint` / `eslint-config-next` | Linting |
