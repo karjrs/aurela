@@ -20,6 +20,8 @@
     "check": "pnpm lint:frontend && pnpm lint:backend && pnpm typecheck && pnpm test"
   },
   "devDependencies": {
-    "concurrently": "^10.0.3"
+    "concurrently": "^10.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8"
   }
 }
