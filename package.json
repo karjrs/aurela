@@ -10,10 +10,14 @@
     "build:backend": "pnpm --dir backend build",
     "lint:frontend": "pnpm --dir frontend lint",
     "lint:backend": "pnpm --dir backend lint",
+    "typecheck:frontend": "pnpm --dir frontend typecheck",
+    "typecheck:backend": "pnpm --dir backend typecheck",
+    "typecheck": "pnpm typecheck:frontend && pnpm typecheck:backend",
     "test": "pnpm test:frontend && pnpm test:backend",
     "test:frontend": "pnpm --dir frontend test",
     "test:backend": "pnpm --dir backend test",
-    "test:e2e": "pnpm --dir frontend test:e2e"
+    "test:e2e": "pnpm --dir frontend test:e2e",
+    "check": "pnpm lint:frontend && pnpm lint:backend && pnpm typecheck && pnpm test"
   },
   "devDependencies": {
     "concurrently": "^10.0.3"
