@@ -1,20 +1,59 @@
 # app
 
-Szkielet aplikacji (nazwa robocza): frontend w Next.js + backend w Express, oba w TypeScript.
+Application skeleton (working name): Next.js frontend + Express backend, both in TypeScript.
 
-## Struktura
+## Structure
 
-- `frontend/` — Next.js (App Router, ESLint)
-- `backend/` — Express + TypeScript (ESLint, `tsx` do dev, `tsc` do builda)
+- `frontend/` — Next.js (App Router, ESLint, Vitest, Playwright)
+- `backend/` — Express + TypeScript (ESLint, Vitest, `tsx` for dev, `tsc` for build)
 
-## Uruchamianie
+Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`.
+
+## Getting started
 
 ```bash
-# frontend (http://localhost:3000)
+pnpm install
+pnpm --dir frontend install
+pnpm --dir backend install
+```
+
+## Running
+
+```bash
+# frontend and backend together
+pnpm dev
+
+# frontend only (http://localhost:3000)
 pnpm dev:frontend
 
-# backend (http://localhost:4000)
+# backend only (http://localhost:4000)
 pnpm dev:backend
 ```
 
-Każdy pakiet ma też własne `pnpm install` / `pnpm dev` / `pnpm build` / `pnpm lint` uruchamiane z jego katalogu.
+## Scripts (root)
+
+| Script | Description |
+| --- | --- |
+| `pnpm dev` | Run frontend and backend dev servers concurrently |
+| `pnpm dev:frontend` / `pnpm dev:backend` | Run a single dev server |
+| `pnpm build:frontend` / `pnpm build:backend` | Production build for a single package |
+| `pnpm lint:frontend` / `pnpm lint:backend` | ESLint for a single package |
+| `pnpm typecheck:frontend` / `pnpm typecheck:backend` / `pnpm typecheck` | Type-check with `tsc --noEmit`, per package or both |
+| `pnpm test` / `pnpm test:frontend` / `pnpm test:backend` | Run Vitest unit tests |
+| `pnpm test:e2e` | Run Playwright e2e tests (frontend) |
+| `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
+
+Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory.
+
+## Git hooks workflow
+
+This repo has Husky git hooks configured:
+
+- **pre-commit** — runs `lint-staged`, i.e. ESLint (with `--fix`) only on the files you're actually committing. Fast, doesn't slow down day-to-day commits.
+- **pre-push** — runs `pnpm check` (lint + typecheck + unit tests for both packages). Playwright e2e tests are intentionally excluded — they're too slow for a local hook and are still run by CI after every push.
+
+`pnpm check` can also be run manually at any time to check the repo state without waiting for a push. Hooks can be bypassed in exceptional cases (`git commit --no-verify`, `git push --no-verify`) — treat that as a last resort, not standard practice.
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push and pull request: lint + build + unit tests for the backend, lint + build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes).
