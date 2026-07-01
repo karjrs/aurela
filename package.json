@@ -23,5 +23,13 @@
     "concurrently": "^10.0.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "pnpm --dir frontend exec eslint --fix"
+    ],
+    "backend/**/*.{js,ts}": [
+      "pnpm --dir backend exec eslint --fix"
+    ]
   }
 }
