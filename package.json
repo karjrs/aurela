@@ -1,0 +1,21 @@
+{
+  "name": "app",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "concurrently -n frontend,backend -c blue,green \"pnpm dev:frontend\" \"pnpm dev:backend\"",
+    "dev:frontend": "pnpm --dir frontend dev",
+    "dev:backend": "pnpm --dir backend dev",
+    "build:frontend": "pnpm --dir frontend build",
+    "build:backend": "pnpm --dir backend build",
+    "lint:frontend": "pnpm --dir frontend lint",
+    "lint:backend": "pnpm --dir backend lint",
+    "test": "pnpm test:frontend && pnpm test:backend",
+    "test:frontend": "pnpm --dir frontend test",
+    "test:backend": "pnpm --dir backend test",
+    "test:e2e": "pnpm --dir frontend test:e2e"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
