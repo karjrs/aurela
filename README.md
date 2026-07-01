@@ -9,6 +9,60 @@ Application skeleton (working name): Next.js frontend + Express backend, both in
 
 Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`.
 
+## Modules
+
+### `backend/`
+
+- `src/app.ts` — Express app setup: security headers (`helmet`), CORS (`cors`), JSON body parsing, structured request logging (`pino-http`), and the `GET /api/health` endpoint.
+- `src/index.ts` — entry point; starts the HTTP server on `PORT` (default `4000`).
+- `src/app.test.ts` — `supertest`-based test hitting the Express app directly, without a running server.
+
+### `frontend/`
+
+- `src/app/layout.tsx` — root Next.js layout (still the `create-next-app` default: Geist fonts, generic metadata).
+- `src/app/page.tsx` — home page (still the default `create-next-app` starter content, not yet customized).
+- `src/app/page.test.tsx` — Testing Library unit test for the home page.
+
+This is a fresh skeleton, so both modules are intentionally minimal — the interesting parts so far are the shared tooling (linting, type-checking, tests, git hooks, CI), not application logic.
+
+## Tech stack
+
+### Backend
+
+| Library | Purpose |
+| --- | --- |
+| `express` | HTTP server / routing |
+| `helmet` | Security-related HTTP headers |
+| `cors` | CORS handling |
+| `pino` / `pino-http` | Structured JSON logging |
+| `zod` | Runtime schema validation |
+| `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
+| `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
+| `eslint` / `@eslint/js` | Linting |
+| `vitest` / `supertest` | Unit and HTTP-level testing |
+
+### Frontend
+
+| Library | Purpose |
+| --- | --- |
+| `next` | React framework (App Router) |
+| `react` / `react-dom` | UI rendering |
+| `react-hook-form` | Form state and validation |
+| `zod` | Runtime schema validation (shared pattern with the backend) |
+| `tailwindcss` / `@tailwindcss/postcss` | Utility-first styling |
+| `typescript` | Type-checking |
+| `eslint` / `eslint-config-next` | Linting |
+| `vitest` / `@testing-library/*` / `jsdom` | Unit and component testing |
+| `@playwright/test` | End-to-end testing |
+
+### Root
+
+| Library | Purpose |
+| --- | --- |
+| `concurrently` | Run frontend and backend dev servers side by side (`pnpm dev`) |
+| `husky` | Manages the git hooks in `.husky/` |
+| `lint-staged` | Runs ESLint only on staged files for the pre-commit hook |
+
 ## Getting started
 
 ```bash
