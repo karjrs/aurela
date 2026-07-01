@@ -77,6 +77,16 @@
   --font-body: "Manrope", sans-serif;
 
   --animate-glow-pulse: glow-pulse 8s ease-in-out infinite;
+
+  --background-image-day-arc: linear-gradient(
+    to bottom,
+    var(--color-dawn-50),
+    var(--color-mist-100) 20%,
+    var(--color-gold-100) 40%,
+    var(--color-coral-200) 60%,
+    var(--color-lavender-300) 80%,
+    var(--color-ink-900) 100%
+  );
 }
 
 @keyframes glow-pulse {
