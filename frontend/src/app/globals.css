@@ -75,4 +75,18 @@
 
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
+
+  --animate-glow-pulse: glow-pulse 8s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1.08);
+  }
 }

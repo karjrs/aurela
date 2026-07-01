@@ -13,8 +13,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Aurela",
-  description: "Aurela",
+  title: "Aurela — A calmer way to plan your day",
+  description:
+    "Aurela turns your calendar and your to-dos into one simple daily rhythm.",
 };
 
 export default function RootLayout({

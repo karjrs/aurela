@@ -19,11 +19,12 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 
 ### `frontend/`
 
-- `src/app/layout.tsx` — root Next.js layout (still the `create-next-app` default: Geist fonts, generic metadata).
-- `src/app/page.tsx` — home page (still the default `create-next-app` starter content, not yet customized).
+- `src/app/layout.tsx` — root Next.js layout: Fraunces/Manrope fonts and metadata.
+- `src/app/page.tsx` — landing page, composed from the section components in `src/components/landing/`.
 - `src/app/page.test.tsx` — Testing Library unit test for the home page.
+- `src/components/landing/` — landing page sections (`Hero`, `DayMoments`, `ClosingStatement`).
 
-This is a fresh skeleton, so both modules are intentionally minimal — the interesting parts so far are the shared tooling (linting, type-checking, tests, git hooks, CI), not application logic.
+The backend is still an intentionally minimal skeleton (just the shared tooling and a health endpoint), while the frontend now has its first real page.
 
 ## Tech stack
 
