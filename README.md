@@ -13,9 +13,21 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 
 ### `backend/`
 
-- `src/app.ts` — Express app setup: security headers (`helmet`), CORS (`cors`), JSON body parsing, and the `GET /api/health` endpoint.
+- `src/app.ts` — Express app setup: security headers (`helmet`), the GraphQL endpoint (parses its own request body and handles its own CORS — see `src/graphql/yoga.ts`), and the `GET /api/health` endpoint. `crossOriginResourcePolicy` is explicitly relaxed to `cross-origin` in `helmet()`'s config: its default (`same-origin`) is enforced by the browser independently of CORS, and would otherwise block the frontend (a different origin) from reading responses even though CORS headers allow it.
 - `src/index.ts` — entry point; starts the HTTP server on `PORT` (default `4000`).
 - `src/app.test.ts` — `supertest`-based test hitting the Express app directly, without a running server.
+- `src/graphql/schema.ts` — imports each resource module's default export (`{ query, mutation, types }`) and combines them into one executable schema, along with a bare `` `type Query type Mutation` `` anchor string: `typeDefs: [` `type Query type Mutation` `, ...users.types]`, `resolvers: { Query: { ...users.query }, Mutation: { ...users.mutation } }`. Resource folders never declare `type Query`/`type Mutation` themselves, only `extend` them — without that anchor, an `extend type Query { ... }` with no base declaration anywhere is invalid SDL. Adding a resource means adding it to the import list and to both spreads — spreading at the field level (not spreading a module's whole `{ Query, Mutation }` object) matters, since the latter would let one module silently overwrite another's fields instead of merging with them.
+- `src/graphql/` is organized one subdirectory per GraphQL resource, split further into `query/`/`mutation/` subfolders by operation type. This is the reference layout for adding a new resource (e.g. `posts/`) — copy this shape:
+  - `users/consts.ts` — the hardcoded mock data itself (no database yet).
+  - `users/query/types.ts` — `extend type Query { user(id: ID!): User, users: [User!]! }`. Only field declarations for this resource's queries — never a bare `type Query`, and never anything unrelated to querying (that's what `users/types.ts` is for).
+  - `users/query/index.ts` — the `Query` resolvers (`user`, `users`).
+  - `users/query/index.test.ts` — `supertest`-based tests for the queries.
+  - `users/mutation/types.ts` — `extend type Mutation { ... }`, mirroring `query/types.ts` but for writes.
+  - `users/mutation/index.ts` — the `Mutation` resolvers (`createUser`, `updateUser`, `deleteUser`) that mutate the in-memory mock array.
+  - `users/mutation/index.test.ts` — `supertest`-based tests for the mutations.
+  - `users/types.ts` — the resource's *barrel*: declares the shared entity SDL (`type User`, `CreateUserInput`, `UpdateUserInput` — no `extend`, since the entity shape isn't specific to reading or writing), imports `types` from both `query/types.ts` and `mutation/types.ts`, and default-exports all three as one array: `export default [types, queryTypes, mutationTypes]`. This is the **only** place that assembles this resource's full SDL — `query/`/`mutation/` `index.ts` files only ever export resolvers, never re-export their own `types`.
+  - `users/index.ts` — thin: imports `query` and `mutation` (resolvers) plus the default-exported `types` array from `users/types.ts`, and default-exports `{ query, mutation, types }` for `schema.ts` to register.
+- `src/graphql/yoga.ts` — GraphQL Yoga instance, mounted at `/api/graphql`; handles its own body parsing and CORS.
 
 ### `frontend/`
 
@@ -26,7 +38,7 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 - `src/i18n/request.ts` — `next-intl` request config; resolves the active locale's message catalog.
 - `messages/en.json` — English message catalog for the landing page copy.
 
-The backend is still an intentionally minimal skeleton (just the shared tooling and a health endpoint), while the frontend now has its first real page.
+The backend is still an intentionally minimal skeleton (shared tooling, a health endpoint, and a GraphQL endpoint with mock data), while the frontend now has its first real page.
 
 ## Tech stack
 
@@ -36,7 +48,8 @@ The backend is still an intentionally minimal skeleton (just the shared tooling 
 | --- | --- |
 | `express` | HTTP server / routing |
 | `helmet` | Security-related HTTP headers |
-| `cors` | CORS handling |
+| `graphql` | GraphQL query language runtime (parser, executor) |
+| `graphql-yoga` | GraphQL HTTP server, mounted in Express at `/api/graphql`; also handles body parsing and CORS for that endpoint |
 | `zod` | Runtime schema validation |
 | `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
 | `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
