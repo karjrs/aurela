@@ -13,7 +13,7 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 
 ### `backend/`
 
-- `src/app.ts` — Express app setup: security headers (`helmet`), CORS (`cors`), JSON body parsing, structured request logging (`pino-http`), and the `GET /api/health` endpoint.
+- `src/app.ts` — Express app setup: security headers (`helmet`), CORS (`cors`), JSON body parsing, and the `GET /api/health` endpoint.
 - `src/index.ts` — entry point; starts the HTTP server on `PORT` (default `4000`).
 - `src/app.test.ts` — `supertest`-based test hitting the Express app directly, without a running server.
 
@@ -37,7 +37,6 @@ The backend is still an intentionally minimal skeleton (just the shared tooling 
 | `express` | HTTP server / routing |
 | `helmet` | Security-related HTTP headers |
 | `cors` | CORS handling |
-| `pino` / `pino-http` | Structured JSON logging |
 | `zod` | Runtime schema validation |
 | `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
 | `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
