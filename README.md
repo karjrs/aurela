@@ -20,14 +20,16 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 - `src/graphql/` is organized one subdirectory per GraphQL resource, split further into `query/`/`mutation/` subfolders by operation type. This is the reference layout for adding a new resource (e.g. `posts/`) — copy this shape:
   - `users/consts.ts` — the hardcoded mock data itself (no database yet).
   - `users/query/types.ts` — `extend type Query { user(id: ID!): User, users: [User!]! }`. Only field declarations for this resource's queries — never a bare `type Query`, and never anything unrelated to querying (that's what `users/types.ts` is for).
-  - `users/query/index.ts` — the `Query` resolvers (`user`, `users`).
+  - `users/query/index.ts` — the `Query` resolvers (`user`, `users`), typed against the generated `QueryResolvers` (see `src/graphql/types.ts` below) instead of hand-written `args` types.
   - `users/query/index.test.ts` — `supertest`-based tests for the queries.
   - `users/mutation/types.ts` — `extend type Mutation { ... }`, mirroring `query/types.ts` but for writes.
-  - `users/mutation/index.ts` — the `Mutation` resolvers (`createUser`, `updateUser`, `deleteUser`) that mutate the in-memory mock array.
+  - `users/mutation/index.ts` — the `Mutation` resolvers (`createUser`, `updateUser`, `deleteUser`) that mutate the in-memory mock array, typed against the generated `MutationResolvers`.
   - `users/mutation/index.test.ts` — `supertest`-based tests for the mutations.
   - `users/types.ts` — the resource's *barrel*: declares the shared entity SDL (`type User`, `CreateUserInput`, `UpdateUserInput` — no `extend`, since the entity shape isn't specific to reading or writing), imports `types` from both `query/types.ts` and `mutation/types.ts`, and default-exports all three as one array: `export default [types, queryTypes, mutationTypes]`. This is the **only** place that assembles this resource's full SDL — `query/`/`mutation/` `index.ts` files only ever export resolvers, never re-export their own `types`.
   - `users/index.ts` — thin: imports `query` and `mutation` (resolvers) plus the default-exported `types` array from `users/types.ts`, and default-exports `{ query, mutation, types }` for `schema.ts` to register.
+- `src/graphql/types.ts` — **generated, not hand-written.** `QueryResolvers`/`MutationResolvers` types (and per-field arg types) produced by `graphql-codegen` from `codegen.ts` (see below), so resolver code doesn't hand-write `args: { ... }` types that could silently drift from the SDL. Gitignored — not a source of truth, just derived output — and regenerated automatically before `dev`/`build`/`typecheck`/`test` via `pre*` pnpm script hooks. Run `pnpm codegen` manually (or `pnpm codegen:watch`) after editing any resource's `types.ts` if you want fresh types without running one of those.
 - `src/graphql/yoga.ts` — GraphQL Yoga instance, mounted at `/api/graphql`; handles its own body parsing and CORS.
+- `codegen.ts` — `graphql-codegen` config, pointed directly at `src/graphql/schema.ts`'s `schema` export (no separate `.graphql` schema file needed) and generating into `src/graphql/types.ts`.
 
 ### `frontend/`
 
@@ -50,6 +52,7 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | `helmet` | Security-related HTTP headers |
 | `graphql` | GraphQL query language runtime (parser, executor) |
 | `graphql-yoga` | GraphQL HTTP server, mounted in Express at `/api/graphql`; also handles body parsing and CORS for that endpoint |
+| `@graphql-codegen/cli` / `@graphql-codegen/typescript` / `@graphql-codegen/typescript-resolvers` | Generates resolver argument/return types straight from the schema (`pnpm codegen`), so resolvers don't hand-write types that can drift from the SDL |
 | `zod` | Runtime schema validation |
 | `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
 | `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
@@ -113,7 +116,7 @@ pnpm dev:backend
 | `pnpm test:e2e` | Run Playwright e2e tests (frontend) |
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
 
-Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory.
+Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory. `backend` additionally has `codegen` / `codegen:watch` (see the `codegen.ts` entry above) — it runs automatically before `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
 
 ## Git hooks workflow
 
