@@ -33,6 +33,9 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 
 ### `frontend/`
 
+- `codegen.ts` — `graphql-codegen` config for the frontend. Schema pointer is `../backend/schema.graphql` (a plain SDL file, not backend's TypeScript), so unlike the backend's own codegen this doesn't need `NODE_OPTIONS='--import tsx/esm'` — `graphql-file-loader` just reads text, nothing to execute.
+- `src/graphql/*.graphql` — hand-written query/mutation documents, e.g. `getUser.graphql`. Each one's selected fields determine the shape of its generated type — this is a different kind of type than the backend's resolver types (see "Structure" above), not a duplicate of them.
+- `src/graphql/types.ts` — **generated, not hand-written.** `GetUserQuery`/`GetUserQueryVariables`-style types, one pair per document in `src/graphql/*.graphql`, produced by the same `graphql-codegen` machinery as the backend. Gitignored, regenerated automatically via `pre*` pnpm script hooks before `dev`/`build`/`typecheck`/`test`.
 - `src/app/layout.tsx` — root Next.js layout: Fraunces/Manrope fonts, metadata, and the `next-intl` message provider.
 - `src/app/page.tsx` — landing page, composed from the section components in `src/components/landing/`.
 - `src/app/page.test.tsx` — Testing Library unit test for the home page.
@@ -68,6 +71,8 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | `react-hook-form` | Form state and validation |
 | `zod` | Runtime schema validation (shared pattern with the backend) |
 | `next-intl` | Internationalization (message catalogs, translations) |
+| `graphql` | GraphQL query language runtime (parser); used by the codegen toolchain below, not yet at runtime |
+| `@graphql-codegen/cli` / `@graphql-codegen/typescript` / `@graphql-codegen/typescript-operations` | Generates TS types for each `.graphql` document in `src/graphql/` from `backend/schema.graphql` |
 | `tailwindcss` / `@tailwindcss/postcss` | Utility-first styling |
 | `typescript` | Type-checking |
 | `eslint` / `eslint-config-next` | Linting |
@@ -116,7 +121,7 @@ pnpm dev:backend
 | `pnpm test:e2e` | Run Playwright e2e tests (frontend) |
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
 
-Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory. `backend` additionally has `codegen` / `codegen:watch` (see the `codegen.ts` entry above) — it runs automatically before `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
+Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory. Both `backend` and `frontend` additionally have `codegen` / `codegen:watch` (see the `codegen.ts` entries above) — each runs automatically before that package's own `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
 
 ## Git hooks workflow
 
