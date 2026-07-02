@@ -7,7 +7,7 @@ Next.js frontend + Express backend, both in TypeScript.
 - `frontend/` — Next.js (App Router, ESLint, Vitest, Playwright)
 - `backend/` — Express + TypeScript (ESLint, Vitest, `tsx` for dev, `tsc` for build)
 
-Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`.
+Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`. Since frontend can't import backend's TypeScript source across that boundary, the one deliberate bridge between them is `backend/schema.graphql` — a committed (not gitignored) SDL export of the backend schema that the frontend's own `graphql-codegen` reads as a plain file, with no live server or cross-package dependency involved. It has to be regenerated (`pnpm codegen` in `backend/`) and committed by hand whenever the backend schema changes.
 
 ## Modules
 
@@ -29,7 +29,7 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
   - `users/index.ts` — thin: imports `query` and `mutation` (resolvers) plus the default-exported `types` array from `users/types.ts`, and default-exports `{ query, mutation, types }` for `schema.ts` to register.
 - `src/graphql/types.ts` — **generated, not hand-written.** `QueryResolvers`/`MutationResolvers` types (and per-field arg types) produced by `graphql-codegen` from `codegen.ts` (see below), so resolver code doesn't hand-write `args: { ... }` types that could silently drift from the SDL. Gitignored — not a source of truth, just derived output — and regenerated automatically before `dev`/`build`/`typecheck`/`test` via `pre*` pnpm script hooks. Run `pnpm codegen` manually (or `pnpm codegen:watch`) after editing any resource's `types.ts` if you want fresh types without running one of those.
 - `src/graphql/yoga.ts` — GraphQL Yoga instance, mounted at `/api/graphql`; handles its own body parsing and CORS.
-- `codegen.ts` — `graphql-codegen` config, pointed directly at `src/graphql/schema.ts`'s `schema` export (no separate `.graphql` schema file needed) and generating into `src/graphql/types.ts`.
+- `codegen.ts` — `graphql-codegen` config, pointed directly at `src/graphql/schema.ts`'s `schema` export, generating two outputs from that one loaded schema: `src/graphql/types.ts` (resolver types, gitignored, see above) and `schema.graphql` (plain SDL via the `schema-ast` plugin, **committed** — see "Structure" above for why).
 
 ### `frontend/`
 

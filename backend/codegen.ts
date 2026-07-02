@@ -6,6 +6,9 @@ const config: CodegenConfig = {
     "src/graphql/types.ts": {
       plugins: ["typescript", "typescript-resolvers"],
     },
+    "schema.graphql": {
+      plugins: ["schema-ast"],
+    },
   },
 };
 
