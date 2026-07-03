@@ -4,8 +4,14 @@ const config: CodegenConfig = {
   schema: "../backend/schema.graphql",
   documents: "src/graphql/**/*.graphql",
   generates: {
+    "src/graphql/schema-types.ts": {
+      plugins: ["typescript"],
+    },
     "src/graphql/types.ts": {
-      plugins: ["typescript", "typescript-operations", "typed-document-node"],
+      plugins: ["typescript-operations", "typed-document-node"],
+      config: {
+        importSchemaTypesFrom: "./src/graphql/schema-types",
+      },
     },
   },
 };

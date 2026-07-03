@@ -45,3 +45,4 @@ next-env.d.ts
 
 # generated GraphQL types (graphql-codegen)
 src/graphql/types.ts
+src/graphql/schema-types.ts
