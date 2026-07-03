@@ -21,6 +21,47 @@ describe("createUser", () => {
     });
     expect(res.body.data.createUser.id).toBeTruthy();
   });
+
+  it("rejects an empty name", async () => {
+    const res = await query(
+      `mutation Create($input: CreateUserInput!) {
+        createUser(input: $input) { id }
+      }`,
+      { input: { name: "  ", email: "valid@example.com" } },
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toBeNull();
+    expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+  });
+
+  it("rejects an invalid email format", async () => {
+    const res = await query(
+      `mutation Create($input: CreateUserInput!) {
+        createUser(input: $input) { id }
+      }`,
+      { input: { name: "Valid Name", email: "not-an-email" } },
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toBeNull();
+    expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+  });
+
+  it("does not add a user to the array on validation failure", async () => {
+    const before = await query(`query { users { id } }`);
+    const beforeCount = before.body.data.users.length;
+
+    await query(
+      `mutation Create($input: CreateUserInput!) {
+        createUser(input: $input) { id }
+      }`,
+      { input: { name: "", email: "bad" } },
+    );
+
+    const after = await query(`query { users { id } }`);
+    expect(after.body.data.users.length).toBe(beforeCount);
+  });
 });
 
 describe("updateUser", () => {
@@ -58,6 +99,34 @@ describe("updateUser", () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ data: { updateUser: null } });
+  });
+
+  it("rejects a completely empty input", async () => {
+    const res = await query(
+      `mutation Update($id: ID!, $input: UpdateUserInput!) {
+        updateUser(id: $id, input: $input) { id }
+      }`,
+      { id: "1", input: {} },
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toEqual({ updateUser: null });
+    expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+  });
+
+  it("rejects an invalid email without mutating the existing user", async () => {
+    const res = await query(
+      `mutation Update($id: ID!, $input: UpdateUserInput!) {
+        updateUser(id: $id, input: $input) { id }
+      }`,
+      { id: "1", input: { email: "not-an-email" } },
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+
+    const check = await query(`query { user(id: "1") { email } }`);
+    expect(check.body.data.user.email).toBe("ada@example.com");
   });
 });
 
