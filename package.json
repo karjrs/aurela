@@ -18,12 +18,15 @@
     "test:backend": "pnpm --dir backend test",
     "test:e2e": "pnpm --dir frontend test:e2e",
     "check": "pnpm lint:frontend && pnpm lint:backend && pnpm typecheck && pnpm test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepare": "husky"
   },
   "devDependencies": {
     "concurrently": "^10.0.3",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.8"
+    "lint-staged": "^17.0.8",
+    "prettier": "^3.9.4"
   },
   "lint-staged": {
     "frontend/**/*.{js,jsx,ts,tsx}": [
