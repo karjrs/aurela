@@ -1,28 +1,50 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import messages from "../../messages/en.json";
 import Home from "./page";
 
-const renderHome = () =>
-  render(
-    <NextIntlClientProvider locale="en" messages={messages}>
-      <Home />
-    </NextIntlClientProvider>,
-  );
+const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 
-describe("Home", () => {
-  it("renders the hero heading", () => {
-    renderHome();
-    expect(
-      screen.getByRole("heading", { name: /your day, quietly planned/i }),
-    ).toBeInTheDocument();
+vi.mock("@/graphql/client", () => ({
+  graphqlClient: { request: requestMock },
+}));
+
+const renderHome = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
   });
 
-  it("renders a get started call to action", () => {
+  return render(
+    <QueryClientProvider client={queryClient}>
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <Home />
+      </NextIntlClientProvider>
+    </QueryClientProvider>,
+  );
+};
+
+describe("Home", () => {
+  it("renders the list of users on success", async () => {
+    requestMock.mockResolvedValueOnce({
+      users: [
+        { id: "1", name: "Ada Lovelace", email: "ada@example.com" },
+        { id: "2", name: "Alan Turing", email: "alan@example.com" },
+      ],
+    });
+
     renderHome();
-    expect(
-      screen.getAllByRole("button", { name: /get started/i }),
-    ).toHaveLength(2);
+
+    expect(await screen.findByText("Ada Lovelace")).toBeInTheDocument();
+    expect(screen.getByText("Alan Turing")).toBeInTheDocument();
+  });
+
+  it("shows an error message when the request fails", async () => {
+    requestMock.mockRejectedValueOnce(new Error("network error"));
+
+    renderHome();
+
+    expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
 });

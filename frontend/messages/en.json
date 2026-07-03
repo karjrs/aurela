@@ -15,5 +15,10 @@
   "ClosingStatement": {
     "statement": "You don’t need a system. You need a rhythm.",
     "cta": "Get started"
+  },
+  "UsersList": {
+    "heading": "Users",
+    "loading": "Loading users…",
+    "error": "Something went wrong while loading users."
   }
 }
