@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import messages from "../messages/en.json";
+import messages from "../src/i18n/messages/en.json";
 
 const ada = { id: "1", name: "Ada Lovelace", email: "ada@example.com" };
 const alan = { id: "2", name: "Alan Turing", email: "alan@example.com" };

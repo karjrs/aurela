@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import messages from "../messages/en.json";
+import messages from "../src/i18n/messages/en.json";
 
 test("home page loads and shows the fetched users", async ({ page }) => {
   await page.route("**/api/graphql", (route) =>
