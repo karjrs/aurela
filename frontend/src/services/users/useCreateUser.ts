@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { graphqlClient } from "@/graphql/client";
+
 import { CreateUserDocument } from "@/graphql/types";
 import type { CreateUserInput } from "@/graphql/schema-types";
 
