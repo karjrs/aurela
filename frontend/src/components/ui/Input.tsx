@@ -8,7 +8,10 @@ type InputProps = React.ComponentPropsWithoutRef<"input"> & {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, id, className = "", ...props }, ref) => (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="font-body text-sm font-medium text-ink-900">
+      <label
+        htmlFor={id}
+        className="font-body text-sm font-medium text-ink-900"
+      >
         {label}
       </label>
       <input
