@@ -2,6 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/common/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/common/card";
 import { useDeleteUser } from "@/hooks/useDeleteUser";
 import { useUpdateUser } from "@/hooks/useUpdateUser";
 import { UserForm, type UserFormValues } from "./UserForm";
@@ -48,57 +56,66 @@ export const UserListItem = ({
 
   if (isEditing) {
     return (
-      <li className="rounded-lg border border-ink-200 p-4">
-        <UserForm
-          defaultValues={{ name: user.name, email: user.email }}
-          onSubmit={handleUpdate}
-          onCancel={onStopEdit}
-          isSubmitting={updateUser.isPending}
-        />
-        {updateUser.isSuccess && updateUser.data.updateUser === null && (
-          <p role="alert" className="mt-2 text-sm text-coral-700">
-            {t("userNotFound")}
-          </p>
-        )}
+      <li>
+        <Card>
+          <CardContent>
+            <UserForm
+              defaultValues={{ name: user.name, email: user.email }}
+              onSubmit={handleUpdate}
+              onCancel={onStopEdit}
+              isSubmitting={updateUser.isPending}
+            />
+            {updateUser.isSuccess && updateUser.data.updateUser === null && (
+              <p role="alert" className="mt-2 text-sm text-coral-700">
+                {t("userNotFound")}
+              </p>
+            )}
+          </CardContent>
+        </Card>
       </li>
     );
   }
 
   return (
-    <li className="rounded-lg border border-ink-200 p-4">
-      <p className="font-medium text-ink-900">{user.name}</p>
-      <p className="text-ink-600">{user.email}</p>
+    <li>
+      <Card>
+        <CardHeader>
+          <CardTitle>{user.name}</CardTitle>
+          <CardDescription>{user.email}</CardDescription>
+        </CardHeader>
+        <CardFooter className="flex-col items-start gap-3 border-t-0 bg-transparent">
+          {isConfirmingDelete ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-ink-600">{t("confirmDelete")}</span>
+              <Button
+                variant="destructive"
+                onClick={handleDelete}
+                disabled={deleteUser.isPending}
+              >
+                {t("confirmDeleteButton")}
+              </Button>
+              <Button variant="secondary" onClick={onCancelDelete}>
+                {t("cancelButton")}
+              </Button>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Button variant="secondary" onClick={onStartEdit}>
+                {t("editButton")}
+              </Button>
+              <Button variant="secondary" onClick={onRequestDelete}>
+                {t("deleteButton")}
+              </Button>
+            </div>
+          )}
 
-      {isConfirmingDelete ? (
-        <div className="mt-3 flex items-center gap-2">
-          <span className="text-sm text-ink-600">{t("confirmDelete")}</span>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={deleteUser.isPending}
-          >
-            {t("confirmDeleteButton")}
-          </Button>
-          <Button variant="secondary" onClick={onCancelDelete}>
-            {t("cancelButton")}
-          </Button>
-        </div>
-      ) : (
-        <div className="mt-3 flex gap-2">
-          <Button variant="secondary" onClick={onStartEdit}>
-            {t("editButton")}
-          </Button>
-          <Button variant="secondary" onClick={onRequestDelete}>
-            {t("deleteButton")}
-          </Button>
-        </div>
-      )}
-
-      {deleteUser.isSuccess && deleteUser.data.deleteUser === false && (
-        <p role="alert" className="mt-2 text-sm text-coral-700">
-          {t("deleteNotFound")}
-        </p>
-      )}
+          {deleteUser.isSuccess && deleteUser.data.deleteUser === false && (
+            <p role="alert" className="text-sm text-coral-700">
+              {t("deleteNotFound")}
+            </p>
+          )}
+        </CardFooter>
+      </Card>
     </li>
   );
 };
