@@ -7,7 +7,7 @@ Next.js frontend + Express backend, both in TypeScript.
 - `frontend/` — Next.js (App Router, ESLint, Vitest, Playwright)
 - `backend/` — Express + TypeScript (ESLint, Vitest, `tsx` for dev, `tsc` for build)
 
-Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`. Since frontend can't import backend's TypeScript source across that boundary, the one deliberate bridge between them is `backend/schema.graphql` — a committed (not gitignored) SDL export of the backend schema that the frontend's own `graphql-codegen` reads as a plain file, with no live server or cross-package dependency involved. It has to be regenerated (`pnpm codegen` in `backend/`) and committed by hand whenever the backend schema changes.
+Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`. Since frontend can't import backend's TypeScript source across that boundary, the one deliberate bridge between them is `backend/schema.graphql` — a committed (not gitignored) SDL export of the backend schema that the frontend's own `graphql-codegen` reads as a plain file, with no live server or cross-package dependency involved. It has to be regenerated (`pnpm codegen` in `backend/`) and committed by hand whenever the backend schema changes. Validation is a second, smaller instance of the same boundary: `backend/src/graphql/users/mutation/schemas.ts` and `frontend/src/components/users/UserForm.tsx` each define their own `zod` schema for the same shape, kept in sync by hand — there's no mechanism enforcing they match, so a schema change on one side needs a matching edit on the other.
 
 ## Modules
 
@@ -47,11 +47,14 @@ Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a re
 - `src/app/layout.tsx` — root Next.js layout: Fraunces/Manrope fonts, metadata, `Providers` (TanStack Query) wrapping `next-intl`'s message provider.
 - `src/app/page.tsx` — renders `UsersList`; that's the entire home page. An earlier landing page (`Hero`/`DayMoments`/`ClosingStatement`) was kept around unused for a while and has since been removed — see git history if it's ever needed again.
 - `src/components/ui/` — generic, resource-agnostic UI primitives, reused across features (as opposed to `src/components/users/`, which is specific to the users resource). `Button.tsx` (`primary`/`secondary`/`danger` variants — `danger` uses a darker `coral` shade rather than red, since the palette has no red scale) and `Input.tsx` (`forwardRef`, since `react-hook-form`'s `register()` needs a ref; renders its own `<label>` and an error message with `role="alert"`). Deliberately minimal — no `size` prop, no component library — extend here as real needs come up, not speculatively.
-- `src/components/users/UsersList.tsx` — client component: `useUsers()` + `useTranslations("usersList")`, renders a loading/error/success state for the fetched user list.
-- `src/app/page.test.tsx` — Testing Library unit test for the home page; mocks `src/graphql/client.ts` directly (`vi.mock`) rather than pulling in MSW for one query, and disables TanStack Query's default retry so the error-case test doesn't wait out the retry backoff.
+- `src/components/users/UsersList.tsx` — client component: `useUsers()` + `useTranslations("usersList")`, renders a loading/error/success state for the fetched user list, an inline expandable "add user" section (`UserForm` + `useCreateUser`, no route/modal), and one `UserListItem` per user. Owns `editingId`/`confirmingDeleteId` state (which row, if any, is being edited or confirming delete) so only one row can be in either mode at a time — not local state per item.
+- `src/components/users/UserListItem.tsx` — a single row: view mode (name/email + Edit/Delete buttons) or edit mode (`UserForm` with `defaultValues`). Delete uses an inline "Delete this user? / Confirm / Cancel" toggle, never `window.confirm()`. Handles `updateUser`/`deleteUser` returning `null`/`false` (unknown id) as a valid domain outcome, not a mutation error — shown as a "no longer exists" message rather than routed through `isError`.
+- `src/components/users/UserForm.tsx` — shared between create and edit; presence of `defaultValues` switches the mode (and the submit button's copy) rather than a separate `mode` prop. `react-hook-form` + `zodResolver` + a local `zod` schema that intentionally mirrors (duplicates) `backend/src/graphql/users/mutation/schemas.ts` — see the note on `zod`'s "shared pattern with the backend" below.
+- `src/app/page.test.tsx` — Testing Library smoke test for the home page (success/error rendering only); CRUD behavior (create/edit/delete, validation, not-found responses) is covered separately in `src/components/users/UsersList.test.tsx`, which renders `UsersList` directly and mocks `graphqlClient.request` per operation via `document === XDocument` checks, since one flow can trigger several different requests (e.g. `CreateUser` then a refetching `GetUsers`).
 - `src/i18n/request.ts` — `next-intl` request config; resolves the active locale's message catalog.
-- `messages/en.json` — message catalog, one camelCase namespace per component (currently just `usersList`).
+- `messages/en.json` — message catalog, one camelCase namespace per component: `usersList` (list/row copy, including delete confirmation and not-found messages) and `userForm` (the create/edit form's field labels and validation messages).
 - `e2e/home.spec.ts` — Playwright test; mocks the `/api/graphql` network call via `page.route()` so it doesn't need a live backend (the `frontend-e2e` CI job never starts one).
+- `e2e/users-crud.spec.ts` — Playwright coverage for create/edit/delete. Unlike `home.spec.ts`'s single fixed mock response, its `page.route` handler branches on the mutation name inside `postDataJSON().query` (`"CreateUser"`/`"UpdateUser"`/`"DeleteUser"`) and keeps an in-memory `users` array across requests, since each flow issues multiple sequential GraphQL calls.
 
 The backend is still an intentionally minimal skeleton (shared tooling, a health endpoint, and a GraphQL endpoint with mock data). The frontend's home page now fetches and renders that mock data live via TanStack Query + `graphql-request`.
 
@@ -66,7 +69,7 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | `graphql` | GraphQL query language runtime (parser, executor) |
 | `graphql-yoga` | GraphQL HTTP server, mounted in Express at `/api/graphql`; also handles body parsing and CORS for that endpoint |
 | `@graphql-codegen/cli` / `@graphql-codegen/typescript` / `@graphql-codegen/typescript-resolvers` | Generates resolver argument/return types straight from the schema (`pnpm codegen`), so resolvers don't hand-write types that can drift from the SDL |
-| `zod` | Runtime schema validation |
+| `zod` | Runtime schema validation, used in the mutation resolvers (`users/mutation/schemas.ts`) |
 | `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
 | `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
 | `eslint` / `@eslint/js` | Linting |
@@ -78,8 +81,9 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | --- | --- |
 | `next` | React framework (App Router) |
 | `react` / `react-dom` | UI rendering |
-| `react-hook-form` | Form state and validation |
-| `zod` | Runtime schema validation (shared pattern with the backend) |
+| `react-hook-form` | Form state and validation, used in `UserForm` |
+| `@hookform/resolvers` | Bridges `react-hook-form` to a `zod` schema via `zodResolver` (`@hookform/resolvers/zod`) |
+| `zod` | Runtime schema validation — same pattern as the backend, but a separately maintained schema (see `UserForm.tsx` above), not a shared import |
 | `next-intl` | Internationalization (message catalogs, translations) |
 | `@tanstack/react-query` | Server-state fetching/caching for React (`useQuery` in `src/hooks/`) |
 | `graphql-request` | Minimal GraphQL client; sends the codegen'd `DocumentNode`s to the backend |
