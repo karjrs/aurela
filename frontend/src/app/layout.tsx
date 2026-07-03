@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+
 import { Providers } from "./providers";
+
+import { getMessages } from "next-intl/server";
+
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { Fraunces, Manrope } from "next/font/google";
+
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -21,11 +26,11 @@ export const metadata: Metadata = {
     "Aurela turns your calendar and your to-dos into one simple daily rhythm.",
 };
 
-const RootLayout = async ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+type RootLayoutProps = Readonly<{
+  children: ReactNode;
+}>;
+
+const RootLayout = async ({ children }: RootLayoutProps) => {
   const messages = await getMessages();
 
   return (
