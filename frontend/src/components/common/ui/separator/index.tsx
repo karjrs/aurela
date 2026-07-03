@@ -1,0 +1,26 @@
+"use client"
+
+import { Separator as SeparatorPrimitive } from "radix-ui"
+
+import { SeparatorProps } from "./types"
+import { cn } from "@/utils/helpers/cn"
+
+const Separator = ({
+  className,
+  orientation = "horizontal",
+  decorative = true,
+  ...props
+}: SeparatorProps) => (
+  <SeparatorPrimitive.Root
+    data-slot="separator"
+    decorative={decorative}
+    orientation={orientation}
+    className={cn(
+      "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
+      className
+    )}
+    {...props}
+  />
+)
+
+export { Separator }

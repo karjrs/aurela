@@ -1,0 +1,3 @@
+import { ComponentProps } from "react"
+
+export type CardProps = ComponentProps<"div"> & { size?: "default" | "sm" }
