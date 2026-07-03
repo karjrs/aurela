@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/common/button";
 import { useCreateUser } from "@/hooks/useCreateUser";
 import { useUsers } from "@/hooks/useUsers";
 import { UserForm } from "./UserForm";

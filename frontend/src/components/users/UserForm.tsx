@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/common/button";
 import { Input } from "@/components/ui/Input";
 
 // Mirrors backend/src/graphql/users/mutation/schemas.ts. Duplicated

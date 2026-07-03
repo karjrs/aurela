@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/common/button";
 import { useDeleteUser } from "@/hooks/useDeleteUser";
 import { useUpdateUser } from "@/hooks/useUpdateUser";
 import { UserForm, type UserFormValues } from "./UserForm";
@@ -73,7 +73,7 @@ export const UserListItem = ({
         <div className="mt-3 flex items-center gap-2">
           <span className="text-sm text-ink-600">{t("confirmDelete")}</span>
           <Button
-            variant="danger"
+            variant="destructive"
             onClick={handleDelete}
             disabled={deleteUser.isPending}
           >
