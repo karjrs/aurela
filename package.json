@@ -29,10 +29,12 @@
     "prettier": "^3.9.4"
   },
   "lint-staged": {
-    "frontend/**/*.{js,jsx,ts,tsx}": [
+    "frontend/**/*.{js,jsx,ts,tsx,json,css}": [
+      "prettier --write",
       "pnpm --dir frontend exec eslint --fix"
     ],
-    "backend/**/*.{js,ts}": [
+    "backend/**/*.{js,ts,json}": [
+      "prettier --write",
       "pnpm --dir backend exec eslint --fix"
     ]
   }
