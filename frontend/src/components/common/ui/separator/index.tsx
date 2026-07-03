@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Separator as SeparatorPrimitive } from "radix-ui"
+import { Separator as SeparatorPrimitive } from "radix-ui";
 
-import { SeparatorProps } from "./types"
-import { cn } from "@/utils/helpers/cn"
+import { SeparatorProps } from "./types";
+import { cn } from "@/utils/helpers/cn";
 
 const Separator = ({
   className,
@@ -17,10 +17,10 @@ const Separator = ({
     orientation={orientation}
     className={cn(
       "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
-      className
+      className,
     )}
     {...props}
   />
-)
+);
 
-export { Separator }
+export { Separator };

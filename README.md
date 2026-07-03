@@ -111,7 +111,8 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | --- | --- |
 | `concurrently` | Run frontend and backend dev servers side by side (`pnpm dev`) |
 | `husky` | Manages the git hooks in `.husky/` |
-| `lint-staged` | Runs ESLint only on staged files for the pre-commit hook |
+| `lint-staged` | Runs Prettier and ESLint only on staged files for the pre-commit hook |
+| `prettier` | Code formatting, shared by both packages via a single root config (`.prettierrc.json`) — there's no `frontend`/`backend` split like ESLint's, since formatting rules don't need to differ per package |
 
 ## Getting started
 
@@ -147,19 +148,23 @@ pnpm dev:backend
 | `pnpm typecheck:frontend` / `pnpm typecheck:backend` / `pnpm typecheck` | Type-check with `tsc --noEmit`, per package or both |
 | `pnpm test` / `pnpm test:frontend` / `pnpm test:backend` | Run Vitest unit tests |
 | `pnpm test:e2e` | Run Playwright e2e tests (frontend) |
+| `pnpm format` | Format the whole repo with Prettier |
+| `pnpm format:check` | Check formatting without writing changes (what CI would run) |
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
 
 Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory. Both `backend` and `frontend` additionally have `codegen` / `codegen:watch` (see the `codegen.ts` entries above) — each runs automatically before that package's own `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
+
+`format` / `format:check` are root-only, unlike the other scripts — `frontend/` and `backend/` are separate pnpm installs with no workspace linking between them (see "Structure" above), so `prettier` is installed once at the root and always invoked from there (`prettier --write .` / `prettier --check .`), rather than per-package. Prettier's own config resolution (walking up from each file to the nearest config) means the single root `.prettierrc.json` still applies to every file in both packages.
 
 ## Git hooks workflow
 
 This repo has Husky git hooks configured:
 
-- **pre-commit** — runs `lint-staged`, i.e. ESLint (with `--fix`) only on the files you're actually committing. Fast, doesn't slow down day-to-day commits.
+- **pre-commit** — runs `lint-staged`, i.e. Prettier (`--write`) then ESLint (with `--fix`) only on the files you're actually committing. Fast, doesn't slow down day-to-day commits.
 - **pre-push** — runs `pnpm check` (lint + typecheck + unit tests for both packages). Playwright e2e tests are intentionally excluded — they're too slow for a local hook and are still run by CI after every push.
 
 `pnpm check` can also be run manually at any time to check the repo state without waiting for a push. Hooks can be bypassed in exceptional cases (`git commit --no-verify`, `git push --no-verify`) — treat that as a last resort, not standard practice.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push and pull request: lint + build + unit tests for the backend, lint + build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes).
+`.github/workflows/ci.yml` runs on every push and pull request: a repo-wide `pnpm format:check`, lint + build + unit tests for the backend, lint + build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes).

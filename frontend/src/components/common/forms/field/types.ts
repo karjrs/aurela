@@ -1,17 +1,18 @@
-import { VariantProps } from "class-variance-authority"
-import { ComponentProps, ReactNode } from "react"
-import { fieldVariants } from "./consts"
+import { VariantProps } from "class-variance-authority";
+import { ComponentProps, ReactNode } from "react";
+import { fieldVariants } from "./consts";
 
-export type FieldProps = ComponentProps<"div"> & VariantProps<typeof fieldVariants>
+export type FieldProps = ComponentProps<"div"> &
+  VariantProps<typeof fieldVariants>;
 
 export type FieldLegendProps = ComponentProps<"legend"> & {
-  variant?: "legend" | "label"
-}
+  variant?: "legend" | "label";
+};
 
 export type FieldSeparatorProps = ComponentProps<"div"> & {
-  children?: ReactNode
-}
+  children?: ReactNode;
+};
 
 export type FieldErrorProps = ComponentProps<"div"> & {
-  errors?: Array<{ message?: string } | undefined>
-}
+  errors?: Array<{ message?: string } | undefined>;
+};

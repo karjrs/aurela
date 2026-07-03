@@ -1,3 +1,3 @@
-import { ComponentProps } from "react"
+import { ComponentProps } from "react";
 
-export type CardProps = ComponentProps<"div"> & { size?: "default" | "sm" }
+export type CardProps = ComponentProps<"div"> & { size?: "default" | "sm" };

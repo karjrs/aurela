@@ -1,8 +1,8 @@
-import { Slot } from "radix-ui"
+import { Slot } from "radix-ui";
 
-import { ButtonProps } from "./types"
-import { cn } from "@/utils/helpers/cn"
-import { buttonVariants } from "./consts"
+import { ButtonProps } from "./types";
+import { cn } from "@/utils/helpers/cn";
+import { buttonVariants } from "./consts";
 
 const Button = ({
   className,
@@ -11,7 +11,7 @@ const Button = ({
   asChild = false,
   ...props
 }: ButtonProps) => {
-  const Comp = asChild ? Slot.Root : "button"
+  const Comp = asChild ? Slot.Root : "button";
 
   return (
     <Comp
@@ -21,7 +21,7 @@ const Button = ({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

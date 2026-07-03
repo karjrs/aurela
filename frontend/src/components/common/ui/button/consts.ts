@@ -5,7 +5,8 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-coral-700 active:bg-coral-800",
+        default:
+          "bg-primary text-primary-foreground hover:bg-coral-700 active:bg-coral-800",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
@@ -16,7 +17,7 @@ export const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:bg-coral-900 active:bg-coral-950",
         link: "text-primary underline-offset-4 hover:underline",
       },
-size: {
+      size: {
         default:
           "h-auto gap-1.5 px-4 py-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
@@ -34,5 +35,5 @@ size: {
       variant: "default",
       size: "default",
     },
-  }
-) 
+  },
+);

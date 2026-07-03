@@ -28,7 +28,11 @@ export const UserForm = ({
       </Field>
       <Field>
         <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
-        <Input id="email" aria-invalid={!!errors.email} {...register("email")} />
+        <Input
+          id="email"
+          aria-invalid={!!errors.email}
+          {...register("email")}
+        />
         {errors.email && <FieldError>{t("emailError")}</FieldError>}
       </Field>
       <div className="flex gap-2">

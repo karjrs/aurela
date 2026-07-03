@@ -54,7 +54,9 @@ describe("creating a user", () => {
         users = [...users, grace];
         return Promise.resolve({ createUser: grace });
       }
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
@@ -69,8 +71,11 @@ describe("creating a user", () => {
   it("shows validation errors and never calls the mutation for an empty form", async () => {
     const user = userEvent.setup();
     requestMock.mockImplementation((document) => {
-      if (document === GetUsersDocument) return Promise.resolve({ users: [ada, alan] });
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      if (document === GetUsersDocument)
+        return Promise.resolve({ users: [ada, alan] });
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
@@ -78,7 +83,9 @@ describe("creating a user", () => {
     await user.click(screen.getByRole("button", { name: "Create" }));
 
     expect(await screen.findByText("Name is required.")).toBeInTheDocument();
-    expect(screen.getByText("Enter a valid email address.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter a valid email address."),
+    ).toBeInTheDocument();
     expect(requestMock).not.toHaveBeenCalledWith(
       CreateUserDocument,
       expect.anything(),
@@ -98,13 +105,15 @@ describe("editing a user", () => {
         users = users.map((u) => (u.id === ada.id ? updated : u));
         return Promise.resolve({ updateUser: updated });
       }
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
-    const adaItem = (
-      await screen.findByText("Ada Lovelace")
-    ).closest("li") as HTMLElement;
+    const adaItem = (await screen.findByText("Ada Lovelace")).closest(
+      "li",
+    ) as HTMLElement;
     await user.click(within(adaItem).getByRole("button", { name: "Edit" }));
 
     const nameInput = within(adaItem).getByLabelText("Name");
@@ -118,15 +127,19 @@ describe("editing a user", () => {
   it("shows a not-found message when the user no longer exists", async () => {
     const user = userEvent.setup();
     requestMock.mockImplementation((document) => {
-      if (document === GetUsersDocument) return Promise.resolve({ users: [ada, alan] });
-      if (document === UpdateUserDocument) return Promise.resolve({ updateUser: null });
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      if (document === GetUsersDocument)
+        return Promise.resolve({ users: [ada, alan] });
+      if (document === UpdateUserDocument)
+        return Promise.resolve({ updateUser: null });
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
-    const adaItem = (
-      await screen.findByText("Ada Lovelace")
-    ).closest("li") as HTMLElement;
+    const adaItem = (await screen.findByText("Ada Lovelace")).closest(
+      "li",
+    ) as HTMLElement;
     await user.click(within(adaItem).getByRole("button", { name: "Edit" }));
     await user.click(within(adaItem).getByRole("button", { name: "Save" }));
 
@@ -149,13 +162,15 @@ describe("deleting a user", () => {
         users = users.filter((u) => u.id !== ada.id);
         return Promise.resolve({ deleteUser: true });
       }
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
-    const adaItem = (
-      await screen.findByText("Ada Lovelace")
-    ).closest("li") as HTMLElement;
+    const adaItem = (await screen.findByText("Ada Lovelace")).closest(
+      "li",
+    ) as HTMLElement;
     await user.click(within(adaItem).getByRole("button", { name: "Delete" }));
     await user.click(within(adaItem).getByRole("button", { name: "Confirm" }));
 
@@ -166,15 +181,19 @@ describe("deleting a user", () => {
   it("shows a not-found message when the user was already removed", async () => {
     const user = userEvent.setup();
     requestMock.mockImplementation((document) => {
-      if (document === GetUsersDocument) return Promise.resolve({ users: [ada, alan] });
-      if (document === DeleteUserDocument) return Promise.resolve({ deleteUser: false });
-      throw new Error(`Unexpected document in test: ${JSON.stringify(document)}`);
+      if (document === GetUsersDocument)
+        return Promise.resolve({ users: [ada, alan] });
+      if (document === DeleteUserDocument)
+        return Promise.resolve({ deleteUser: false });
+      throw new Error(
+        `Unexpected document in test: ${JSON.stringify(document)}`,
+      );
     });
 
     renderUsersList();
-    const adaItem = (
-      await screen.findByText("Ada Lovelace")
-    ).closest("li") as HTMLElement;
+    const adaItem = (await screen.findByText("Ada Lovelace")).closest(
+      "li",
+    ) as HTMLElement;
     await user.click(within(adaItem).getByRole("button", { name: "Delete" }));
     await user.click(within(adaItem).getByRole("button", { name: "Confirm" }));
 

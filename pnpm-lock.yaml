@@ -17,6 +17,9 @@ importers:
       lint-staged:
         specifier: ^17.0.8
         version: 17.0.8
+      prettier:
+        specifier: ^3.9.4
+        version: 3.9.4
 
 packages:
 
@@ -108,6 +111,11 @@ packages:
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
+
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   restore-cursor@5.1.0:
     resolution: {integrity: sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==}
@@ -277,6 +285,8 @@ snapshots:
       mimic-function: 5.0.1
 
   picomatch@4.0.4: {}
+
+  prettier@3.9.4: {}
 
   restore-cursor@5.1.0:
     dependencies:
