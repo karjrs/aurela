@@ -3,5 +3,14 @@
     "heading": "Users",
     "loading": "Loading users…",
     "error": "Something went wrong while loading users."
+  },
+  "userForm": {
+    "nameLabel": "Name",
+    "nameError": "Name is required.",
+    "emailLabel": "Email",
+    "emailError": "Enter a valid email address.",
+    "createButton": "Create",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
   }
 }
