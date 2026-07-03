@@ -18,7 +18,7 @@ test("home page loads and shows the fetched users", async ({ page }) => {
   await page.goto("/");
 
   await expect(
-    page.getByRole("heading", { name: messages.UsersList.heading }),
+    page.getByRole("heading", { name: messages.usersList.heading }),
   ).toBeVisible();
   await expect(page.getByText("Ada Lovelace")).toBeVisible();
   await expect(page.getByText("Alan Turing")).toBeVisible();

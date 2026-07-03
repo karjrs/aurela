@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useUsers } from "@/hooks/useUsers";
 
 export const UsersList = () => {
-  const t = useTranslations("UsersList");
+  const t = useTranslations("usersList");
   const { data, isPending, isError } = useUsers();
 
   if (isPending) {

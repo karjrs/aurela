@@ -1,5 +1,5 @@
 {
-  "UsersList": {
+  "usersList": {
     "heading": "Users",
     "loading": "Loading users…",
     "error": "Something went wrong while loading users."
