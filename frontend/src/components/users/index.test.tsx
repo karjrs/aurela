@@ -1,16 +1,19 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { NextIntlClientProvider } from "next-intl";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import messages from "../../../messages/en.json";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NextIntlClientProvider } from "next-intl";
+
+import { UsersList } from "./list";
+
 import {
   CreateUserDocument,
   DeleteUserDocument,
   GetUsersDocument,
   UpdateUserDocument,
 } from "@/graphql/types";
-import { UsersList } from "./UsersList";
+import messages from "@/i18n/messages/en.json";
 
 const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 

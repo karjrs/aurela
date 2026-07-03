@@ -1,7 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common/ui/button";
 import {
   Card,
   CardContent,
@@ -9,22 +8,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/common/card";
-import { useDeleteUser } from "@/hooks/useDeleteUser";
-import { useUpdateUser } from "@/hooks/useUpdateUser";
-import { UserForm, type UserFormValues } from "./UserForm";
+} from "@/components/common/ui/card";
+import { UserForm } from "../form";
 
-type User = { id: string; name: string; email: string };
+import { useTranslations } from "next-intl";
 
-type UserListItemProps = {
-  user: User;
-  isEditing: boolean;
-  onStartEdit: () => void;
-  onStopEdit: () => void;
-  isConfirmingDelete: boolean;
-  onRequestDelete: () => void;
-  onCancelDelete: () => void;
-};
+import { useDeleteUser } from "@/services/users/useDeleteUser";
+import { useUpdateUser } from "@/services/users/useUpdateUser";
+
+import type { UserFormValues } from "@/forms/users/types";
+import { UserListItemProps } from "./types";
 
 export const UserListItem = ({
   user,
