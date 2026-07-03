@@ -1,21 +1,4 @@
 {
-  "Hero": {
-    "headline": "Your day, quietly planned.",
-    "subhead": "Aurela turns your calendar and your to-dos into one simple rhythm — so you always know what’s next, without the mental math.",
-    "cta": "Get started"
-  },
-  "DayMoments": {
-    "morningLabel": "Morning",
-    "morningStatement": "Start with a plan that already makes sense.",
-    "middayLabel": "Midday",
-    "middayStatement": "When things change, Aurela adjusts with you.",
-    "eveningLabel": "Evening",
-    "eveningStatement": "Close the day. Tomorrow’s already taking shape."
-  },
-  "ClosingStatement": {
-    "statement": "You don’t need a system. You need a rhythm.",
-    "cta": "Get started"
-  },
   "UsersList": {
     "heading": "Users",
     "loading": "Loading users…",

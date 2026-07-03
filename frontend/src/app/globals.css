@@ -76,8 +76,6 @@
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
 
-  --animate-glow-pulse: glow-pulse 8s ease-in-out infinite;
-
   --background-image-day-arc: linear-gradient(
     to bottom,
     var(--color-dawn-50),
@@ -87,16 +85,4 @@
     var(--color-lavender-300) 80%,
     var(--color-ink-900) 100%
   );
-}
-
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translateX(-50%) scale(1.08);
-  }
 }
