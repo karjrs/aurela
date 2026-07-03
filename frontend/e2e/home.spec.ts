@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import messages from "../messages/en.json";
 
 test("home page loads and shows the fetched users", async ({ page }) => {
   await page.route("**/api/graphql", (route) =>
@@ -16,6 +17,9 @@ test("home page loads and shows the fetched users", async ({ page }) => {
 
   await page.goto("/");
 
+  await expect(
+    page.getByRole("heading", { name: messages.UsersList.heading }),
+  ).toBeVisible();
   await expect(page.getByText("Ada Lovelace")).toBeVisible();
   await expect(page.getByText("Alan Turing")).toBeVisible();
 });
