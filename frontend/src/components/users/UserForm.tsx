@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/common/button";
-import { Input } from "@/components/ui/Input";
+import { Field, FieldError, FieldLabel } from "@/components/common/field";
+import { Input } from "@/components/common/input";
 
 // Mirrors backend/src/graphql/users/mutation/schemas.ts. Duplicated
 // intentionally — frontend and backend are separate pnpm packages with no
@@ -43,18 +44,16 @@ export const UserForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <Input
-        id="name"
-        label={t("nameLabel")}
-        error={errors.name && t("nameError")}
-        {...register("name")}
-      />
-      <Input
-        id="email"
-        label={t("emailLabel")}
-        error={errors.email && t("emailError")}
-        {...register("email")}
-      />
+      <Field>
+        <FieldLabel htmlFor="name">{t("nameLabel")}</FieldLabel>
+        <Input id="name" aria-invalid={!!errors.name} {...register("name")} />
+        {errors.name && <FieldError>{t("nameError")}</FieldError>}
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
+        <Input id="email" aria-invalid={!!errors.email} {...register("email")} />
+        {errors.email && <FieldError>{t("emailError")}</FieldError>}
+      </Field>
       <div className="flex gap-2">
         <Button type="submit" disabled={isSubmitting}>
           {defaultValues ? t("saveButton") : t("createButton")}
