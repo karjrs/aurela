@@ -2,7 +2,15 @@
   "usersList": {
     "heading": "Users",
     "loading": "Loading users…",
-    "error": "Something went wrong while loading users."
+    "error": "Something went wrong while loading users.",
+    "addUserButton": "Add user",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "confirmDelete": "Delete this user?",
+    "confirmDeleteButton": "Confirm",
+    "cancelButton": "Cancel",
+    "userNotFound": "This user no longer exists. The list has been refreshed.",
+    "deleteNotFound": "This user was already removed. The list has been refreshed."
   },
   "userForm": {
     "nameLabel": "Name",
