@@ -20,6 +20,8 @@
     "check": "pnpm lint:frontend && pnpm lint:backend && pnpm typecheck && pnpm test",
     "format": "biome format --write .",
     "format:check": "biome format .",
+    "docker:dev": "docker compose up --build",
+    "docker:prod": "docker compose -f docker-compose.prod.yml up -d --build",
     "prepare": "husky"
   },
   "devDependencies": {
