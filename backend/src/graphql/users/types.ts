@@ -1,5 +1,5 @@
-import { types as queryTypes } from "./query/types.js";
 import { types as mutationTypes } from "./mutation/types.js";
+import { types as queryTypes } from "./query/types.js";
 
 const types = /* GraphQL */ `
   type User {

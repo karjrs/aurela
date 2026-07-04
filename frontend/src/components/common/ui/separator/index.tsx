@@ -1,9 +1,8 @@
 "use client";
 
 import { Separator as SeparatorPrimitive } from "radix-ui";
-
-import { SeparatorProps } from "./types";
 import { cn } from "@/utils/helpers/cn";
+import type { SeparatorProps } from "./types";
 
 const Separator = ({
   className,

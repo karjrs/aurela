@@ -1,9 +1,8 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { UserFormValues } from "./types";
-import { schema } from "./schema";
+import { useForm } from "react-hook-form";
 import { defaultValues } from "./consts";
+import { schema } from "./schema";
+import type { UserFormValues } from "./types";
 
 export const useUserForm = (
   formDefaultValues: UserFormValues = defaultValues,

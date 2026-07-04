@@ -1,6 +1,6 @@
-import { VariantProps } from "class-variance-authority";
-import { ComponentProps } from "react";
-import { buttonVariants } from "./consts";
+import type { VariantProps } from "class-variance-authority";
+import type { ComponentProps } from "react";
+import type { buttonVariants } from "./consts";
 
 export type ButtonProps = ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {

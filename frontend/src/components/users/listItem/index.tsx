@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/common/ui/button";
 import {
   Card,
@@ -9,15 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/common/ui/card";
-import { UserForm } from "../form";
-
-import { useTranslations } from "next-intl";
+import type { UserFormValues } from "@/forms/users/types";
 
 import { useDeleteUser } from "@/services/users/useDeleteUser";
 import { useUpdateUser } from "@/services/users/useUpdateUser";
-
-import type { UserFormValues } from "@/forms/users/types";
-import { UserListItemProps } from "./types";
+import { UserForm } from "../form";
+import type { UserListItemProps } from "./types";
 
 export const UserListItem = ({
   user,

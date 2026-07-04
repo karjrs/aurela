@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import request from "supertest";
+import { describe, expect, it } from "vitest";
 import { app } from "../../../app.js";
 
 const query = (query: string, variables?: Record<string, unknown>) =>

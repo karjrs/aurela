@@ -1,14 +1,13 @@
 "use client";
 
-import { Button } from "@/components/common/ui/button";
+import { useTranslations } from "next-intl";
 import { Field, FieldError, FieldLabel } from "@/components/common/forms/field";
 import { Input } from "@/components/common/inputs/input";
-
-import { useTranslations } from "next-intl";
+import { Button } from "@/components/common/ui/button";
 
 import { useUserForm } from "@/forms/users";
 
-import { UserFormProps } from "./types";
+import type { UserFormProps } from "./types";
 
 export const UserForm = ({
   defaultValues,

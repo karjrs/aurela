@@ -1,7 +1,6 @@
-import { ComponentProps } from "react";
-
-import { CardProps } from "./types";
+import type { ComponentProps } from "react";
 import { cn } from "@/utils/helpers/cn";
+import type { CardProps } from "./types";
 
 const Card = ({ className, size = "default", ...props }: CardProps) => (
   <div
@@ -77,10 +76,10 @@ const CardFooter = ({ className, ...props }: ComponentProps<"div">) => (
 
 export {
   Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
   CardAction,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 };

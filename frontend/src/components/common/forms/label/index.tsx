@@ -1,9 +1,8 @@
 "use client";
 
 import { Label as LabelPrimitive } from "radix-ui";
-
-import { LabelProps } from "./types";
 import { cn } from "@/utils/helpers/cn";
+import type { LabelProps } from "./types";
 
 const Label = ({ className, ...props }: LabelProps) => (
   <LabelPrimitive.Root

@@ -1,6 +1,6 @@
-import { VariantProps } from "class-variance-authority";
-import { ComponentProps, ReactNode } from "react";
-import { fieldVariants } from "./consts";
+import type { VariantProps } from "class-variance-authority";
+import type { ComponentProps, ReactNode } from "react";
+import type { fieldVariants } from "./consts";
 
 export type FieldProps = ComponentProps<"div"> &
   VariantProps<typeof fieldVariants>;

@@ -1,8 +1,7 @@
 import { Slot } from "radix-ui";
-
-import { ButtonProps } from "./types";
 import { cn } from "@/utils/helpers/cn";
 import { buttonVariants } from "./consts";
+import type { ButtonProps } from "./types";
 
 const Button = ({
   className,

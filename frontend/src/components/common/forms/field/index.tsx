@@ -1,18 +1,16 @@
 "use client";
 
+import { type ComponentProps, useMemo } from "react";
 import { Label } from "@/components/common/forms/label";
 import { Separator } from "@/components/common/ui/separator";
-
-import { ComponentProps, useMemo } from "react";
-
-import {
+import { cn } from "@/utils/helpers/cn";
+import { fieldVariants } from "./consts";
+import type {
   FieldErrorProps,
   FieldLegendProps,
   FieldProps,
   FieldSeparatorProps,
 } from "./types";
-import { cn } from "@/utils/helpers/cn";
-import { fieldVariants } from "./consts";
 
 const FieldSet = ({ className, ...props }: ComponentProps<"fieldset">) => (
   <fieldset
@@ -57,6 +55,7 @@ const Field = ({
   orientation = "vertical",
   ...props
 }: FieldProps) => (
+  // biome-ignore lint/a11y/useSemanticElements: plain div keeps this shadcn/ui Field primitive free of <fieldset>'s default browser styling
   <div
     role="group"
     data-slot="field"
@@ -158,15 +157,15 @@ const FieldError = ({
       ...new Map(errors.map((error) => [error?.message, error])).values(),
     ];
 
-    if (uniqueErrors?.length == 1) {
+    if (uniqueErrors?.length === 1) {
       return uniqueErrors[0]?.message;
     }
 
     return (
       <ul className="ml-4 flex list-disc flex-col gap-1">
         {uniqueErrors.map(
-          (error, index) =>
-            error?.message && <li key={index}>{error.message}</li>,
+          (error) =>
+            error?.message && <li key={error.message}>{error.message}</li>,
         )}
       </ul>
     );
@@ -190,13 +189,13 @@ const FieldError = ({
 
 export {
   Field,
-  FieldLabel,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
+  FieldLabel,
   FieldLegend,
   FieldSeparator,
   FieldSet,
-  FieldContent,
   FieldTitle,
 };

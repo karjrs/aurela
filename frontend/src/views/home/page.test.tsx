@@ -1,12 +1,9 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { render, screen } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-
-import Home from "./page";
-
+import { describe, expect, it, vi } from "vitest";
 import messages from "@/i18n/messages/en.json";
+import Home from "./page";
 
 const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 
