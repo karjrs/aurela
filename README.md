@@ -45,6 +45,20 @@ pnpm dev:frontend
 pnpm dev:backend
 ```
 
+## Docker
+
+```bash
+# local dev, with hot-reload (bind-mounts your working tree into both containers)
+pnpm docker:dev
+
+# production images, built and run in the background
+pnpm docker:prod
+```
+
+`docker-compose.yml` (dev) and `docker-compose.prod.yml` are separate, self-contained files rather than a base-plus-override pair — merging overrides would need to explicitly strip out the dev bind-mounts for prod, and an accidental bind-mount of your working tree onto a production server is exactly the kind of mistake worth avoiding structurally. Both `frontend/Dockerfile` and `backend/Dockerfile` are multi-stage (`dev`/`build`/`prod`); the frontend one is built with the **repo root** as context (not `frontend/`), because `frontend/codegen.ts` reads `backend/schema.graphql` as a plain SDL file across the package boundary.
+
+`NEXT_PUBLIC_GRAPHQL_ENDPOINT` is baked into the frontend's browser bundle at `next build` time, not read at container runtime — for `docker:prod` it must be a publicly reachable backend URL (the address is queried by the user's browser, not the Next.js server) and is passed in as a build arg from the root `.env` (copy `.env.example` to `.env` and fill it in before running `docker:prod`). Changing it means rebuilding the frontend image, not just restarting the container.
+
 ## Scripts (root)
 
 | Script | Description |
@@ -59,6 +73,8 @@ pnpm dev:backend
 | `pnpm format` | Format the whole repo with Biome |
 | `pnpm format:check` | Check formatting without writing changes (what CI would run) |
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
+| `pnpm docker:dev` | Run both packages in Docker with hot-reload (see "Docker" below) |
+| `pnpm docker:prod` | Build and run production images in the background |
 
 Each package also exposes its own `dev` / `build` / `typecheck` / `test` scripts (see [`frontend/README.md`](frontend/README.md) and [`backend/README.md`](backend/README.md)), runnable directly from its directory.
 
