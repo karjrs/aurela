@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  format:
+  quality:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -24,6 +24,8 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
+      - run: pnpm lint:frontend
+      - run: pnpm lint:backend
 
   backend:
     runs-on: ubuntu-latest
@@ -39,7 +41,6 @@ jobs:
           cache: pnpm
           cache-dependency-path: backend/pnpm-lock.yaml
       - run: pnpm --dir backend install --frozen-lockfile
-      - run: pnpm lint:backend
       - run: pnpm build:backend
       - run: pnpm test:backend
 
@@ -57,7 +58,6 @@ jobs:
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
       - run: pnpm --dir frontend install --frozen-lockfile
-      - run: pnpm lint:frontend
       - run: pnpm build:frontend
       - run: pnpm test:frontend
 
