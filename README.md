@@ -4,8 +4,8 @@ Next.js frontend + Express backend, both in TypeScript.
 
 ## Structure
 
-- `frontend/` — Next.js (App Router, ESLint, Vitest, Playwright)
-- `backend/` — Express + TypeScript (ESLint, Vitest, `tsx` for dev, `tsc` for build)
+- `frontend/` — Next.js (App Router, Vitest, Playwright)
+- `backend/` — Express + TypeScript (Vitest, `tsx` for dev, `tsc` for build)
 
 Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`. Since frontend can't import backend's TypeScript source across that boundary, the one deliberate bridge between them is `backend/schema.graphql` — a committed (not gitignored) SDL export of the backend schema that the frontend's own `graphql-codegen` reads as a plain file, with no live server or cross-package dependency involved. It has to be regenerated (`pnpm codegen` in `backend/`) and committed by hand whenever the backend schema changes. Validation is a second, smaller instance of the same boundary: `backend/src/graphql/users/mutation/schemas.ts` and `frontend/src/forms/users/schema.ts` each define their own `zod` schema for the same shape, kept in sync by hand — there's no mechanism enforcing they match, so a schema change on one side needs a matching edit on the other.
 
@@ -77,8 +77,7 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | `@graphql-codegen/cli` / `@graphql-codegen/typescript` / `@graphql-codegen/typescript-resolvers` | Generates resolver argument/return types straight from the schema (`pnpm codegen`), so resolvers don't hand-write types that can drift from the SDL |
 | `zod` | Runtime schema validation, used in the mutation resolvers (`users/mutation/schemas.ts`) |
 | `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
-| `typescript` / `typescript-eslint` | Type-checking and TS-aware linting |
-| `eslint` / `@eslint/js` | Linting |
+| `typescript` | Type-checking |
 | `vitest` / `supertest` | Unit and HTTP-level testing |
 
 ### Frontend
@@ -101,7 +100,6 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | `clsx` / `tailwind-merge` | Combined by `src/lib/utils.ts`'s `cn()`, used by every `src/components/common/` primitive to merge caller-supplied and default class names without conflicts |
 | `radix-ui` | Unstyled, accessible primitives underlying `common/button.tsx` (`Slot`) and `common/label.tsx` (`Label`) |
 | `typescript` | Type-checking |
-| `eslint` / `eslint-config-next` | Linting |
 | `vitest` / `@testing-library/*` / `jsdom` | Unit and component testing |
 | `@playwright/test` | End-to-end testing |
 
@@ -111,8 +109,8 @@ The backend is still an intentionally minimal skeleton (shared tooling, a health
 | --- | --- |
 | `concurrently` | Run frontend and backend dev servers side by side (`pnpm dev`) |
 | `husky` | Manages the git hooks in `.husky/` |
-| `lint-staged` | Runs Prettier and ESLint only on staged files for the pre-commit hook |
-| `prettier` | Code formatting, shared by both packages via a single root config (`.prettierrc.json`) — there's no `frontend`/`backend` split like ESLint's, since formatting rules don't need to differ per package |
+| `lint-staged` | Runs Biome only on staged files for the pre-commit hook |
+| `@biomejs/biome` | Linting and formatting for both packages — installed once at the root (see "Scripts (root)" below for why) |
 
 ## Getting started
 
@@ -144,27 +142,29 @@ pnpm dev:backend
 | `pnpm dev` | Run frontend and backend dev servers concurrently |
 | `pnpm dev:frontend` / `pnpm dev:backend` | Run a single dev server |
 | `pnpm build:frontend` / `pnpm build:backend` | Production build for a single package |
-| `pnpm lint:frontend` / `pnpm lint:backend` | ESLint for a single package |
+| `pnpm lint:frontend` / `pnpm lint:backend` | Biome lint for a single package |
 | `pnpm typecheck:frontend` / `pnpm typecheck:backend` / `pnpm typecheck` | Type-check with `tsc --noEmit`, per package or both |
 | `pnpm test` / `pnpm test:frontend` / `pnpm test:backend` | Run Vitest unit tests |
 | `pnpm test:e2e` | Run Playwright e2e tests (frontend) |
-| `pnpm format` | Format the whole repo with Prettier |
+| `pnpm format` | Format the whole repo with Biome |
 | `pnpm format:check` | Check formatting without writing changes (what CI would run) |
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
 
-Each package also exposes its own `dev` / `build` / `lint` / `typecheck` / `test` scripts, runnable directly from its directory. Both `backend` and `frontend` additionally have `codegen` / `codegen:watch` (see the `codegen.ts` entries above) — each runs automatically before that package's own `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
+Each package also exposes its own `dev` / `build` / `typecheck` / `test` scripts, runnable directly from its directory. Both `backend` and `frontend` additionally have `codegen` / `codegen:watch` (see the `codegen.ts` entries above) — each runs automatically before that package's own `dev`/`build`/`typecheck`/`test`, so you only need it directly if you want fresh types without running one of those.
 
-`format` / `format:check` are root-only, unlike the other scripts — `frontend/` and `backend/` are separate pnpm installs with no workspace linking between them (see "Structure" above), so `prettier` is installed once at the root and always invoked from there (`prettier --write .` / `prettier --check .`), rather than per-package. Prettier's own config resolution (walking up from each file to the nearest config) means the single root `.prettierrc.json` still applies to every file in both packages.
+`format`, `format:check`, `lint:frontend`, and `lint:backend` are all root-only — unlike ESLint before it, `@biomejs/biome` is installed exactly once, at the root, never inside `frontend/` or `backend/`. `frontend/` and `backend/` are separate pnpm installs with no workspace linking between them (see "Structure" above), so per-package tools used to mean per-package installs (ESLint needed `eslint-config-next` resolvable from `frontend/`'s own `node_modules`). Biome doesn't have that constraint: it's a single self-contained binary, and its framework-aware rules (React, Next.js) are auto-detected from each directory's `package.json` rather than resolved through plugin packages. That's what makes a single root install workable: `biome.jsonc` at the repo root holds the shared formatter config and `recommended` lint rules, and `frontend/biome.jsonc` / `backend/biome.jsonc` each just `"extends": "//"` to inherit it — Biome resolves these by walking the directory tree, independent of pnpm workspace linking. `lint:frontend`/`lint:backend` run `biome lint ./frontend` / `./backend` straight from the root install; there's no per-package `lint` script anymore.
+
+One accepted gap: Biome's Next.js-aware rules don't cover 100% of what `eslint-config-next` used to (a handful of SEO/font-loading rules have no Biome equivalent). Not worth keeping ESLint around just for those few rules — see `biome.jsonc`'s `a11y.noSvgWithoutTitle: "off"` for the one rule that was deliberately turned off (it only ever fired on `public/`'s framework-scaffolded SVGs, not hand-authored ones).
 
 ## Git hooks workflow
 
 This repo has Husky git hooks configured:
 
-- **pre-commit** — runs `lint-staged`, i.e. Prettier (`--write`) then ESLint (with `--fix`) only on the files you're actually committing. Fast, doesn't slow down day-to-day commits.
+- **pre-commit** — runs `lint-staged`, i.e. `biome check --write` (format + lint + import sorting in one pass) only on the files you're actually committing. Fast, doesn't slow down day-to-day commits.
 - **pre-push** — runs `pnpm check` (lint + typecheck + unit tests for both packages). Playwright e2e tests are intentionally excluded — they're too slow for a local hook and are still run by CI after every push.
 
 `pnpm check` can also be run manually at any time to check the repo state without waiting for a push. Hooks can be bypassed in exceptional cases (`git commit --no-verify`, `git push --no-verify`) — treat that as a last resort, not standard practice.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push and pull request: a repo-wide `pnpm format:check`, lint + build + unit tests for the backend, lint + build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes).
+`.github/workflows/ci.yml` runs on every push and pull request: a `quality` job (repo-wide `pnpm format:check`, `pnpm lint:frontend`, `pnpm lint:backend` — the only job that needs the root install, since Biome lives there), build + unit tests for the backend, build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes). Linting used to run inside the per-package `backend`/`frontend-unit` jobs, but since Biome is root-only, that would've meant installing the root `node_modules` in those jobs too — folding lint into `quality` avoids the duplicate install.
