@@ -40,9 +40,11 @@ Paths below are relative to `src/`, except where noted.
 
 ### `app/`
 
-Next.js App Router routes: `layout.tsx` (root layout), `providers.tsx` (client-side providers), `globals.css` (Tailwind theme), and one file/folder per route.
+Next.js App Router routes: `layout.tsx` (root layout), `providers.tsx` (client-side providers), `globals.css` (Tailwind theme), `manifest.ts` (PWA web manifest — Next's native file convention, no extra dependency), and one file/folder per route.
 
 Adding a route means a new folder named after the URL segment, with its own `page.tsx` (+ colocated `page.test.tsx`, and `loading.tsx`/`error.tsx`/`layout.tsx` as needed). **Never** name a folder literally `pages` (or `src/pages`) — that activates Next's legacy Pages Router.
+
+`public/icon-192.png` and `public/icon-512.png` (referenced by `manifest.ts`) are solid-color placeholders in the brand's primary color — swap them for real artwork by overwriting the same filenames/dimensions, nothing else needs to change.
 
 ### `components/`
 
