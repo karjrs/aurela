@@ -8,7 +8,13 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@root/*": ["./src/*"],
+      "@db/*": ["./src/db/*"],
+      "@graphql/*": ["./src/graphql/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"]
