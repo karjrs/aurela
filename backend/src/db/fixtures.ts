@@ -1,0 +1,4 @@
+export const seedUsers = [
+  { name: "Ada Lovelace", email: "ada@example.com" },
+  { name: "Alan Turing", email: "alan@example.com" },
+];
