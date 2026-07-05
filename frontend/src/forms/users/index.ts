@@ -10,11 +10,12 @@ export const useUserForm = (
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<UserFormValues>({
     resolver: zodResolver(schema),
     defaultValues: formDefaultValues,
   });
 
-  return { register, handleSubmit, errors };
+  return { register, handleSubmit, setError, errors };
 };

@@ -7,7 +7,5 @@
   "userNotFound": "This user no longer exists. The list has been refreshed.",
   "deleteNotFound": "This user was already removed. The list has been refreshed.",
   "nameLabel": "Name",
-  "emailLabel": "Email",
-  "nameError": "Name is required.",
-  "emailError": "Enter a valid email address."
+  "emailLabel": "Email"
 }

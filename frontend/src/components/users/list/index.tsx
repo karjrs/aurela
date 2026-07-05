@@ -35,9 +35,7 @@ export const UsersList = () => {
       {isCreating ? (
         <UserForm
           onSubmit={(values) =>
-            createUser.mutate(values, {
-              onSuccess: () => setIsCreating(false),
-            })
+            createUser.mutateAsync(values).then(() => setIsCreating(false))
           }
           onCancel={() => setIsCreating(false)}
           isSubmitting={createUser.isPending}

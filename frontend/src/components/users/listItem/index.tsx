@@ -31,16 +31,10 @@ export const UserListItem = ({
   const updateUser = useUpdateUser();
   const deleteUser = useDeleteUser();
 
-  const handleUpdate = (values: UserFormValues) => {
-    updateUser.mutate(
-      { id: user.id, input: values },
-      {
-        onSuccess: (data) => {
-          if (data.updateUser !== null) onStopEdit();
-        },
-      },
-    );
-  };
+  const handleUpdate = (values: UserFormValues) =>
+    updateUser.mutateAsync({ id: user.id, input: values }).then((data) => {
+      if (data.updateUser !== null) onStopEdit();
+    });
 
   const handleDelete = () => {
     deleteUser.mutate(user.id, { onSuccess: () => onCancelDelete() });

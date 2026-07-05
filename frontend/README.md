@@ -84,7 +84,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 ### `utils/helpers/`
 
-Small shared helpers, e.g. `cn/` (class-name merging).
+Small shared helpers, e.g. `cn/` (class-name merging), `getFieldErrors/` (pulls `extensions.fieldErrors` out of a thrown `graphql-request` `ClientError`).
 
 ### Other (repo root)
 
