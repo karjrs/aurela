@@ -1,24 +1,24 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { NextIntlClientProvider } from "next-intl";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   CreateUserDocument,
   DeleteUserDocument,
   GetUsersDocument,
   UpdateUserDocument,
-} from "@/graphql/types";
-import actions from "@/i18n/en/actions.json";
-import errors from "@/i18n/en/errors.json";
-import users from "@/i18n/en/users.json";
+} from "@graphql/types";
+import actions from "@i18n/en/actions.json";
+import errors from "@i18n/en/errors.json";
+import users from "@i18n/en/users.json";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { NextIntlClientProvider } from "next-intl";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UsersList } from "./list";
 
 const messages = { actions, errors, users };
 
 const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 
-vi.mock("@/graphql/client", () => ({
+vi.mock("@graphql/client", () => ({
   graphqlClient: { request: requestMock },
 }));
 

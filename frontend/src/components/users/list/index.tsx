@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@components/common/ui/button";
+import { UserForm } from "@components/users/form";
+import { UserListItem } from "@components/users/listItem";
+import { useUsers } from "@services/users";
+import { useCreateUser } from "@services/users/create";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "@/components/common/ui/button";
-import { useUsers } from "@/services/users";
-import { useCreateUser } from "@/services/users/create";
-import { UserForm } from "../form";
-import { UserListItem } from "../listItem";
 
 export const UsersList = () => {
   const t = useTranslations("users");

@@ -1,9 +1,9 @@
 "use client";
 
+import { Label } from "@components/common/forms/label";
+import { Separator } from "@components/common/ui/separator";
+import { cn } from "@utils/helpers/cn";
 import { type ComponentProps, useMemo } from "react";
-import { Label } from "@/components/common/forms/label";
-import { Separator } from "@/components/common/ui/separator";
-import { cn } from "@/utils/helpers/cn";
 import { fieldVariants } from "./consts";
 import type {
   FieldErrorProps,

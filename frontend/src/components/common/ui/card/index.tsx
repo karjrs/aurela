@@ -1,5 +1,5 @@
+import { cn } from "@utils/helpers/cn";
 import type { ComponentProps } from "react";
-import { cn } from "@/utils/helpers/cn";
 import type { CardProps } from "./types";
 
 const Card = ({ className, size = "default", ...props }: CardProps) => (

@@ -1,7 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/common/ui/button";
+import { Button } from "@components/common/ui/button";
 import {
   Card,
   CardContent,
@@ -9,12 +8,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/common/ui/card";
-import type { UserFormValues } from "@/forms/users/types";
-
-import { useDeleteUser } from "@/services/users/delete";
-import { useUpdateUser } from "@/services/users/update";
-import { UserForm } from "../form";
+} from "@components/common/ui/card";
+import { UserForm } from "@components/users/form";
+import type { UserFormValues } from "@forms/users/types";
+import { useDeleteUser } from "@services/users/delete";
+import { useUpdateUser } from "@services/users/update";
+import { useTranslations } from "next-intl";
 import type { UserListItemProps } from "./types";
 
 export const UserListItem = ({

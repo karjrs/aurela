@@ -1,4 +1,4 @@
-import { UsersList } from "@/components/users";
+import { UsersList } from "@components/users";
 
 const Home = () => {
   return (

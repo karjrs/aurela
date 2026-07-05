@@ -1,8 +1,7 @@
+import { graphqlClient } from "@graphql/client";
+import type { CreateUserInput } from "@graphql/schema-types";
+import { CreateUserDocument } from "@graphql/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { graphqlClient } from "@/graphql/client";
-import type { CreateUserInput } from "@/graphql/schema-types";
-import { CreateUserDocument } from "@/graphql/types";
 
 export const useCreateUser = () => {
   const queryClient = useQueryClient();

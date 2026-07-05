@@ -1,8 +1,6 @@
+import { graphqlClient } from "@graphql/client";
+import { GetUsersDocument } from "@graphql/types";
 import { useQuery } from "@tanstack/react-query";
-
-import { graphqlClient } from "@/graphql/client";
-
-import { GetUsersDocument } from "@/graphql/types";
 
 export const useUsers = () =>
   useQuery({

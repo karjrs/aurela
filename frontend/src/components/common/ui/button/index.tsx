@@ -1,5 +1,5 @@
+import { cn } from "@utils/helpers/cn";
 import { Slot } from "radix-ui";
-import { cn } from "@/utils/helpers/cn";
 import { buttonVariants } from "./consts";
 import type { ButtonProps } from "./types";
 

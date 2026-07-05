@@ -1,4 +1,4 @@
-import type { UserFormValues } from "@/forms/users/types";
+import type { UserFormValues } from "@forms/users/types";
 
 export type UserFormProps = {
   initialValues?: UserFormValues;

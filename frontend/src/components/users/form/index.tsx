@@ -1,12 +1,12 @@
 "use client";
 
+import { Field, FieldError, FieldLabel } from "@components/common/forms/field";
+import { Input } from "@components/common/inputs/input";
+import { Button } from "@components/common/ui/button";
+import { useUserForm } from "@forms/users";
+import { getFieldErrors } from "@utils/helpers/getFieldErrors";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Field, FieldError, FieldLabel } from "@/components/common/forms/field";
-import { Input } from "@/components/common/inputs/input";
-import { Button } from "@/components/common/ui/button";
-import { useUserForm } from "@/forms/users";
-import { getFieldErrors } from "@/utils/helpers/getFieldErrors";
 
 import type { UserFormProps } from "./types";
 
