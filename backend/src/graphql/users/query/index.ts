@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/index.js";
 import { usersTable } from "../../../db/schema.js";
+import { isValidId } from "../../../utils/helpers/validators/index.js";
 import type { QueryResolvers } from "../../types.js";
-import { isValidId } from "../is-valid-id.js";
 
 export const query: QueryResolvers = {
   user: async (_parent, args) => {
