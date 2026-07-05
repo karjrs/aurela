@@ -25,7 +25,7 @@ const git = (...args) =>
   execFileSync("git", args, { cwd: rootDir, encoding: "utf8" }).trim();
 
 function assertCleanWorkingTree() {
-  if (git("status", "--porcelain")) {
+  if (git("status", "--porcelain", "--untracked-files=no")) {
     console.error(
       "Working tree is not clean. Commit or stash changes before running the release.",
     );
