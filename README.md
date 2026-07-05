@@ -77,6 +77,7 @@ Both compose files also run a `postgres` service on the shared `aurela-net` netw
 | `pnpm check` | Full local check: lint + typecheck + unit tests for both packages — the same thing the pre-push hook runs |
 | `pnpm docker:dev` | Run both packages in Docker with hot-reload (see "Docker" below) |
 | `pnpm docker:prod` | Build and run production images in the background |
+| `pnpm release` / `pnpm release --dry-run` | Bump the version and update the changelog (see "Changelog" below) |
 
 Each package also exposes its own `dev` / `build` / `typecheck` / `test` scripts (see [`frontend/README.md`](frontend/README.md) and [`backend/README.md`](backend/README.md)), runnable directly from its directory.
 
@@ -96,3 +97,11 @@ This repo has Husky git hooks configured:
 ## CI
 
 `.github/workflows/ci.yml` runs on every push and pull request: a `quality` job (repo-wide `pnpm format:check`, `pnpm lint:frontend`, `pnpm lint:backend` — the only job that needs the root install, since Biome lives there), build + unit tests for the backend, build + unit tests for the frontend, and Playwright e2e tests for the frontend (after the unit job passes). Lint stays in `quality` rather than the per-package `backend`/`frontend-unit` jobs, since running it there would mean installing the root `node_modules` a second time.
+
+## Changelog
+
+`pnpm release` bumps the version in the root `package.json` and writes a new entry below, based on [Conventional Commits](https://www.conventionalcommits.org/) since the last `vX.Y.Z` git tag (`feat` → minor, `fix`/`perf` → patch, `BREAKING CHANGE` → major; other commit types don't trigger a release). It refuses to run on a dirty working tree, and exits without changes if there's nothing releasable. `pnpm release --dry-run` previews the version bump and changelog entry without writing or committing anything. Versioning starts from tag `v0.1.0` (end of the initial config/setup phase) — see `scripts/release.mjs`.
+
+<!-- changelog:start -->
+_No releases yet — versioning starts from the first real feature/fix commit after this point._
+<!-- changelog:end -->
