@@ -9,7 +9,7 @@ Next.js frontend + Express backend, both in TypeScript.
 
 Each package has its own `pnpm-lock.yaml` and `node_modules` — this isn't a real pnpm workspace, just two independent packages orchestrated from the root via `pnpm --dir`. Since frontend can't import backend's TypeScript source across that boundary, the one deliberate bridge between them is `backend/schema.graphql` — a committed (not gitignored) SDL export of the backend schema that the frontend's own `graphql-codegen` reads as a plain file, with no live server or cross-package dependency involved. It has to be regenerated (`pnpm codegen` in `backend/`) and committed by hand whenever the backend schema changes. Validation is a second, smaller instance of the same boundary: `backend/src/graphql/users/mutation/schemas.ts` and `frontend/src/forms/users/schema.ts` each define their own `zod` schema for the same shape, kept in sync by hand — there's no mechanism enforcing they match, so a schema change on one side needs a matching edit on the other.
 
-The backend is still an intentionally minimal skeleton (shared tooling, a health endpoint, and a GraphQL endpoint with mock data). The frontend's home page fetches and renders that mock data live via TanStack Query + `graphql-request`. See [`frontend/README.md`](frontend/README.md) and [`backend/README.md`](backend/README.md) for per-package modules and tech stack.
+The backend persists its one resource (`users`) in Postgres via Drizzle ORM (`backend/src/db/`) — see "Docker" below for how the database is provisioned. The frontend's home page fetches and renders that data live via TanStack Query + `graphql-request`. See [`frontend/README.md`](frontend/README.md) and [`backend/README.md`](backend/README.md) for per-package modules and tech stack.
 
 ## Tech stack
 
@@ -58,6 +58,8 @@ pnpm docker:prod
 `docker-compose.yml` (dev) and `docker-compose.prod.yml` are separate, self-contained files rather than a base-plus-override pair — merging overrides would need to explicitly strip out the dev bind-mounts for prod, and an accidental bind-mount of your working tree onto a production server is exactly the kind of mistake worth avoiding structurally. Both `frontend/Dockerfile` and `backend/Dockerfile` are multi-stage (`dev`/`build`/`prod`); the frontend one is built with the **repo root** as context (not `frontend/`), because `frontend/codegen.ts` reads `backend/schema.graphql` as a plain SDL file across the package boundary.
 
 `NEXT_PUBLIC_GRAPHQL_ENDPOINT` is baked into the frontend's browser bundle at `next build` time, not read at container runtime — for `docker:prod` it must be a publicly reachable backend URL (the address is queried by the user's browser, not the Next.js server) and is passed in as a build arg from the root `.env` (copy `.env.example` to `.env` and fill it in before running `docker:prod`). Changing it means rebuilding the frontend image, not just restarting the container.
+
+Both compose files also run a `postgres` service on the shared `aurela-net` network, with the backend waiting on its healthcheck before starting (so the migrations the backend applies to itself at startup don't hit a database that isn't accepting connections yet). In `docker-compose.prod.yml`, its credentials come from the same root `.env` as `NEXT_PUBLIC_GRAPHQL_ENDPOINT` (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`).
 
 ## Scripts (root)
 
