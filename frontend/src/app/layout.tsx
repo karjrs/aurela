@@ -50,7 +50,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       lang="en"
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-ink-900">
+      <body className="min-h-full flex flex-col font-body text-foreground">
         <Providers>
           <NextIntlClientProvider messages={messages}>
             {children}

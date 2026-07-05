@@ -6,15 +6,15 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-coral-700 active:bg-coral-800",
+          "bg-primary text-primary-foreground hover:bg-coral-600 active:bg-coral-700",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "border border-input bg-transparent text-secondary-foreground hover:bg-mist-100 active:bg-mist-200",
+          "border border-input bg-transparent text-secondary-foreground hover:bg-sand-100 active:bg-sand-200",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-coral-900 active:bg-coral-950",
+          "bg-destructive text-destructive-foreground hover:bg-rose-700 active:bg-rose-800",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

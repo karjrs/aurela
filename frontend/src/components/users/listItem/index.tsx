@@ -51,7 +51,7 @@ export const UserListItem = ({
               isSubmitting={updateUser.isPending}
             />
             {updateUser.isSuccess && updateUser.data.updateUser === null && (
-              <p role="alert" className="mt-2 text-sm text-coral-700">
+              <p role="alert" className="mt-2 text-sm text-destructive">
                 {t("userNotFound")}
               </p>
             )}
@@ -71,7 +71,9 @@ export const UserListItem = ({
         <CardFooter className="flex-col items-start gap-3 border-t-0 bg-transparent">
           {isConfirmingDelete ? (
             <div className="flex items-center gap-2">
-              <span className="text-sm text-ink-600">{t("confirmDelete")}</span>
+              <span className="text-sm text-muted-foreground">
+                {t("confirmDelete")}
+              </span>
               <Button
                 variant="destructive"
                 onClick={handleDelete}
@@ -95,7 +97,7 @@ export const UserListItem = ({
           )}
 
           {deleteUser.isSuccess && deleteUser.data.deleteUser === false && (
-            <p role="alert" className="text-sm text-coral-700">
+            <p role="alert" className="text-sm text-destructive">
               {t("deleteNotFound")}
             </p>
           )}

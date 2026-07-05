@@ -28,7 +28,7 @@ export const UsersList = () => {
 
   return (
     <section className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-20">
-      <h1 className="font-display text-3xl font-medium text-ink-900">
+      <h1 className="font-display text-3xl font-medium text-foreground">
         {t("heading")}
       </h1>
 

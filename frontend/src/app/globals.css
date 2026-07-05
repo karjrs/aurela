@@ -1,77 +1,71 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dawn-50: #f4f3f8;
-  --color-dawn-100: #e9e7f0;
-  --color-dawn-200: #d3cfe2;
-  --color-dawn-300: #b3adc9;
-  --color-dawn-400: #8a82a8;
-  --color-dawn-500: #675f85;
-  --color-dawn-600: #4e4767;
-  --color-dawn-700: #3b3550;
-  --color-dawn-800: #2e2a4a;
-  --color-dawn-900: #201d34;
-  --color-dawn-950: #14121f;
+  --color-amber-50: #fef9f1;
+  --color-amber-100: #fdf4e3;
+  --color-amber-200: #fae9c7;
+  --color-amber-300: #f6d89d;
+  --color-amber-400: #f2c46b;
+  --color-amber-500: #edad31;
+  --color-amber-600: #d89513;
+  --color-amber-700: #ad780f;
+  --color-amber-800: #835a0c;
+  --color-amber-900: #593d08;
 
-  --color-lavender-50: #f5f4f8;
-  --color-lavender-100: #ebe8f0;
-  --color-lavender-200: #d6d0e2;
-  --color-lavender-300: #b7aecc;
-  --color-lavender-400: #9086ae;
-  --color-lavender-500: #7a6e9c;
-  --color-lavender-600: #665a87;
-  --color-lavender-700: #52486d;
-  --color-lavender-800: #403853;
-  --color-lavender-900: #2e293c;
-  --color-lavender-950: #1e1b28;
+  --color-coral-50: #fdf3f1;
+  --color-coral-100: #fce8e4;
+  --color-coral-200: #f8d1c9;
+  --color-coral-300: #f3aea0;
+  --color-coral-400: #ed846e;
+  --color-coral-500: #e8654a;
+  --color-coral-600: #d03a1a;
+  --color-coral-700: #a72e15;
+  --color-coral-800: #7f2310;
+  --color-coral-900: #56180b;
 
-  --color-coral-50: #fef2ef;
-  --color-coral-100: #fde1da;
-  --color-coral-200: #fbc3b4;
-  --color-coral-300: #f7a088;
-  --color-coral-400: #f38f6e;
-  --color-coral-500: #ef7f63;
-  --color-coral-600: #e05f3f;
-  --color-coral-700: #c1472a;
-  --color-coral-800: #9c3a24;
-  --color-coral-900: #7d2f1e;
-  --color-coral-950: #431a11;
+  --color-navy-50: #f6f5fa;
+  --color-navy-100: #ecebf4;
+  --color-navy-200: #dad7ea;
+  --color-navy-300: #beb9da;
+  --color-navy-400: #9b95c6;
+  --color-navy-500: #766db1;
+  --color-navy-600: #5b5299;
+  --color-navy-700: #4a427b;
+  --color-navy-800: #38325d;
+  --color-navy-900: #2e294d;
 
-  --color-gold-50: #fdf6ec;
-  --color-gold-100: #fbead3;
-  --color-gold-200: #f6d3a5;
-  --color-gold-300: #f0bc77;
-  --color-gold-400: #ecad5f;
-  --color-gold-500: #e8a24c;
-  --color-gold-600: #d4842a;
-  --color-gold-700: #b06a20;
-  --color-gold-800: #8c531c;
-  --color-gold-900: #714418;
-  --color-gold-950: #40250c;
+  --color-sand-50: #fcf9f3;
+  --color-sand-100: #f8f3e7;
+  --color-sand-200: #f1e7d0;
+  --color-sand-300: #e7d6ae;
+  --color-sand-400: #dabf81;
+  --color-sand-500: #cca752;
+  --color-sand-600: #b58f36;
+  --color-sand-700: #92732b;
+  --color-sand-800: #6e5721;
+  --color-sand-900: #4b3b16;
 
-  --color-mist-50: #fbf7f2;
-  --color-mist-100: #f5eee4;
-  --color-mist-200: #eae0d0;
-  --color-mist-300: #dbcbb2;
-  --color-mist-400: #c7b08e;
-  --color-mist-500: #ad9370;
-  --color-mist-600: #8f7857;
-  --color-mist-700: #6e5c43;
-  --color-mist-800: #4f4230;
-  --color-mist-900: #332b1f;
-  --color-mist-950: #1e1912;
+  --color-plum-50: #faf5f7;
+  --color-plum-100: #f5ebef;
+  --color-plum-200: #ead7df;
+  --color-plum-300: #dbb8c7;
+  --color-plum-400: #c893aa;
+  --color-plum-500: #b36b8a;
+  --color-plum-600: #a8567a;
+  --color-plum-700: #7d405b;
+  --color-plum-800: #5e3045;
+  --color-plum-900: #40212f;
 
-  --color-ink-50: #f2f1f5;
-  --color-ink-100: #e2e0e9;
-  --color-ink-200: #c4c1d2;
-  --color-ink-300: #9d98b4;
-  --color-ink-400: #746d91;
-  --color-ink-500: #574f74;
-  --color-ink-600: #423b5c;
-  --color-ink-700: #332c48;
-  --color-ink-800: #272134;
-  --color-ink-900: #211e36;
-  --color-ink-950: #14121f;
+  --color-rose-50: #fdf2f5;
+  --color-rose-100: #fae5ea;
+  --color-rose-200: #f2b8c6;
+  --color-rose-300: #eea4b6;
+  --color-rose-400: #e67590;
+  --color-rose-500: #dc4167;
+  --color-rose-600: #c6244b;
+  --color-rose-700: #9f1d3d;
+  --color-rose-800: #79162e;
+  --color-rose-900: #520f1f;
 
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
@@ -79,41 +73,87 @@
 
 :root {
   --radius: 0.5rem;
-  --background: #ffffff;
-  --foreground: var(--color-ink-900);
-  --card: #ffffff;
-  --card-foreground: var(--color-ink-900);
+  --background: var(--color-sand-50);
+  --foreground: var(--color-navy-900);
+  --card: var(--color-sand-100);
+  --card-foreground: var(--color-navy-900);
   --popover: #ffffff;
-  --popover-foreground: var(--color-ink-900);
-  --primary: var(--color-coral-600);
+  --popover-foreground: var(--color-navy-900);
+  --primary: var(--color-coral-500);
   --primary-foreground: #ffffff;
-  --secondary: var(--color-mist-100);
-  --secondary-foreground: var(--color-ink-900);
-  --muted: var(--color-mist-100);
-  --muted-foreground: var(--color-ink-600);
-  --accent: var(--color-mist-100);
-  --accent-foreground: var(--color-ink-900);
-  --destructive: var(--color-coral-800);
+  --secondary: var(--color-sand-100);
+  --secondary-foreground: var(--color-navy-900);
+  --muted: var(--color-sand-100);
+  --muted-foreground: var(--color-navy-600);
+  --accent: var(--color-sand-100);
+  --accent-foreground: var(--color-navy-900);
+  --destructive: var(--color-rose-600);
   --destructive-foreground: #ffffff;
-  --border: var(--color-ink-200);
-  --input: var(--color-ink-200);
-  --ring: var(--color-coral-500);
-  --bg-gradient: linear-gradient(180deg, #fdf9ef 0%, #f0e3c2 100%);
+  --border: var(--color-sand-300);
+  --input: var(--color-sand-300);
+  --ring: var(--color-coral-400);
+  --bg-gradient: linear-gradient(180deg, #fcf9f3 0%, #fae9c7 100%);
   --bg-accent: radial-gradient(
     circle at 85% 90%,
     rgba(242, 184, 198, 0.55) 0%,
     rgba(242, 184, 198, 0) 55%
   );
+
+  /* Literal tokens from the supplied aurela-semantic-tokens.css, kept
+     alongside the shadcn-style roles above for direct use. --color-primary
+     and --color-accent are intentionally not redeclared here — those exact
+     names are already reserved by the @theme inline block below (mapping
+     shadcn's --primary/--accent); the decorative brand accent instead lives
+     under --accent-brand/--accent-brand-soft, since it's a different value
+     than shadcn's neutral --accent. */
+  --text-primary: var(--color-navy-900);
+  --text-secondary: var(--color-navy-600);
+  --bg-canvas: var(--color-sand-50);
+  --bg-surface: var(--color-sand-100);
+  --bg-elevated: #ffffff;
+  --color-primary-hover: var(--color-coral-600);
+  --accent-brand: var(--color-rose-500);
+  --accent-brand-soft: var(--color-rose-100);
+  --focus-ring: var(--color-coral-400);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-gradient: linear-gradient(180deg, #241f3d 0%, #3e3a66 100%);
+    --background: var(--color-navy-900);
+    --foreground: var(--color-sand-50);
+    --card: var(--color-navy-800);
+    --card-foreground: var(--color-sand-50);
+    --popover: var(--color-navy-700);
+    --popover-foreground: var(--color-sand-50);
+    --primary: var(--color-coral-400);
+    --primary-foreground: var(--color-navy-900);
+    --secondary: var(--color-navy-800);
+    --secondary-foreground: var(--color-sand-50);
+    --muted: var(--color-navy-800);
+    --muted-foreground: var(--color-navy-200);
+    --accent: var(--color-navy-800);
+    --accent-foreground: var(--color-sand-50);
+    --destructive: var(--color-rose-400);
+    --destructive-foreground: var(--color-navy-900);
+    --border: var(--color-navy-700);
+    --input: var(--color-navy-700);
+    --ring: var(--color-coral-300);
+    --bg-gradient: linear-gradient(180deg, #2e294d 0%, #4a427b 100%);
     --bg-accent: radial-gradient(
       circle at 85% 90%,
       rgba(168, 86, 122, 0.35) 0%,
       rgba(168, 86, 122, 0) 55%
     );
+
+    --text-primary: var(--color-sand-50);
+    --text-secondary: var(--color-navy-200);
+    --bg-canvas: var(--color-navy-900);
+    --bg-surface: var(--color-navy-800);
+    --bg-elevated: var(--color-navy-700);
+    --color-primary-hover: var(--color-coral-300);
+    --accent-brand: var(--color-plum-400);
+    --accent-brand-soft: var(--color-plum-800);
+    --focus-ring: var(--color-coral-300);
   }
 }
 
