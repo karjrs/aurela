@@ -12,8 +12,8 @@ import {
 } from "@/components/common/ui/card";
 import type { UserFormValues } from "@/forms/users/types";
 
-import { useDeleteUser } from "@/services/users/useDeleteUser";
-import { useUpdateUser } from "@/services/users/useUpdateUser";
+import { useDeleteUser } from "@/services/users/delete";
+import { useUpdateUser } from "@/services/users/update";
 import { UserForm } from "../form";
 import type { UserListItemProps } from "./types";
 

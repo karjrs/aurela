@@ -3,8 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/common/ui/button";
-import { useCreateUser } from "@/services/users/useCreateUser";
-import { useUsers } from "@/services/users/useUsers";
+import { useUsers } from "@/services/users";
+import { useCreateUser } from "@/services/users/create";
 import { UserForm } from "../form";
 import { UserListItem } from "../listItem";
 
