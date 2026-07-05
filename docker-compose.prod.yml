@@ -1,4 +1,22 @@
+name: aurela-prod
+
 services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-aurela}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:?set in .env}"]
+      interval: 2s
+      retries: 10
+    networks:
+      - aurela-net
+
   backend:
     build:
       context: ./backend
@@ -10,6 +28,10 @@ services:
     environment:
       PORT: "4000"
       NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-aurela}
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - aurela-net
 
@@ -31,3 +53,6 @@ services:
 networks:
   aurela-net:
     driver: bridge
+
+volumes:
+  postgres_data:

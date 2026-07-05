@@ -29,6 +29,7 @@
       "!backend/dist",
       "!backend/src/graphql/types.ts",
       "!backend/schema.graphql",
+      "!backend/drizzle",
       "!frontend/public"
     ]
   },
