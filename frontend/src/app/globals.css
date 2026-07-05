@@ -75,16 +75,6 @@
 
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
-
-  --background-image-day-arc: linear-gradient(
-    to bottom,
-    var(--color-dawn-50),
-    var(--color-mist-100) 20%,
-    var(--color-gold-100) 40%,
-    var(--color-coral-200) 60%,
-    var(--color-lavender-300) 80%,
-    var(--color-ink-900) 100%
-  );
 }
 
 :root {
@@ -108,6 +98,23 @@
   --border: var(--color-ink-200);
   --input: var(--color-ink-200);
   --ring: var(--color-coral-500);
+  --bg-gradient: linear-gradient(180deg, #fdf9ef 0%, #f0e3c2 100%);
+  --bg-accent: radial-gradient(
+    circle at 85% 90%,
+    rgba(242, 184, 198, 0.55) 0%,
+    rgba(242, 184, 198, 0) 55%
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient: linear-gradient(180deg, #241f3d 0%, #3e3a66 100%);
+    --bg-accent: radial-gradient(
+      circle at 85% 90%,
+      rgba(168, 86, 122, 0.35) 0%,
+      rgba(168, 86, 122, 0) 55%
+    );
+  }
 }
 
 @theme inline {
@@ -130,6 +137,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --background-image-aurela: var(--bg-accent), var(--bg-gradient);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
