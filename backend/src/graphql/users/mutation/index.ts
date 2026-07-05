@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db } from "../../../db/index.js";
 import { usersTable } from "../../../db/schema.js";
 import type { MutationResolvers } from "../../types.js";
+import { isValidId } from "../is-valid-id.js";
 import { createUserSchema, updateUserSchema } from "./schemas.js";
 
 // Must use graphql-yoga's createGraphQLError, not `new GraphQLError` from
@@ -29,7 +30,7 @@ export const mutation: MutationResolvers = {
   updateUser: async (_parent, args) => {
     const result = updateUserSchema.safeParse(args.input);
     if (!result.success) throw validationError(result.error);
-    if (!z.uuid().safeParse(args.id).success) return null;
+    if (!isValidId(args.id)) return null;
 
     const [user] = await db
       .update(usersTable)
@@ -39,7 +40,7 @@ export const mutation: MutationResolvers = {
     return user ?? null;
   },
   deleteUser: async (_parent, args) => {
-    if (!z.uuid().safeParse(args.id).success) return false;
+    if (!isValidId(args.id)) return false;
 
     const [deleted] = await db
       .delete(usersTable)
