@@ -46,7 +46,7 @@ export const UserListItem = ({
         <Card>
           <CardContent>
             <UserForm
-              defaultValues={{ name: user.name, email: user.email }}
+              initialValues={{ name: user.name, email: user.email }}
               onSubmit={handleUpdate}
               onCancel={onStopEdit}
               isSubmitting={updateUser.isPending}

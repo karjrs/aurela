@@ -13,7 +13,7 @@ import type { UserFormProps } from "./types";
 const FIELDS = ["name", "email"] as const;
 
 export const UserForm = ({
-  defaultValues,
+  initialValues,
   onSubmit,
   onCancel,
   isSubmitting,
@@ -22,7 +22,7 @@ export const UserForm = ({
   const tActions = useTranslations("actions");
   const tErrors = useTranslations("errors");
   const { register, handleSubmit, setError, errors } =
-    useUserForm(defaultValues);
+    useUserForm(initialValues);
   const [formError, setFormError] = useState<string | null>(null);
 
   const submit = handleSubmit(async (values) => {
@@ -65,7 +65,7 @@ export const UserForm = ({
       {formError && <FieldError>{tErrors(formError)}</FieldError>}
       <div className="flex gap-2">
         <Button type="submit" disabled={isSubmitting}>
-          {defaultValues ? tActions("save") : tActions("create")}
+          {initialValues ? tActions("save") : tActions("create")}
         </Button>
         <Button type="button" variant="secondary" onClick={onCancel}>
           {tActions("cancel")}

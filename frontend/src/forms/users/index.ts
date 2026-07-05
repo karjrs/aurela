@@ -4,9 +4,7 @@ import { defaultValues } from "./consts";
 import { schema } from "./schema";
 import type { UserFormValues } from "./types";
 
-export const useUserForm = (
-  formDefaultValues: UserFormValues = defaultValues,
-) => {
+export const useUserForm = (initialValues: UserFormValues = defaultValues) => {
   const {
     register,
     handleSubmit,
@@ -14,7 +12,7 @@ export const useUserForm = (
     formState: { errors },
   } = useForm<UserFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: formDefaultValues,
+    defaultValues: initialValues,
   });
 
   return { register, handleSubmit, setError, errors };
