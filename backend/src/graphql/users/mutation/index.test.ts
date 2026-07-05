@@ -5,6 +5,14 @@ import { app } from "../../../app.js";
 const query = (query: string, variables?: Record<string, unknown>) =>
   request(app).post("/api/graphql").send({ query, variables });
 
+const findSeededId = async (email: string) => {
+  const res = await query(`query { users { id email } }`);
+  const user = res.body.data.users.find(
+    (u: { email: string }) => u.email === email,
+  );
+  return user.id as string;
+};
+
 describe("createUser", () => {
   it("creates and returns a new user", async () => {
     const res = await query(
@@ -115,17 +123,22 @@ describe("updateUser", () => {
   });
 
   it("rejects an invalid email without mutating the existing user", async () => {
+    const id = await findSeededId("ada@example.com");
+
     const res = await query(
       `mutation Update($id: ID!, $input: UpdateUserInput!) {
         updateUser(id: $id, input: $input) { id }
       }`,
-      { id: "1", input: { email: "not-an-email" } },
+      { id, input: { email: "not-an-email" } },
     );
 
     expect(res.status).toBe(200);
     expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
 
-    const check = await query(`query { user(id: "1") { email } }`);
+    const check = await query(
+      `query GetUser($id: ID!) { user(id: $id) { email } }`,
+      { id },
+    );
     expect(check.body.data.user.email).toBe("ada@example.com");
   });
 });

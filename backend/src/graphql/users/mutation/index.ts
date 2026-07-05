@@ -1,8 +1,9 @@
-import { randomUUID } from "node:crypto";
+import { eq } from "drizzle-orm";
 import { createGraphQLError } from "graphql-yoga";
 import { z } from "zod";
+import { db } from "../../../db/index.js";
+import { usersTable } from "../../../db/schema.js";
 import type { MutationResolvers } from "../../types.js";
-import { users } from "../consts.js";
 import { createUserSchema, updateUserSchema } from "./schemas.js";
 
 // Must use graphql-yoga's createGraphQLError, not `new GraphQLError` from
@@ -18,27 +19,32 @@ const validationError = (error: z.ZodError) =>
   });
 
 export const mutation: MutationResolvers = {
-  createUser: (_parent, args) => {
+  createUser: async (_parent, args) => {
     const result = createUserSchema.safeParse(args.input);
     if (!result.success) throw validationError(result.error);
 
-    const user = { id: randomUUID(), ...result.data };
-    users.push(user);
+    const [user] = await db.insert(usersTable).values(result.data).returning();
     return user;
   },
-  updateUser: (_parent, args) => {
+  updateUser: async (_parent, args) => {
     const result = updateUserSchema.safeParse(args.input);
     if (!result.success) throw validationError(result.error);
+    if (!z.uuid().safeParse(args.id).success) return null;
 
-    const user = users.find((u) => u.id === args.id);
-    if (!user) return null;
-    Object.assign(user, result.data);
-    return user;
+    const [user] = await db
+      .update(usersTable)
+      .set(result.data)
+      .where(eq(usersTable.id, args.id))
+      .returning();
+    return user ?? null;
   },
-  deleteUser: (_parent, args) => {
-    const index = users.findIndex((u) => u.id === args.id);
-    if (index === -1) return false;
-    users.splice(index, 1);
-    return true;
+  deleteUser: async (_parent, args) => {
+    if (!z.uuid().safeParse(args.id).success) return false;
+
+    const [deleted] = await db
+      .delete(usersTable)
+      .where(eq(usersTable.id, args.id))
+      .returning();
+    return !!deleted;
   },
 };

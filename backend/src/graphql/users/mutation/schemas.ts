@@ -5,9 +5,9 @@ export const createUserSchema = z.object({
   email: z.email("Invalid email address"),
 });
 
-// name/email stay non-nullable here even though `UpdateUserInput` allows an
-// explicit `null` per field — User.name/email are non-null in the schema, so
-// clearing a field isn't a valid partial update.
+// `name`/`email` stay `.optional()` rather than `.nullable()`: `User.name` and
+// `User.email` are non-null in the GraphQL SDL, so an explicit `null` isn't a
+// valid partial-update value — omitting the field is the only way to "not change" it.
 export const updateUserSchema = z
   .object({
     name: z.string().trim().min(1, "Name is required").optional(),
