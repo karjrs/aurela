@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "codegen": "NODE_OPTIONS='--import tsx/esm' graphql-codegen --config codegen.ts",
     "codegen:watch": "NODE_OPTIONS='--import tsx/esm' graphql-codegen --config codegen.ts --watch",
@@ -23,13 +24,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.9.0",
-      "onFail": "download"
-    }
-  },
   "type": "module",
   "dependencies": {
     "drizzle-orm": "^0.45.2",

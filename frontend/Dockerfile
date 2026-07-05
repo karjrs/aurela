@@ -7,7 +7,7 @@ RUN corepack enable && corepack prepare pnpm@11.9.0 --activate
 
 FROM base AS dev
 WORKDIR /app/frontend
-COPY frontend/package.json frontend/pnpm-lock.yaml ./
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY backend/schema.graphql /app/backend/schema.graphql
 COPY frontend/. .
@@ -16,7 +16,7 @@ CMD ["pnpm", "dev"]
 
 FROM base AS build
 WORKDIR /app/frontend
-COPY frontend/package.json frontend/pnpm-lock.yaml ./
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY backend/schema.graphql /app/backend/schema.graphql
 COPY frontend/. .
