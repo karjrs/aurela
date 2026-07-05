@@ -1,6 +1,6 @@
+import { app } from "@root/app.js";
 import request from "supertest";
 import { describe, expect, it } from "vitest";
-import { app } from "../../../app.js";
 
 const query = (query: string, variables?: Record<string, unknown>) =>
   request(app).post("/api/graphql").send({ query, variables });

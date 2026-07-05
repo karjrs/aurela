@@ -1,13 +1,13 @@
-import { eq } from "drizzle-orm";
-import { db } from "../../../db/index.js";
-import { usersTable } from "../../../db/schema.js";
-import { isUniqueViolation } from "../../../utils/helpers/isUniqueViolation/index.js";
+import { db } from "@db/index.js";
+import { usersTable } from "@db/schema.js";
+import type { MutationResolvers } from "@graphql/types.js";
+import { isUniqueViolation } from "@utils/helpers/isUniqueViolation/index.js";
 import {
   emailConflictError,
   isValidId,
   validationError,
-} from "../../../utils/helpers/validators/index.js";
-import type { MutationResolvers } from "../../types.js";
+} from "@utils/helpers/validators/index.js";
+import { eq } from "drizzle-orm";
 import { createUserSchema, updateUserSchema } from "./schemas.js";
 
 export const mutation: MutationResolvers = {

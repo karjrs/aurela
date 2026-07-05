@@ -1,9 +1,9 @@
-import { z } from "zod";
 import {
   AT_LEAST_ONE_FIELD_REQUIRED,
   INVALID_EMAIL,
   NAME_REQUIRED,
-} from "../../../utils/consts/errors/index.js";
+} from "@utils/consts/errors/index.js";
+import { z } from "zod";
 
 export const createUserSchema = z.object({
   name: z.string().trim().min(1, NAME_REQUIRED),

@@ -1,6 +1,6 @@
+import { EMAIL_ALREADY_IN_USE } from "@utils/consts/errors/index.js";
 import { createGraphQLError } from "graphql-yoga";
 import { z } from "zod";
-import { EMAIL_ALREADY_IN_USE } from "../../consts/errors/index.js";
 
 export const isValidId = (id: string) => z.uuid().safeParse(id).success;
 
