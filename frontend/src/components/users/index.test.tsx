@@ -9,8 +9,12 @@ import {
   GetUsersDocument,
   UpdateUserDocument,
 } from "@/graphql/types";
-import messages from "@/i18n/messages/en.json";
+import actions from "@/i18n/en/actions.json";
+import errors from "@/i18n/en/errors.json";
+import users from "@/i18n/en/users.json";
 import { UsersList } from "./list";
+
+const messages = { actions, errors, users };
 
 const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 

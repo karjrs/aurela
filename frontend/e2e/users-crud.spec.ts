@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import messages from "../src/i18n/messages/en.json";
+import actions from "../src/i18n/en/actions.json";
+import users from "../src/i18n/en/users.json";
 
 const ada = { id: "1", name: "Ada Lovelace", email: "ada@example.com" };
 const alan = { id: "2", name: "Alan Turing", email: "alan@example.com" };
@@ -53,14 +54,10 @@ test("creates a new user through the inline form", async ({ page }) => {
   await mockGraphql(page);
   await page.goto("/");
 
-  await page
-    .getByRole("button", { name: messages.usersList.addUserButton })
-    .click();
-  await page.getByLabel(messages.userForm.nameLabel).fill("Grace Hopper");
-  await page.getByLabel(messages.userForm.emailLabel).fill("grace@example.com");
-  await page
-    .getByRole("button", { name: messages.userForm.createButton })
-    .click();
+  await page.getByRole("button", { name: users.addButton }).click();
+  await page.getByLabel(users.nameLabel).fill("Grace Hopper");
+  await page.getByLabel(users.emailLabel).fill("grace@example.com");
+  await page.getByRole("button", { name: actions.create }).click();
 
   await expect(page.getByText("Grace Hopper")).toBeVisible();
 });
@@ -71,15 +68,9 @@ test("edits an existing user", async ({ page }) => {
 
   const adaItem = page.locator("li").first();
   await expect(adaItem).toContainText(ada.email);
-  await adaItem
-    .getByRole("button", { name: messages.usersList.editButton })
-    .click();
-  await adaItem
-    .getByLabel(messages.userForm.nameLabel)
-    .fill("Ada, Countess of Lovelace");
-  await adaItem
-    .getByRole("button", { name: messages.userForm.saveButton })
-    .click();
+  await adaItem.getByRole("button", { name: actions.edit }).click();
+  await adaItem.getByLabel(users.nameLabel).fill("Ada, Countess of Lovelace");
+  await adaItem.getByRole("button", { name: actions.save }).click();
 
   await expect(page.getByText("Ada, Countess of Lovelace")).toBeVisible();
 });
@@ -89,13 +80,9 @@ test("deletes a user after inline confirmation", async ({ page }) => {
   await page.goto("/");
 
   const adaItem = page.locator("li", { hasText: ada.email });
-  await adaItem
-    .getByRole("button", { name: messages.usersList.deleteButton })
-    .click();
-  await expect(page.getByText(messages.usersList.confirmDelete)).toBeVisible();
-  await adaItem
-    .getByRole("button", { name: messages.usersList.confirmDeleteButton })
-    .click();
+  await adaItem.getByRole("button", { name: actions.delete }).click();
+  await expect(page.getByText(users.confirmDelete)).toBeVisible();
+  await adaItem.getByRole("button", { name: actions.confirm }).click();
 
   await expect(page.getByText(ada.email)).not.toBeVisible();
   await expect(page.getByText(alan.email)).toBeVisible();
@@ -108,12 +95,8 @@ test("shows a not-found message when deleting an already-removed user", async ({
   await page.goto("/");
 
   const adaItem = page.locator("li", { hasText: ada.email });
-  await adaItem
-    .getByRole("button", { name: messages.usersList.deleteButton })
-    .click();
-  await adaItem
-    .getByRole("button", { name: messages.usersList.confirmDeleteButton })
-    .click();
+  await adaItem.getByRole("button", { name: actions.delete }).click();
+  await adaItem.getByRole("button", { name: actions.confirm }).click();
 
-  await expect(page.getByText(messages.usersList.deleteNotFound)).toBeVisible();
+  await expect(page.getByText(users.deleteNotFound)).toBeVisible();
 });

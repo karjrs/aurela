@@ -9,7 +9,7 @@ import { UserForm } from "../form";
 import { UserListItem } from "../listItem";
 
 export const UsersList = () => {
-  const t = useTranslations("usersList");
+  const t = useTranslations("users");
   const { data, isPending, isError } = useUsers();
   const createUser = useCreateUser();
   const [isCreating, setIsCreating] = useState(false);
@@ -23,7 +23,7 @@ export const UsersList = () => {
   }
 
   if (isError) {
-    return <p role="alert">{t("error")}</p>;
+    return <p role="alert">{t("loadError")}</p>;
   }
 
   return (
@@ -43,9 +43,7 @@ export const UsersList = () => {
           isSubmitting={createUser.isPending}
         />
       ) : (
-        <Button onClick={() => setIsCreating(true)}>
-          {t("addUserButton")}
-        </Button>
+        <Button onClick={() => setIsCreating(true)}>{t("addButton")}</Button>
       )}
 
       <ul className="flex flex-col gap-4">

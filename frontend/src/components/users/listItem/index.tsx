@@ -26,7 +26,8 @@ export const UserListItem = ({
   onRequestDelete,
   onCancelDelete,
 }: UserListItemProps) => {
-  const t = useTranslations("usersList");
+  const t = useTranslations("users");
+  const tActions = useTranslations("actions");
   const updateUser = useUpdateUser();
   const deleteUser = useDeleteUser();
 
@@ -83,19 +84,19 @@ export const UserListItem = ({
                 onClick={handleDelete}
                 disabled={deleteUser.isPending}
               >
-                {t("confirmDeleteButton")}
+                {tActions("confirm")}
               </Button>
               <Button variant="secondary" onClick={onCancelDelete}>
-                {t("cancelButton")}
+                {tActions("cancel")}
               </Button>
             </div>
           ) : (
             <div className="flex gap-2">
               <Button variant="secondary" onClick={onStartEdit}>
-                {t("editButton")}
+                {tActions("edit")}
               </Button>
               <Button variant="secondary" onClick={onRequestDelete}>
-                {t("deleteButton")}
+                {tActions("delete")}
               </Button>
             </div>
           )}

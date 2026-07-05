@@ -1,0 +1,13 @@
+{
+  "heading": "Users",
+  "loading": "Loading users…",
+  "loadError": "Something went wrong while loading users.",
+  "addButton": "Add user",
+  "confirmDelete": "Delete this user?",
+  "userNotFound": "This user no longer exists. The list has been refreshed.",
+  "deleteNotFound": "This user was already removed. The list has been refreshed.",
+  "nameLabel": "Name",
+  "emailLabel": "Email",
+  "nameError": "Name is required.",
+  "emailError": "Enter a valid email address."
+}

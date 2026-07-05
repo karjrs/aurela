@@ -1,10 +1,16 @@
 import { getRequestConfig } from "next-intl/server";
 
+const NAMESPACES = ["actions", "errors", "users"] as const;
+
 export default getRequestConfig(async () => {
   const locale = "en";
 
-  return {
-    locale,
-    messages: (await import(`./messages/${locale}.json`)).default,
-  };
+  const modules = await Promise.all(
+    NAMESPACES.map((namespace) => import(`./${locale}/${namespace}.json`)),
+  );
+  const messages = Object.fromEntries(
+    NAMESPACES.map((namespace, i) => [namespace, modules[i].default]),
+  );
+
+  return { locale, messages };
 });

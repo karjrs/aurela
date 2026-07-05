@@ -80,7 +80,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 ### `i18n/`
 
-`request.ts` (next-intl config) + `messages/<locale>.json` catalogs.
+`request.ts` (next-intl config) + `<locale>/<namespace>.json` catalogs, one file per namespace: `actions` (generic button verbs — cancel/confirm/edit/delete/save/create), `errors` (validation/error messages — shared vocabulary between `frontend/src/forms/*/schema.ts`'s zod messages and the keys the backend returns in GraphQL `extensions.fieldErrors`), and one namespace per resource module (e.g. `users`). `request.ts` still hardcodes `locale = "en"` — a `pl/` catalog exists (same namespaces/keys) but there's no locale-switching routing/middleware yet, so it isn't reachable at runtime.
 
 ### `utils/helpers/`
 

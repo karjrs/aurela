@@ -1,0 +1,7 @@
+{
+  "nameRequired": "Name is required.",
+  "invalidEmail": "Enter a valid email address.",
+  "atLeastOneFieldRequired": "Provide at least a name or an email.",
+  "emailAlreadyInUse": "This email is already in use.",
+  "unexpected": "Something went wrong. Please try again."
+}

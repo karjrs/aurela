@@ -15,7 +15,8 @@ export const UserForm = ({
   onCancel,
   isSubmitting,
 }: UserFormProps) => {
-  const t = useTranslations("userForm");
+  const t = useTranslations("users");
+  const tActions = useTranslations("actions");
   const { register, handleSubmit, errors } = useUserForm(defaultValues);
 
   return (
@@ -36,10 +37,10 @@ export const UserForm = ({
       </Field>
       <div className="flex gap-2">
         <Button type="submit" disabled={isSubmitting}>
-          {defaultValues ? t("saveButton") : t("createButton")}
+          {defaultValues ? tActions("save") : tActions("create")}
         </Button>
         <Button type="button" variant="secondary" onClick={onCancel}>
-          {t("cancelButton")}
+          {tActions("cancel")}
         </Button>
       </div>
     </form>

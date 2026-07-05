@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import messages from "../src/i18n/messages/en.json";
+import users from "../src/i18n/en/users.json";
 
 test("home page loads and shows the fetched users", async ({ page }) => {
   await page.route("**/api/graphql", (route) =>
@@ -18,7 +18,7 @@ test("home page loads and shows the fetched users", async ({ page }) => {
   await page.goto("/");
 
   await expect(
-    page.getByRole("heading", { name: messages.usersList.heading }),
+    page.getByRole("heading", { name: users.heading }),
   ).toBeVisible();
   await expect(page.getByText("Ada Lovelace")).toBeVisible();
   await expect(page.getByText("Alan Turing")).toBeVisible();
