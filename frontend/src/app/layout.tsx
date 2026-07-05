@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "Aurela — A calmer way to plan your day",
   description:
     "Aurela turns your calendar and your to-dos into one simple daily rhythm.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#e05f3f",
 };
 
 type RootLayoutProps = Readonly<{
