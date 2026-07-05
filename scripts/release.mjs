@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseHostedGitUrl } from "@simple-libs/hosted-git-info";
 import { ConventionalChangelog } from "conventional-changelog";
 import { Bumper } from "conventional-recommended-bump";
 import semver from "semver";
@@ -41,12 +42,16 @@ async function getReleaseType() {
   return { releaseType, reason };
 }
 
-async function generateChangelogEntry(pkg) {
+async function generateChangelogEntry(nextVersion) {
+  const remoteUrl = git("config", "--get", "remote.origin.url");
+  const { owner, project, host } = parseHostedGitUrl(remoteUrl) ?? {};
+
   const generator = new ConventionalChangelog(rootDir)
-    .package(pkg)
+    .readPackage(pkgPath, (pkg) => ({ ...pkg, version: nextVersion }))
     .loadPreset("conventionalcommits")
     .tags({ prefix: TAG_PREFIX })
-    .options({ releaseCount: 1 });
+    .options({ releaseCount: 1 })
+    .context({ host, owner, repository: project });
 
   let entry = "";
   for await (const chunk of generator.write()) {
@@ -95,8 +100,7 @@ async function main() {
     `${pkg.version} -> ${nextVersion} (${releaseType}${reason ? `: ${reason}` : ""})`,
   );
 
-  const bumpedPkg = { ...pkg, version: nextVersion };
-  const entry = await generateChangelogEntry(bumpedPkg);
+  const entry = await generateChangelogEntry(nextVersion);
   const nextReadme = spliceIntoReadme(entry);
 
   if (dryRun) {
@@ -105,7 +109,10 @@ async function main() {
     return;
   }
 
-  writeFileSync(pkgPath, `${JSON.stringify(bumpedPkg, null, 2)}\n`);
+  writeFileSync(
+    pkgPath,
+    `${JSON.stringify({ ...pkg, version: nextVersion }, null, 2)}\n`,
+  );
   writeFileSync(readmePath, nextReadme);
 
   git("add", "package.json", "README.md");
