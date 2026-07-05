@@ -25,10 +25,10 @@ Needs a reachable Postgres and `DATABASE_URL` set (running via `pnpm docker:dev`
 | Script | Description |
 | --- | --- |
 | `pnpm dev` | Run the dev server (`tsx watch src/index.ts`) |
-| `pnpm build` | Compile with `tsc` to `dist/` |
+| `pnpm build` | Compile with `tsc` to `dist/`, then rewrite `@db`/`@graphql`/`@utils` aliases back to relative paths with `tsc-alias` (Node can't resolve them at runtime on its own) |
 | `pnpm start` | Run the compiled build (`node dist/index.js`) |
 | `pnpm typecheck` | Type-check with `tsc --noEmit` |
-| `pnpm test` / `pnpm test:watch` | Run Vitest unit/HTTP-level tests (against an in-memory `pglite` database, not the real one) |
+| `pnpm test` / `pnpm test:watch` | Run Vitest unit/HTTP-level tests (against an in-memory `pglite` database, not the real one). Aliases resolve via `tsconfig.vitest.json`, a copy of `tsconfig.json` with the test-file `exclude` cleared — needed because path-alias resolvers skip files outside a tsconfig's project |
 | `pnpm codegen` / `pnpm codegen:watch` | Regenerate `src/graphql/types.ts` and `schema.graphql` from `src/graphql/schema.ts` |
 | `pnpm db:generate` | Generate a migration from `src/db/schema.ts` (diffs against `drizzle/`, no live database needed) |
 | `pnpm db:migrate` | Apply pending migrations to the database at `DATABASE_URL` (manual/CI use — the app also applies them itself on boot, see below) |
@@ -38,7 +38,7 @@ Needs a reachable Postgres and `DATABASE_URL` set (running via `pnpm docker:dev`
 
 ## Modules
 
-Paths below are relative to `src/`, except where noted.
+Paths below are relative to `src/`, except where noted. Import across a top-level directory with its alias (`@db/*`, `@graphql/*`, `@utils/*` → `src/db/*`, `src/graphql/*`, `src/utils/*`, see `tsconfig.json`) rather than a relative path; within the same directory, use relative imports as usual. Loose top-level files with no directory of their own (e.g. `app.ts`) use the `@root/*` → `src/*` alias instead (`@root/app.js`), never a one-off alias or a bare relative path.
 
 ### `app.ts` / `index.ts` / `app.test.ts` (top-level)
 
@@ -92,6 +92,8 @@ GraphQL errors carry `extensions.code` for the general category (e.g. `BAD_USER_
 | `drizzle-orm` / `pg` | Type-safe query builder and migrations for Postgres (`src/db/`), over the `node-postgres` driver |
 | `drizzle-kit` | CLI for generating and applying migrations (`pnpm db:generate` / `pnpm db:migrate`) |
 | `@electric-sql/pglite` | In-memory, WASM-compiled Postgres used only by tests (`vitest.setup.ts`) — real SQL semantics without a live database |
-| `tsx` | Run TypeScript directly in dev (`pnpm dev`) |
+| `tsx` | Run TypeScript directly in dev (`pnpm dev`); resolves `tsconfig.json` `paths` aliases natively |
 | `typescript` | Type-checking |
+| `tsc-alias` | Rewrites `@db`/`@graphql`/`@utils`/`@root` aliases back to relative paths in the compiled `dist/` output (`pnpm build`) |
+| `vite-tsconfig-paths` | Resolves the same aliases inside Vitest (via `tsconfig.vitest.json`) — Vite's built-in `resolve.tsconfigPaths` can't be pointed at a specific tsconfig file, so the plugin's `projects` option is used instead |
 | `vitest` / `supertest` | Unit and HTTP-level testing |

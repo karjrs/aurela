@@ -36,7 +36,7 @@ pnpm dev
 
 ## Modules
 
-Paths below are relative to `src/`, except where noted.
+Paths below are relative to `src/`, except where noted. Import across a top-level directory with its alias (`@app/*`, `@components/*`, `@forms/*`, `@graphql/*`, `@i18n/*`, `@services/*`, `@utils/*` → `src/app/*`, `src/components/*`, etc., see `tsconfig.json`) rather than a relative path; within the same directory, use relative imports as usual. A loose top-level file with no directory of its own would use the `@root/*` → `src/*` alias instead — unused today since every file currently lives under one of the named directories.
 
 ### `app/`
 
@@ -70,7 +70,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 | Path | Description |
 | --- | --- |
-| `users/` | `useUsers.ts`, `useCreateUser.ts`, `useUpdateUser.ts`, `useDeleteUser.ts` |
+| `users/` | `index.ts` (`useUsers`), `create.ts` (`useCreateUser`), `update.ts` (`useUpdateUser`), `delete.ts` (`useDeleteUser`) |
 
 ### `graphql/`
 
@@ -78,7 +78,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 | Path | Description |
 | --- | --- |
-| `users/` | `getUsers.graphql`, `createUser.graphql`, `updateUser.graphql`, `deleteUser.graphql` |
+| `users/` | `index.graphql` (list), `create.graphql`, `update.graphql`, `delete.graphql` |
 
 ### `i18n/`
 
