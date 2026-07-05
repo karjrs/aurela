@@ -21,10 +21,21 @@ export const metadata: Metadata = {
   title: "Aurela — A calmer way to plan your day",
   description:
     "Aurela turns your calendar and your to-dos into one simple daily rhythm.",
+  icons: {
+    icon: [
+      { url: "/favicon-light.png", type: "image/png", sizes: "48x48" },
+      {
+        url: "/favicon-dark.png",
+        type: "image/png",
+        sizes: "48x48",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#e05f3f",
+  themeColor: "#f2c46b",
 };
 
 type RootLayoutProps = Readonly<{

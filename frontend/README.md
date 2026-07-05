@@ -44,7 +44,9 @@ Next.js App Router routes: `layout.tsx` (root layout), `providers.tsx` (client-s
 
 Adding a route means a new folder named after the URL segment, with its own `page.tsx` (+ colocated `page.test.tsx`, and `loading.tsx`/`error.tsx`/`layout.tsx` as needed). **Never** name a folder literally `pages` (or `src/pages`) — that activates Next's legacy Pages Router.
 
-`public/icon-192.png` and `public/icon-512.png` (referenced by `manifest.ts`) are solid-color placeholders in the brand's primary color — swap them for real artwork by overwriting the same filenames/dimensions, nothing else needs to change.
+`public/icon-192.png` and `public/icon-512.png` (referenced by `manifest.ts`, PWA/Android home-screen icon) and `app/apple-icon.png` (Next's file convention for the iOS "Add to Home Screen" icon — auto-detected, not referenced anywhere in code) are the brand logo. Neither the web manifest spec nor Apple's touch-icon support a light/dark variant, so both are fixed to the light artwork — swap them by overwriting the same filenames/dimensions, nothing else needs to change. `apple-icon.png` is flattened onto the brand's cream background (`#FDF9EF`, no transparency) rather than kept transparent like the other two — Apple renders transparent pixels as solid black on the home screen icon, unlike Android/Chrome which composite PWA icons fine with alpha.
+
+The browser-tab favicon **does** switch with the OS color scheme, so it can't use Next's auto-detected `favicon.ico` convention (one fixed file). `layout.tsx`'s `metadata.icons.icon` instead lists `public/favicon-light.png` and `public/favicon-dark.png` (48×48, the latter with `media: "(prefers-color-scheme: dark)"`). Keep both entries in sync with `layout.tsx` if you regenerate or rename them.
 
 ### `components/`
 

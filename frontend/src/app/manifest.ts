@@ -7,8 +7,8 @@ const manifest = (): MetadataRoute.Manifest => ({
     "Aurela turns your calendar and your to-dos into one simple daily rhythm.",
   start_url: "/",
   display: "standalone",
-  background_color: "#ffffff",
-  theme_color: "#e05f3f",
+  background_color: "#fdf9ef",
+  theme_color: "#f2c46b",
   icons: [
     { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
     { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
