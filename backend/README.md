@@ -75,6 +75,10 @@ Drizzle ORM layer, the resolvers' only path to Postgres.
 
 `graphql-codegen` config generating `src/graphql/types.ts` and `schema.graphql` from `src/graphql/schema.ts`. `schema.graphql` is the **committed** SDL bridge to `frontend/` — see the [root README](../README.md) for why.
 
+## Error handling
+
+GraphQL errors carry `extensions.code` for the general category (e.g. `BAD_USER_INPUT`, `EMAIL_ALREADY_IN_USE`) and `extensions.fieldErrors: Record<string, string[]>` for field-level detail. The strings inside `fieldErrors` (and the zod messages in `users/mutation/schemas.ts` that produce them) are **stable keys**, never English prose — e.g. `"nameRequired"`, not `"Name is required"`. The frontend looks these keys up in its own `errors` translation namespace to render a localized message, so a key can never change without a matching update on both sides — kept in sync by hand, same as the duplicated `zod` schemas the root README already documents.
+
 ## Tech stack
 
 | Library | Purpose |

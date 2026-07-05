@@ -5,7 +5,11 @@ import { db } from "../../../db/index.js";
 import { usersTable } from "../../../db/schema.js";
 import type { MutationResolvers } from "../../types.js";
 import { isValidId } from "../is-valid-id.js";
-import { createUserSchema, updateUserSchema } from "./schemas.js";
+import {
+  createUserSchema,
+  EMAIL_ALREADY_IN_USE,
+  updateUserSchema,
+} from "./schemas.js";
 
 // Must use graphql-yoga's createGraphQLError, not `new GraphQLError` from
 // "graphql" directly — Yoga's error masking checks `instanceof GraphQLError`
@@ -20,20 +24,27 @@ const validationError = (error: z.ZodError) =>
   });
 
 const emailConflictError = () =>
-  createGraphQLError("Invalid input", {
+  createGraphQLError("Email already in use", {
     extensions: {
-      code: "BAD_USER_INPUT",
-      fieldErrors: { email: ["Email already in use"] },
+      code: "EMAIL_ALREADY_IN_USE",
+      fieldErrors: { email: [EMAIL_ALREADY_IN_USE] },
     },
   });
 
+const hasCode = (value: unknown): value is { code: unknown } =>
+  typeof value === "object" && value !== null && "code" in value;
+
 // Postgres's unique_violation SQLSTATE — thrown by the driver when the
-// `email` column's unique constraint rejects an insert/update.
-const isUniqueViolation = (error: unknown) =>
-  typeof error === "object" &&
-  error !== null &&
-  "code" in error &&
-  error.code === "23505";
+// `email` column's unique constraint rejects an insert/update. Drizzle wraps
+// every query error in its own DrizzleQueryError, with the real driver error
+// on `.cause` — the SQLSTATE code lives there, not on the wrapper itself.
+const isUniqueViolation = (error: unknown) => {
+  const cause = error instanceof Error ? error.cause : undefined;
+  return (
+    (hasCode(error) && error.code === "23505") ||
+    (hasCode(cause) && cause.code === "23505")
+  );
+};
 
 export const mutation: MutationResolvers = {
   createUser: async (_parent, args) => {

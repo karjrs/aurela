@@ -41,6 +41,9 @@ describe("createUser", () => {
     expect(res.status).toBe(200);
     expect(res.body.data).toBeNull();
     expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+    expect(res.body.errors[0].extensions.fieldErrors.name).toEqual([
+      "nameRequired",
+    ]);
   });
 
   it("rejects an invalid email format", async () => {
@@ -54,6 +57,32 @@ describe("createUser", () => {
     expect(res.status).toBe(200);
     expect(res.body.data).toBeNull();
     expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+    expect(res.body.errors[0].extensions.fieldErrors.email).toEqual([
+      "invalidEmail",
+    ]);
+  });
+
+  it("rejects a duplicate email", async () => {
+    await query(
+      `mutation Create($input: CreateUserInput!) {
+        createUser(input: $input) { id }
+      }`,
+      { input: { name: "First", email: "duplicate@example.com" } },
+    );
+
+    const res = await query(
+      `mutation Create($input: CreateUserInput!) {
+        createUser(input: $input) { id }
+      }`,
+      { input: { name: "Second", email: "duplicate@example.com" } },
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toBeNull();
+    expect(res.body.errors[0].extensions.code).toBe("EMAIL_ALREADY_IN_USE");
+    expect(res.body.errors[0].extensions.fieldErrors.email).toEqual([
+      "emailAlreadyInUse",
+    ]);
   });
 
   it("does not add a user to the array on validation failure", async () => {
@@ -120,6 +149,12 @@ describe("updateUser", () => {
     expect(res.status).toBe(200);
     expect(res.body.data).toEqual({ updateUser: null });
     expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+    expect(res.body.errors[0].extensions.fieldErrors.name).toEqual([
+      "atLeastOneFieldRequired",
+    ]);
+    expect(res.body.errors[0].extensions.fieldErrors.email).toEqual([
+      "atLeastOneFieldRequired",
+    ]);
   });
 
   it("rejects an invalid email without mutating the existing user", async () => {
@@ -134,6 +169,9 @@ describe("updateUser", () => {
 
     expect(res.status).toBe(200);
     expect(res.body.errors[0].extensions.code).toBe("BAD_USER_INPUT");
+    expect(res.body.errors[0].extensions.fieldErrors.email).toEqual([
+      "invalidEmail",
+    ]);
 
     const check = await query(
       `query GetUser($id: ID!) { user(id: $id) { email } }`,
