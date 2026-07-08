@@ -8,7 +8,7 @@ export const Actions = async () => {
 
   return (
     <Button asChild variant="default">
-      <Link href={routes.dashboard}>{t("cta")}</Link>
+      <Link href={routes.dashboard.root}>{t("cta")}</Link>
     </Button>
   );
 };
