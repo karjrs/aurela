@@ -1,3 +1,5 @@
+import { Footer } from "@components/common/footer";
+import { Header } from "@components/common/header";
 import { routing } from "@i18n/routing";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
@@ -62,12 +64,15 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-foreground">
+      <body className="min-h-full flex flex-col font-body text-foreground bg-aurela">
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
           </NextIntlClientProvider>
         </Providers>
       </body>
