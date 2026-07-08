@@ -1,0 +1,20 @@
+{
+  "brand": {
+    "tagline": "Spokojniejszy sposób na planowanie dnia"
+  },
+  "links": {
+    "product": "Produkt",
+    "legal": {
+      "title": "Informacje prawne",
+      "privacy": "Polityka prywatności",
+      "terms": "Regulamin"
+    }
+  },
+  "social": {
+    "facebook": "Obserwuj na Facebooku",
+    "x": "Obserwuj na X",
+    "instagram": "Obserwuj na Instagramie",
+    "linkedin": "Obserwuj na LinkedIn"
+  },
+  "copyright": "© {year} Aurela. Wszelkie prawa zastrzeżone."
+}
