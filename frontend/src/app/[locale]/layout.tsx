@@ -1,11 +1,13 @@
+import { routing } from "@i18n/routing";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 import { Providers } from "./providers";
 
-import "./globals.css";
+import "@app/globals.css";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -38,21 +40,33 @@ export const viewport: Viewport = {
   themeColor: "#f2c46b",
 };
 
+export const generateStaticParams = () =>
+  routing.locales.map((locale) => ({ locale }));
+
 type RootLayoutProps = Readonly<{
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 }>;
 
-const RootLayout = async ({ children }: RootLayoutProps) => {
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+
   const messages = await getMessages();
 
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body text-foreground">
         <Providers>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
           </NextIntlClientProvider>
         </Providers>
