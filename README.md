@@ -78,6 +78,8 @@ Both compose files also run a `postgres` service on the shared `aurela-net` netw
 | `pnpm docker:dev` | Run both packages in Docker with hot-reload (see "Docker" below) |
 | `pnpm docker:prod` | Build and run production images in the background |
 | `pnpm release` / `pnpm release --dry-run` | Bump the version and update the changelog (see "Changelog" below) |
+| `pnpm push-force:soft` | `git push --no-verify` — push while skipping the pre-push hook (see "Git hooks workflow" below) |
+| `pnpm push-force:hard` | `git push --no-verify -f` — same, but also force-pushes (rewrites remote history); can overwrite others' commits, use with care |
 
 Each package also exposes its own `dev` / `build` / `typecheck` / `test` scripts (see [`frontend/README.md`](frontend/README.md) and [`backend/README.md`](backend/README.md)), runnable directly from its directory.
 
