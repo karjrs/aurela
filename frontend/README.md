@@ -36,7 +36,7 @@ pnpm dev
 
 ## Modules
 
-Paths below are relative to `src/`, except where noted. Import across a top-level directory with its alias (`@app/*`, `@components/*`, `@forms/*`, `@graphql/*`, `@i18n/*`, `@services/*`, `@utils/*` → `src/app/*`, `src/components/*`, etc., see `tsconfig.json`) rather than a relative path; within the same directory, use relative imports as usual. A loose top-level file with no directory of its own would use the `@root/*` → `src/*` alias instead — unused today since every file currently lives under one of the named directories.
+Paths below are relative to `src/`, except where noted. Import across a top-level directory with its alias (`@app/*`, `@components/*`, `@forms/*`, `@graphql/*`, `@hooks/*`, `@i18n/*`, `@services/*`, `@utils/*` → `src/app/*`, `src/components/*`, etc., see `tsconfig.json`) rather than a relative path; within the same directory, use relative imports as usual. A loose top-level file with no directory of its own would use the `@root/*` → `src/*` alias instead — unused today since every file currently lives under one of the named directories.
 
 ### `app/`
 
@@ -55,6 +55,14 @@ The browser-tab favicon **does** switch with the OS color scheme, so it can't us
 | Path | Description |
 | --- | --- |
 | `users/` | Reference layout for a resource's UI: `list/`, `listItem/`, `form/`, plus an `index.tsx` barrel |
+
+### `hooks/`
+
+One folder per hook, `<domain>/<useName>/index.ts`.
+
+| Path | Description |
+| --- | --- |
+| `theme/useDarkTheme/` | Resolves the active theme from `next-themes`, guarding against SSR/hydration mismatch |
 
 ### `forms/`
 
