@@ -4,5 +4,6 @@ export const NAMESPACES = [
   "errors",
   "footer",
   "header",
+  "nav",
   "users",
 ] as const;
