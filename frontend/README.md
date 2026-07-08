@@ -44,6 +44,8 @@ Next.js App Router routes: `layout.tsx` (root layout), `providers.tsx` (client-s
 
 Adding a route means a new folder named after the URL segment, with its own `page.tsx` (+ colocated `page.test.tsx`, and `loading.tsx`/`error.tsx`/`layout.tsx` as needed). **Never** name a folder literally `pages` (or `src/pages`) — that activates Next's legacy Pages Router.
 
+`[locale]/` splits into two route groups (parentheses, so they don't affect the URL): `(marketing)/` (public pages — own `layout.tsx` renders `Header`/`Footer` around `{children}`) and `(app)/` (signed-in app shell, e.g. `dashboard/` — own `layout.tsx` renders the `dashboard` component's `Shell` instead). `[locale]/layout.tsx` itself only holds what both groups share: `<html>`/`<body>`, fonts, `Providers`, `NextIntlClientProvider`.
+
 `public/icon-192.png` and `public/icon-512.png` (referenced by `manifest.ts`, PWA/Android home-screen icon) and `app/apple-icon.png` (Next's file convention for the iOS "Add to Home Screen" icon — auto-detected, not referenced anywhere in code) are the brand logo. Neither the web manifest spec nor Apple's touch-icon support a light/dark variant, so both are fixed to the light artwork — swap them by overwriting the same filenames/dimensions, nothing else needs to change. `apple-icon.png` is flattened onto the brand's cream background (`#FDF9EF`, no transparency) rather than kept transparent like the other two — Apple renders transparent pixels as solid black on the home screen icon, unlike Android/Chrome which composite PWA icons fine with alpha.
 
 The browser-tab favicon **does** switch with the OS color scheme, so it can't use Next's auto-detected `favicon.ico` convention (one fixed file). `layout.tsx`'s `metadata.icons.icon` instead lists `public/favicon-light.png` and `public/favicon-dark.png` (48×48, the latter with `media: "(prefers-color-scheme: dark)"`). Keep both entries in sync with `layout.tsx` if you regenerate or rename them.
@@ -55,6 +57,7 @@ The browser-tab favicon **does** switch with the OS color scheme, so it can't us
 | Path | Description |
 | --- | --- |
 | `users/` | Reference layout for a resource's UI: `list/`, `listItem/`, `form/`, plus an `index.tsx` barrel |
+| `dashboard/` | App-shell navigation: `consts.ts`/`types.ts` (shared `NAV_ITEMS`), `bottomNav/` (mobile, sticky-bottom tab bar), `sidebar/` (desktop, always-expanded), `shell/` (composes both around `{children}`) |
 
 ### `hooks/`
 
@@ -63,6 +66,7 @@ One folder per hook, `<domain>/<useName>/index.ts`.
 | Path | Description |
 | --- | --- |
 | `theme/useDarkTheme/` | Resolves the active theme from `next-themes`, guarding against SSR/hydration mismatch |
+| `nav/useActiveRoute/` | Matches the current pathname (via `@i18n/navigation`'s locale-aware `usePathname`) against a route, to drive active-link styling in `bottomNav`/`sidebar` |
 
 ### `forms/`
 
@@ -90,7 +94,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 ### `i18n/`
 
-`routing.ts`/`navigation.ts` (next-intl locale routing — `routing.ts` sets `localePrefix: "never"`, so URLs never show `/en`/`/pl`; locale is resolved from the `NEXT_LOCALE` cookie or `Accept-Language` header (`localeDetection: true`) and the `proxy.ts` middleware rewrites internally onto the `app/[locale]/...` folder structure — confirmed via the `x-middleware-rewrite` response header, e.g. a request for `/dashboard` rewrites to `/en/dashboard` server-side without the browser ever seeing it. Always import `Link`/`usePathname`/`useRouter` from `navigation.ts`, never `next/link`/`next/navigation` directly, or locale handling breaks) + `<locale>/<namespace>.json` catalogs, one file per namespace: `actions` (generic button verbs — cancel/confirm/edit/delete/save/create), `errors` (validation/error messages — shared vocabulary between `frontend/src/forms/*/schema.ts`'s zod messages and the keys the backend returns in GraphQL `extensions.fieldErrors`), and one namespace per resource module (e.g. `users`, `dashboard`).
+`routing.ts`/`navigation.ts` (next-intl locale routing — `routing.ts` sets `localePrefix: "never"`, so URLs never show `/en`/`/pl`; locale is resolved from the `NEXT_LOCALE` cookie or `Accept-Language` header (`localeDetection: true`) and the `proxy.ts` middleware rewrites internally onto the `app/[locale]/...` folder structure — confirmed via the `x-middleware-rewrite` response header, e.g. a request for `/dashboard` rewrites to `/en/dashboard` server-side without the browser ever seeing it. Always import `Link`/`usePathname`/`useRouter` from `navigation.ts`, never `next/link`/`next/navigation` directly, or locale handling breaks) + `<locale>/<namespace>.json` catalogs, one file per namespace: `actions` (generic button verbs — cancel/confirm/edit/delete/save/create), `errors` (validation/error messages — shared vocabulary between `frontend/src/forms/*/schema.ts`'s zod messages and the keys the backend returns in GraphQL `extensions.fieldErrors`), `nav` (dashboard navigation labels, shared by `bottomNav`/`sidebar`), and one namespace per resource/page module (e.g. `users`, `dashboard` — the latter nests keys per dashboard page: `today`, `dailyRhythm`, `tasks`, `community`, `profile`).
 
 ### `utils/`
 
