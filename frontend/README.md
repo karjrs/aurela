@@ -82,7 +82,7 @@ One folder per resource, holding one `@tanstack/react-query` hook per file (quer
 
 ### `i18n/`
 
-`request.ts` (next-intl config) + `<locale>/<namespace>.json` catalogs, one file per namespace: `actions` (generic button verbs — cancel/confirm/edit/delete/save/create), `errors` (validation/error messages — shared vocabulary between `frontend/src/forms/*/schema.ts`'s zod messages and the keys the backend returns in GraphQL `extensions.fieldErrors`), and one namespace per resource module (e.g. `users`). `request.ts` still hardcodes `locale = "en"` — a `pl/` catalog exists (same namespaces/keys) but there's no locale-switching routing/middleware yet, so it isn't reachable at runtime.
+`routing.ts`/`navigation.ts` (next-intl locale routing — `routing.ts` sets `localePrefix: "never"`, so URLs never show `/en`/`/pl`; locale is resolved from the `NEXT_LOCALE` cookie or `Accept-Language` header (`localeDetection: true`) and the `proxy.ts` middleware rewrites internally onto the `app/[locale]/...` folder structure — confirmed via the `x-middleware-rewrite` response header, e.g. a request for `/dashboard` rewrites to `/en/dashboard` server-side without the browser ever seeing it. Always import `Link`/`usePathname`/`useRouter` from `navigation.ts`, never `next/link`/`next/navigation` directly, or locale handling breaks) + `<locale>/<namespace>.json` catalogs, one file per namespace: `actions` (generic button verbs — cancel/confirm/edit/delete/save/create), `errors` (validation/error messages — shared vocabulary between `frontend/src/forms/*/schema.ts`'s zod messages and the keys the backend returns in GraphQL `extensions.fieldErrors`), and one namespace per resource module (e.g. `users`, `dashboard`).
 
 ### `utils/helpers/`
 
