@@ -24,6 +24,8 @@
     "docker:dev": "docker compose up --build",
     "docker:prod": "docker compose -f docker-compose.prod.yml up -d --build",
     "release": "node scripts/release.mjs",
+    "push-force:soft": "git push --no-verify",
+    "push-force:hard": "git push --no-verify -f",
     "prepare": "husky"
   },
   "devDependencies": {

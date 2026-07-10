@@ -1,1 +1,1 @@
-export const NAMESPACES = ["actions", "errors", "users"] as const;
+export const NAMESPACES = ["actions", "dashboard", "errors", "users"] as const;
