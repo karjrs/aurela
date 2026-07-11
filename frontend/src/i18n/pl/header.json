@@ -1,0 +1,13 @@
+{
+  "themeToggle": {
+    "light": "Przełącz na tryb jasny",
+    "dark": "Przełącz na tryb ciemny"
+  },
+  "language": {
+    "switchToEn": "Przełącz na angielski",
+    "switchToPl": "Przełącz na polski"
+  },
+  "actions": {
+    "cta": "Przejdź do panelu"
+  }
+}

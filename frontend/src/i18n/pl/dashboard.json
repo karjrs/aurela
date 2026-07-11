@@ -1,4 +1,22 @@
 {
-  "heading": "Panel",
-  "placeholder": "To jest strona zastępcza — właściwy panel nie został jeszcze zbudowany."
+  "today": {
+    "heading": "Panel",
+    "placeholder": "To jest strona zastępcza — właściwy panel nie został jeszcze zbudowany."
+  },
+  "dailyRhythm": {
+    "heading": "Rytm dnia",
+    "placeholder": "To jest strona zastępcza — właściwy rytm dnia nie został jeszcze zbudowany."
+  },
+  "tasks": {
+    "heading": "Zadania",
+    "placeholder": "To jest strona zastępcza — właściwe zadania nie zostały jeszcze zbudowane."
+  },
+  "community": {
+    "heading": "Społeczność",
+    "placeholder": "To jest strona zastępcza — właściwa społeczność nie została jeszcze zbudowana."
+  },
+  "profile": {
+    "heading": "Profil",
+    "placeholder": "To jest strona zastępcza — właściwy profil nie został jeszcze zbudowany."
+  }
 }

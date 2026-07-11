@@ -1,0 +1,12 @@
+{
+  "brand": {
+    "tagline": "A calmer way to plan your day"
+  },
+  "social": {
+    "facebook": "Follow on Facebook",
+    "x": "Follow on X",
+    "instagram": "Follow on Instagram",
+    "linkedin": "Follow on LinkedIn"
+  },
+  "copyright": "© {year} Aurela. All rights reserved."
+}

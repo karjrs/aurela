@@ -1,0 +1,13 @@
+{
+  "themeToggle": {
+    "light": "Switch to light mode",
+    "dark": "Switch to dark mode"
+  },
+  "language": {
+    "switchToEn": "Switch to English",
+    "switchToPl": "Switch to Polish"
+  },
+  "actions": {
+    "cta": "Go to dashboard"
+  }
+}

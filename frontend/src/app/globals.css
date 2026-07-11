@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-amber-50: #fef9f1;
   --color-amber-100: #fdf4e3;
@@ -93,19 +95,17 @@
   --input: var(--color-sand-300);
   --ring: var(--color-coral-400);
   --bg-gradient: linear-gradient(180deg, #fcf9f3 0%, #fae9c7 100%);
-  --bg-accent: radial-gradient(
+  --bg-accent-right: radial-gradient(
     circle at 85% 90%,
-    rgba(242, 184, 198, 0.55) 0%,
-    rgba(242, 184, 198, 0) 55%
+    color-mix(in oklab, var(--color-rose-200) 55%, transparent) 0%,
+    transparent 55%
+  );
+  --bg-accent-left: radial-gradient(
+    circle at 15% 50%,
+    color-mix(in oklab, var(--color-amber-300) 50%, transparent) 0%,
+    transparent 55%
   );
 
-  /* Literal tokens from the supplied aurela-semantic-tokens.css, kept
-     alongside the shadcn-style roles above for direct use. --color-primary
-     and --color-accent are intentionally not redeclared here — those exact
-     names are already reserved by the @theme inline block below (mapping
-     shadcn's --primary/--accent); the decorative brand accent instead lives
-     under --accent-brand/--accent-brand-soft, since it's a different value
-     than shadcn's neutral --accent. */
   --text-primary: var(--color-navy-900);
   --text-secondary: var(--color-navy-600);
   --bg-canvas: var(--color-sand-50);
@@ -115,46 +115,53 @@
   --accent-brand: var(--color-rose-500);
   --accent-brand-soft: var(--color-rose-100);
   --focus-ring: var(--color-coral-400);
+  --logo-hill-from: var(--color-sand-300);
+  --logo-hill-to: var(--color-sand-100);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: var(--color-navy-900);
-    --foreground: var(--color-sand-50);
-    --card: var(--color-navy-800);
-    --card-foreground: var(--color-sand-50);
-    --popover: var(--color-navy-700);
-    --popover-foreground: var(--color-sand-50);
-    --primary: var(--color-coral-400);
-    --primary-foreground: var(--color-navy-900);
-    --secondary: var(--color-navy-800);
-    --secondary-foreground: var(--color-sand-50);
-    --muted: var(--color-navy-800);
-    --muted-foreground: var(--color-navy-200);
-    --accent: var(--color-navy-800);
-    --accent-foreground: var(--color-sand-50);
-    --destructive: var(--color-rose-400);
-    --destructive-foreground: var(--color-navy-900);
-    --border: var(--color-navy-700);
-    --input: var(--color-navy-700);
-    --ring: var(--color-coral-300);
-    --bg-gradient: linear-gradient(180deg, #2e294d 0%, #4a427b 100%);
-    --bg-accent: radial-gradient(
-      circle at 85% 90%,
-      rgba(168, 86, 122, 0.35) 0%,
-      rgba(168, 86, 122, 0) 55%
-    );
+.dark {
+  --background: var(--color-navy-900);
+  --foreground: var(--color-sand-50);
+  --card: var(--color-navy-800);
+  --card-foreground: var(--color-sand-50);
+  --popover: var(--color-navy-700);
+  --popover-foreground: var(--color-sand-50);
+  --primary: var(--color-coral-400);
+  --primary-foreground: var(--color-navy-900);
+  --secondary: var(--color-navy-800);
+  --secondary-foreground: var(--color-sand-50);
+  --muted: var(--color-navy-800);
+  --muted-foreground: var(--color-navy-200);
+  --accent: var(--color-navy-800);
+  --accent-foreground: var(--color-sand-50);
+  --destructive: var(--color-rose-400);
+  --destructive-foreground: var(--color-navy-900);
+  --border: var(--color-navy-700);
+  --input: var(--color-navy-700);
+  --ring: var(--color-coral-300);
+  --bg-gradient: linear-gradient(180deg, #2e294d 0%, #4a427b 100%);
+  --bg-accent-right: radial-gradient(
+    circle at 85% 90%,
+    color-mix(in oklab, var(--color-plum-600) 35%, transparent) 0%,
+    transparent 55%
+  );
+  --bg-accent-left: radial-gradient(
+    circle at 15% 50%,
+    color-mix(in oklab, var(--color-navy-400) 35%, transparent) 0%,
+    transparent 55%
+  );
 
-    --text-primary: var(--color-sand-50);
-    --text-secondary: var(--color-navy-200);
-    --bg-canvas: var(--color-navy-900);
-    --bg-surface: var(--color-navy-800);
-    --bg-elevated: var(--color-navy-700);
-    --color-primary-hover: var(--color-coral-300);
-    --accent-brand: var(--color-plum-400);
-    --accent-brand-soft: var(--color-plum-800);
-    --focus-ring: var(--color-coral-300);
-  }
+  --text-primary: var(--color-sand-50);
+  --text-secondary: var(--color-navy-200);
+  --bg-canvas: var(--color-navy-900);
+  --bg-surface: var(--color-navy-800);
+  --bg-elevated: var(--color-navy-700);
+  --color-primary-hover: var(--color-coral-300);
+  --accent-brand: var(--color-plum-400);
+  --accent-brand-soft: var(--color-plum-800);
+  --focus-ring: var(--color-coral-300);
+  --logo-hill-from: var(--color-navy-600);
+  --logo-hill-to: var(--color-navy-800);
 }
 
 @theme inline {
@@ -177,7 +184,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --background-image-aurela: var(--bg-accent), var(--bg-gradient);
+  --background-image-aurela:
+    var(--bg-accent-left), var(--bg-accent-right), var(--bg-gradient);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

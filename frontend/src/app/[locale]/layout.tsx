@@ -1,6 +1,7 @@
+import type { PageProps } from "@components/common/page/types";
 import { routing } from "@i18n/routing";
 import { fraunces, manrope } from "@utils/layout/consts";
-import type { LayoutProps } from "@utils/types";
+import type { Children } from "@utils/types";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -8,7 +9,9 @@ import { Providers } from "./providers";
 
 import "@app/globals.css";
 
-const RootLayout = async ({ children, params }: LayoutProps) => {
+type RootLayoutProps = PageProps & Children;
+
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -20,11 +23,12 @@ const RootLayout = async ({ children, params }: LayoutProps) => {
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-foreground">
+      <body className="min-h-full flex flex-col font-body text-foreground bg-aurela">
         <Providers locale={locale} messages={messages}>
-          {children}
+          <main className="flex-1">{children}</main>
         </Providers>
       </body>
     </html>
