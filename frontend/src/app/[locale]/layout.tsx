@@ -1,3 +1,5 @@
+import { Footer } from "@components/common/footer";
+import { Header } from "@components/common/header";
 import { routing } from "@i18n/routing";
 import { fraunces, manrope } from "@utils/layout/consts";
 import type { LayoutProps } from "@utils/types";
@@ -20,11 +22,14 @@ const RootLayout = async ({ children, params }: LayoutProps) => {
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-foreground">
+      <body className="min-h-full flex flex-col font-body text-foreground bg-aurela">
         <Providers locale={locale} messages={messages}>
-          {children}
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>
