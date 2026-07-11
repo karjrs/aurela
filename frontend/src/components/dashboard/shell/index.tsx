@@ -1,11 +1,11 @@
-import { BottomNav } from "../bottomNav";
-import { Sidebar } from "../sidebar";
-import type { ShellProps } from "./types";
+import { MobileNav } from "@components/nav/mobile";
+import { SidebarNav } from "@components/nav/sidebar";
+import type { Children } from "@utils/types";
 
-export const Shell = ({ children }: ShellProps) => (
+export const Shell = ({ children }: Children) => (
   <div className="flex flex-1 flex-col md:flex-row">
-    <Sidebar />
+    <SidebarNav />
     <main className="flex-1">{children}</main>
-    <BottomNav />
+    <MobileNav />
   </div>
 );

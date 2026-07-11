@@ -1,10 +1,8 @@
-import { Footer } from "@components/common/footer";
-import { Header } from "@components/common/header";
-import type { ReactNode } from "react";
+import { Footer } from "@root/components/footer";
+import { Header } from "@root/components/header";
+import type { Children } from "@utils/types";
 
-type MarketingLayoutProps = Readonly<{ children: ReactNode }>;
-
-const MarketingLayout = ({ children }: MarketingLayoutProps) => (
+const MarketingLayout = ({ children }: Children) => (
   <>
     <Header />
     <main className="flex-1">{children}</main>

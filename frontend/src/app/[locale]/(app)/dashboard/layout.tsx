@@ -1,11 +1,9 @@
-import { Footer } from "@components/common/footer";
-import { Header } from "@components/common/header";
 import { Shell } from "@components/dashboard/shell";
-import type { ReactNode } from "react";
+import { Footer } from "@root/components/footer";
+import { Header } from "@root/components/header";
+import type { Children } from "@utils/types";
 
-type DashboardLayoutProps = Readonly<{ children: ReactNode }>;
-
-const DashboardLayout = ({ children }: DashboardLayoutProps) => (
+const DashboardLayout = ({ children }: Children) => (
   <>
     <Header />
     <Shell>{children}</Shell>
