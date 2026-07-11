@@ -1,5 +1,3 @@
-import { Footer } from "@components/common/footer";
-import { Header } from "@components/common/header";
 import { routing } from "@i18n/routing";
 import { fraunces, manrope } from "@utils/layout/consts";
 import type { LayoutProps } from "@utils/types";
@@ -27,9 +25,7 @@ const RootLayout = async ({ children, params }: LayoutProps) => {
     >
       <body className="min-h-full flex flex-col font-body text-foreground bg-aurela">
         <Providers locale={locale} messages={messages}>
-          <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
         </Providers>
       </body>
     </html>
