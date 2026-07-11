@@ -106,13 +106,6 @@
     transparent 55%
   );
 
-  /* Literal tokens from the supplied aurela-semantic-tokens.css, kept
-     alongside the shadcn-style roles above for direct use. --color-primary
-     and --color-accent are intentionally not redeclared here — those exact
-     names are already reserved by the @theme inline block below (mapping
-     shadcn's --primary/--accent); the decorative brand accent instead lives
-     under --accent-brand/--accent-brand-soft, since it's a different value
-     than shadcn's neutral --accent. */
   --text-primary: var(--color-navy-900);
   --text-secondary: var(--color-navy-600);
   --bg-canvas: var(--color-sand-50);
