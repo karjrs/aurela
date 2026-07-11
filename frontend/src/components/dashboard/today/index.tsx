@@ -2,6 +2,7 @@
 
 import { Button } from "@components/common/ui/button";
 import { useDashboardTasks } from "@hooks/dashboard/useDashboardTasks";
+import { useIsDesktop } from "@hooks/dashboard/useIsDesktop";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -18,6 +19,7 @@ const HIGHLIGHT_DURATION_MS = 1200;
 
 export const DashboardToday = () => {
   const t = useTranslations("dashboard.today");
+  const isDesktop = useIsDesktop();
   const { tasks, addTask, updateTask, toggleTaskDone, removeTask } =
     useDashboardTasks(INITIAL_TASKS);
 
@@ -90,16 +92,36 @@ export const DashboardToday = () => {
 
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
+  const showCalendar = isDesktop || viewMode === "calendar";
+  const showList = !isDesktop && viewMode === "list";
+
   return (
-    <div className="mx-auto flex w-full max-w-[480px] flex-col gap-6 px-4 py-8 sm:px-6">
+    <div className="mx-auto flex w-full max-w-[480px] flex-col gap-6 px-4 py-8 sm:px-6 md:max-w-6xl md:gap-8">
       <Greeting now={now} />
 
-      <SunArc
-        tasks={sortedTasks}
-        currentHour={currentHour}
-        highlightId={highlightId}
-        onSelectTask={handleSelectTask}
-      />
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
+        <div className="md:col-span-2">
+          <SunArc
+            tasks={sortedTasks}
+            currentHour={currentHour}
+            highlightId={highlightId}
+            onSelectTask={handleSelectTask}
+          />
+        </div>
+
+        {isDesktop && (
+          <div className="md:col-span-1">
+            <ListView
+              tasks={sortedTasks}
+              highlightId={highlightId}
+              blockRefs={blockRefs}
+              onToggleDone={toggleTaskDone}
+              onEdit={handleStartEdit}
+              onRemove={removeTask}
+            />
+          </div>
+        )}
+      </div>
 
       <p className="text-center text-sm text-muted-foreground">
         {t("completedCount", { completed: doneCount, total: tasks.length })}
@@ -115,7 +137,7 @@ export const DashboardToday = () => {
         </Button>
       </div>
 
-      <ViewToggle value={viewMode} onChange={setViewMode} />
+      {!isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
 
       {isAdding && (
         <TaskForm
@@ -132,7 +154,7 @@ export const DashboardToday = () => {
         />
       )}
 
-      {viewMode === "calendar" ? (
+      {showCalendar && (
         <CalendarView
           tasks={sortedTasks}
           currentHour={currentHour}
@@ -143,7 +165,9 @@ export const DashboardToday = () => {
           onRemove={removeTask}
           onUpdateTiming={(id, patch) => updateTask(id, patch)}
         />
-      ) : (
+      )}
+
+      {showList && (
         <ListView
           tasks={sortedTasks}
           highlightId={highlightId}
