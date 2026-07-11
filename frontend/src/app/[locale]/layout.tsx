@@ -1,6 +1,7 @@
+import type { PageProps } from "@components/common/page/types";
 import { routing } from "@i18n/routing";
 import { fraunces, manrope } from "@utils/layout/consts";
-import type { LayoutProps } from "@utils/types";
+import type { Children } from "@utils/types";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -8,7 +9,9 @@ import { Providers } from "./providers";
 
 import "@app/globals.css";
 
-const RootLayout = async ({ children, params }: LayoutProps) => {
+type RootLayoutProps = PageProps & Children;
+
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) notFound();
