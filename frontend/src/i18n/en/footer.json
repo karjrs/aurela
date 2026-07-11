@@ -2,14 +2,6 @@
   "brand": {
     "tagline": "A calmer way to plan your day"
   },
-  "links": {
-    "product": "Product",
-    "legal": {
-      "title": "Legal",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
-    }
-  },
   "social": {
     "facebook": "Follow on Facebook",
     "x": "Follow on X",

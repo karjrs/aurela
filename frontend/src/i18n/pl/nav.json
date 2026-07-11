@@ -4,5 +4,15 @@
   "dailyRhythm": "Rytm dnia",
   "tasks": "Zadania",
   "community": "Społeczność",
-  "profile": "Profil"
+  "profile": "Profil",
+  "howItWorks": "Jak to działa",
+  "about": "O nas",
+  "items": {
+    "product": "Produkt",
+    "legal": {
+      "title": "Informacje prawne",
+      "privacy": "Polityka prywatności",
+      "terms": "Regulamin"
+    }
+  }
 }

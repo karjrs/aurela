@@ -1,8 +1,4 @@
 {
-  "title": "Aurela",
-  "logo": {
-    "alt": "Logo Aurela"
-  },
   "themeToggle": {
     "light": "Przełącz na tryb jasny",
     "dark": "Przełącz na tryb ciemny"
@@ -10,12 +6,6 @@
   "language": {
     "switchToEn": "Przełącz na angielski",
     "switchToPl": "Przełącz na polski"
-  },
-  "nav": {
-    "dashboard": "Panel",
-    "dailyRhythm": "Codzienny rytm",
-    "howItWorks": "Jak to działa",
-    "about": "O nas"
   },
   "actions": {
     "cta": "Przejdź do panelu"

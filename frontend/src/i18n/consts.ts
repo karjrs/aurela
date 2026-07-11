@@ -1,5 +1,6 @@
 export const NAMESPACES = [
   "actions",
+  "common",
   "dashboard",
   "errors",
   "footer",

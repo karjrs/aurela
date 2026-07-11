@@ -1,8 +1,4 @@
 {
-  "title": "Aurela",
-  "logo": {
-    "alt": "Aurela logo"
-  },
   "themeToggle": {
     "light": "Switch to light mode",
     "dark": "Switch to dark mode"
@@ -10,12 +6,6 @@
   "language": {
     "switchToEn": "Switch to English",
     "switchToPl": "Switch to Polish"
-  },
-  "nav": {
-    "dashboard": "Dashboard",
-    "dailyRhythm": "Daily Rhythm",
-    "howItWorks": "How it works",
-    "about": "About"
   },
   "actions": {
     "cta": "Go to dashboard"
