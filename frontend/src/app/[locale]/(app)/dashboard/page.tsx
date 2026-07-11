@@ -1,19 +1,17 @@
-import type { PageProps } from "@utils/types";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Page } from "@components/common/page";
+import type { PageProps } from "@components/common/page/types";
+import { getTranslations } from "next-intl/server";
 
-const DashboardPage = async ({ params }: PageProps) => {
+const DashboardPage = async (props: PageProps) => {
   const t = await getTranslations("dashboard.today");
 
-  const { locale } = await params;
-  setRequestLocale(locale);
-
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-4 px-6 py-20 h-screen">
+    <Page {...props}>
       <h1 className="font-display text-3xl font-medium text-foreground">
         {t("heading")}
       </h1>
       <p className="text-muted-foreground">{t("placeholder")}</p>
-    </div>
+    </Page>
   );
 };
 
