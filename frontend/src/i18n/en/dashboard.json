@@ -1,7 +1,49 @@
 {
   "today": {
     "heading": "Dashboard",
-    "placeholder": "This is a placeholder page — the real dashboard experience isn't built yet."
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Still up?"
+    },
+    "dateLabel": "{date, date, full}",
+    "completedCount": "{completed, plural, =0 {No tasks completed yet} one {# of {total} task completed} other {# of {total} tasks completed}}",
+    "viewToggle": {
+      "calendar": "Calendar",
+      "list": "List",
+      "landmark": "View mode"
+    },
+    "arc": {
+      "sunrise": "Sunrise",
+      "sunset": "Sunset",
+      "taskAt": "{title} at {time}"
+    },
+    "calendar": {
+      "dragHandle": "Drag to change time",
+      "resizeHandle": "Drag to change duration"
+    },
+    "task": {
+      "markDone": "Mark as done",
+      "markNotDone": "Mark as not done",
+      "edit": "Edit task",
+      "delete": "Delete task",
+      "emptyState": "No tasks yet — add your first one below."
+    },
+    "form": {
+      "titleLabel": "Task name",
+      "titlePlaceholder": "e.g. Morning walk",
+      "emojiLabel": "Icon",
+      "timeLabel": "Start time",
+      "durationLabel": "Duration",
+      "addButton": "Add",
+      "addTaskButton": "Add task"
+    },
+    "duration": {
+      "minutes": "{minutes} min",
+      "hoursMinutes": "{hours} h {minutes} min",
+      "hours": "{hours} h"
+    }
   },
   "dailyRhythm": {
     "heading": "Daily Rhythm",

@@ -1,7 +1,49 @@
 {
   "today": {
     "heading": "Panel",
-    "placeholder": "To jest strona zastępcza — właściwy panel nie został jeszcze zbudowany."
+    "greeting": {
+      "morning": "Dzień dobry",
+      "afternoon": "Dzień dobry",
+      "evening": "Dobry wieczór",
+      "night": "Wciąż nie śpisz?"
+    },
+    "dateLabel": "{date, date, full}",
+    "completedCount": "{completed, plural, =0 {Brak ukończonych zadań} one {# z {total} zadania ukończone} few {# z {total} zadań ukończonych} many {# z {total} zadań ukończonych} other {# z {total} zadania ukończonego}}",
+    "viewToggle": {
+      "calendar": "Kalendarz",
+      "list": "Lista",
+      "landmark": "Tryb widoku"
+    },
+    "arc": {
+      "sunrise": "Wschód słońca",
+      "sunset": "Zachód słońca",
+      "taskAt": "{title} o {time}"
+    },
+    "calendar": {
+      "dragHandle": "Przeciągnij, aby zmienić godzinę",
+      "resizeHandle": "Przeciągnij, aby zmienić czas trwania"
+    },
+    "task": {
+      "markDone": "Oznacz jako ukończone",
+      "markNotDone": "Oznacz jako nieukończone",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "emptyState": "Brak zadań — dodaj swoje pierwsze poniżej."
+    },
+    "form": {
+      "titleLabel": "Nazwa zadania",
+      "titlePlaceholder": "np. Poranny spacer",
+      "emojiLabel": "Ikona",
+      "timeLabel": "Godzina rozpoczęcia",
+      "durationLabel": "Czas trwania",
+      "addButton": "Dodaj",
+      "addTaskButton": "Dodaj zadanie"
+    },
+    "duration": {
+      "minutes": "{minutes} min",
+      "hoursMinutes": "{hours} h {minutes} min",
+      "hours": "{hours} h"
+    }
   },
   "dailyRhythm": {
     "heading": "Rytm dnia",
