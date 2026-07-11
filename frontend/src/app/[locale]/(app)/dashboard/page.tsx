@@ -2,13 +2,13 @@ import type { PageProps } from "@utils/types";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 const DashboardPage = async ({ params }: PageProps) => {
-  const t = await getTranslations("dashboard");
+  const t = await getTranslations("dashboard.today");
 
   const { locale } = await params;
   setRequestLocale(locale);
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-4 px-6 py-20">
+    <div className="mx-auto flex max-w-2xl flex-col gap-4 px-6 py-20 h-screen">
       <h1 className="font-display text-3xl font-medium text-foreground">
         {t("heading")}
       </h1>

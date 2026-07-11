@@ -1,4 +1,22 @@
 {
-  "heading": "Dashboard",
-  "placeholder": "This is a placeholder page — the real dashboard experience isn't built yet."
+  "today": {
+    "heading": "Dashboard",
+    "placeholder": "This is a placeholder page — the real dashboard experience isn't built yet."
+  },
+  "dailyRhythm": {
+    "heading": "Daily Rhythm",
+    "placeholder": "This is a placeholder page — the real daily rhythm experience isn't built yet."
+  },
+  "tasks": {
+    "heading": "Tasks",
+    "placeholder": "This is a placeholder page — the real tasks experience isn't built yet."
+  },
+  "community": {
+    "heading": "Community",
+    "placeholder": "This is a placeholder page — the real community experience isn't built yet."
+  },
+  "profile": {
+    "heading": "Profile",
+    "placeholder": "This is a placeholder page — the real profile experience isn't built yet."
+  }
 }
