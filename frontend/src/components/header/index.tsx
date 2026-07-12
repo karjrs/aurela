@@ -6,7 +6,7 @@ import { Theme } from "./theme";
 
 export const Header = () => (
   <header className="sticky top-0 z-10 border-b border-border bg-aurela px-2">
-    <div className="mx-auto grid h-16 w-full max-w-[var(--page-width)] grid-cols-[auto_1fr_auto] items-center gap-4">
+    <div className="mx-auto grid h-16 w-full max-w-page grid-cols-[auto_1fr_auto] items-center gap-4">
       <Logo />
       <HeaderNav />
       <div className="flex items-center justify-end gap-2">

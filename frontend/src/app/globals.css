@@ -71,10 +71,12 @@
 
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
+
+  --container-page: var(--page-width);
 }
 
 :root {
-  --page-width: 80rem;
+  --page-width: 90rem;
   --radius: 0.5rem;
   --background: var(--color-sand-50);
   --foreground: var(--color-navy-900);
