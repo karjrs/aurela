@@ -41,7 +41,7 @@ export const SleepWidget = () => {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-2xl font-medium text-foreground">
+        <span className="font-display text-lg font-medium text-foreground">
           {durationLabel(sleptHours)}
         </span>
         <span className="text-xs text-muted-foreground">
