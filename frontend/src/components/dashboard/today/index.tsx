@@ -101,7 +101,7 @@ export const DashboardToday = () => {
   const showList = viewMode === "list";
 
   return (
-    <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-7xl">
+    <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-[var(--page-width)]">
       <Greeting now={now} userName="Karol" />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
@@ -142,12 +142,12 @@ export const DashboardToday = () => {
             <AnalogClockWidget now={now} tasks={sortedTasks} />
           </div>
           <WeatherWidget />
-          <SleepWidget />
           <FocusTimerWidget />
+          <SleepWidget />
         </>
       )}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2.5">
         <h1 className="font-display text-lg font-semibold text-foreground">
           {t("heading")}
         </h1>

@@ -74,6 +74,7 @@
 }
 
 :root {
+  --page-width: 80rem;
   --radius: 0.5rem;
   --background: var(--color-sand-50);
   --foreground: var(--color-navy-900);
