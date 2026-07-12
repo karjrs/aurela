@@ -25,12 +25,6 @@ const renderWidget = (now: Date, tasks: Task[] = []) =>
   );
 
 describe("AnalogClockWidget", () => {
-  it("shows the digital caption in 24-hour format for the Polish locale", () => {
-    renderWidget(new Date("2026-07-12T14:05:00"));
-    expect(screen.getByText("14:05")).toBeInTheDocument();
-    expect(screen.queryByText(/AM|PM/)).not.toBeInTheDocument();
-  });
-
   it("renders a dot for a task within the next 12 hours", () => {
     renderWidget(new Date("2026-07-12T10:00:00"), [
       makeTask({ id: "soon", hour: 14 }),

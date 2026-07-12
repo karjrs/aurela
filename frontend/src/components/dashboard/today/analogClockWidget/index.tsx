@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { isWithinNextHours } from "./isWithinNextHours";
 import { pointOnClock } from "./pointOnClock";
 import type { AnalogClockWidgetProps } from "./types";
@@ -17,7 +17,6 @@ const NEXT_HOURS_WINDOW = 12;
 
 export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
   const t = useTranslations("dashboard.today");
-  const locale = useLocale();
 
   const currentHour = now.getHours() + now.getMinutes() / 60;
   const hourHandPoint = pointOnClock(
@@ -35,17 +34,12 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
     isWithinNextHours(task.hour, currentHour, NEXT_HOURS_WINDOW),
   );
 
-  const digitalCaption = now.toLocaleTimeString(locale, {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
   return (
     <section
       aria-label={t("clock.heading")}
-      className="flex aspect-square flex-1 flex-col items-center justify-center gap-3 rounded-3xl border border-border bg-card p-4 shadow-sm"
+      className="flex aspect-square flex-1 items-center justify-center rounded-3xl border border-border bg-card p-4 shadow-sm"
     >
-      <svg viewBox="0 0 100 100" aria-hidden className="w-full flex-1">
+      <svg viewBox="0 0 100 100" aria-hidden className="size-full">
         <circle
           cx={CENTER}
           cy={CENTER}
@@ -124,10 +118,6 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
           className="fill-[color:var(--accent-brand)]"
         />
       </svg>
-
-      <span className="font-display text-lg font-medium text-foreground">
-        {digitalCaption}
-      </span>
     </section>
   );
 };
