@@ -17,7 +17,7 @@ const fetchWeather = async ({
   latitude,
   longitude,
 }: Coords): Promise<WeatherData> => {
-  const url = `${OPEN_METEO_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code&timezone=auto`;
+  const url = `${OPEN_METEO_URL}?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,precipitation_probability,precipitation&timezone=auto`;
   const response = await fetch(url);
   if (!response.ok) throw new Error("Failed to fetch weather");
   return parseWeatherResponse(await response.json());

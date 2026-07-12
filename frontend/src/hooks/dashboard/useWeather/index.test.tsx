@@ -55,6 +55,29 @@ describe("useWeather", () => {
     );
   });
 
+  it("requests precipitation chance and amount in the hourly params", async () => {
+    Object.defineProperty(navigator, "geolocation", {
+      value: undefined,
+      configurable: true,
+    });
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue({ ok: true, json: async () => rawResponse });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { result } = renderHook(() => useWeather(), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.status).toBe("success"));
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "hourly=temperature_2m,weather_code,precipitation_probability,precipitation",
+      ),
+    );
+  });
+
   it("fetches with the geolocated coordinates once available", async () => {
     Object.defineProperty(navigator, "geolocation", {
       value: {
