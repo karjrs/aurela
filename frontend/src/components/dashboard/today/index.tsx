@@ -120,11 +120,11 @@ export const DashboardToday = () => {
 
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
+            <WeatherWidget />
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
               <PlaceholderProgressWidget />
             </div>
-            <WeatherWidget />
             <ListView
               tasks={sortedTasks}
               highlightId={highlightId}
@@ -139,11 +139,11 @@ export const DashboardToday = () => {
 
       {!isDesktop && (
         <>
+          <WeatherWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
             <PlaceholderProgressWidget />
           </div>
-          <WeatherWidget />
         </>
       )}
 
