@@ -36,20 +36,20 @@ describe("TaskProgressWidget", () => {
     renderWidget(tasks);
 
     expect(screen.getByText("4")).toBeInTheDocument();
-    expect(screen.getByText("plany")).toBeInTheDocument();
+    expect(screen.getByText("zadania")).toBeInTheDocument();
   });
 
   it("shows zero with the many-form label when there are no tasks", () => {
     renderWidget([]);
 
     expect(screen.getByText("0")).toBeInTheDocument();
-    expect(screen.getByText("planów")).toBeInTheDocument();
+    expect(screen.getByText("zadań")).toBeInTheDocument();
   });
 
   it("uses the singular label for exactly one task", () => {
     renderWidget([makeTask({ id: "1" })]);
 
     expect(screen.getByText("1")).toBeInTheDocument();
-    expect(screen.getByText("plan")).toBeInTheDocument();
+    expect(screen.getByText("zadanie")).toBeInTheDocument();
   });
 });

@@ -54,7 +54,7 @@
       "heading": "Clock"
     },
     "progress": {
-      "label": "{count, plural, one {plan} other {plans}}"
+      "label": "{count, plural, one {task} other {tasks}}"
     },
     "focusTimer": {
       "work": "Work",

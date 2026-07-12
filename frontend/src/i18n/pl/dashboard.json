@@ -48,13 +48,13 @@
       "forecastLabel": "Prognoza na kolejne godziny"
     },
     "sleep": {
-      "heading": "Sen"
+      "heading": "snu"
     },
     "clock": {
       "heading": "Zegar"
     },
     "progress": {
-      "label": "{count, plural, one {plan} few {plany} many {planów} other {planu}}"
+      "label": "{count, plural, one {zadanie} few {zadania} many {zadań} other {zadania}}"
     },
     "focusTimer": {
       "work": "Praca",

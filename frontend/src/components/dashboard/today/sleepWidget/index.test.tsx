@@ -27,7 +27,7 @@ describe("SleepWidget", () => {
 
     renderWidget();
 
-    expect(screen.getByText("Sen")).toBeInTheDocument();
+    expect(screen.getByText("snu")).toBeInTheDocument();
     expect(screen.getByText("6 h 45 min")).toBeInTheDocument();
   });
 

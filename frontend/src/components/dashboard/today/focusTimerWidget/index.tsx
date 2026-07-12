@@ -37,66 +37,67 @@ export const FocusTimerWidget = () => {
   const ToggleIcon = isRunning ? Pause : Play;
 
   return (
-    <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm">
-      <div className="relative size-32 shrink-0">
-        <svg className="size-full -rotate-90" viewBox="0 0 100 100" aria-hidden>
-          <circle
-            cx="50"
-            cy="50"
-            r={RADIUS}
-            fill="none"
-            strokeWidth={STROKE_WIDTH}
-            className="stroke-muted-foreground/20"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r={RADIUS}
-            fill="none"
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-            strokeDasharray={CIRCUMFERENCE}
-            strokeDashoffset={dashOffset}
-            className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
-          />
-        </svg>
+    <div className="relative aspect-square flex-1 rounded-3xl border border-border bg-card p-4 shadow-sm">
+      <svg className="size-full -rotate-90" viewBox="0 0 100 100" aria-hidden>
+        <circle
+          cx="50"
+          cy="50"
+          r={RADIUS}
+          fill="none"
+          strokeWidth={STROKE_WIDTH}
+          className="stroke-muted-foreground/20"
+        />
+        <circle
+          cx="50"
+          cy="50"
+          r={RADIUS}
+          fill="none"
+          strokeWidth={STROKE_WIDTH}
+          strokeLinecap="round"
+          strokeDasharray={CIRCUMFERENCE}
+          strokeDashoffset={dashOffset}
+          className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
+        />
+      </svg>
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-display text-2xl font-medium text-foreground">
-            {formatTime(secondsRemaining)}
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {t(phase === "work" ? "focusTimer.work" : "focusTimer.break")}
-          </span>
-        </div>
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-display text-2xl font-medium text-foreground">
+          {formatTime(secondsRemaining)}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {t(phase === "work" ? "focusTimer.work" : "focusTimer.break")}
+        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2">
-        <Button type="button" size="sm" onClick={toggle}>
-          <ToggleIcon className="size-3.5" aria-hidden />
-          {t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
-        </Button>
-        <div className="flex gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            onClick={skipPhase}
-            aria-label={t("focusTimer.skip")}
-          >
-            <SkipForward className="size-3.5" aria-hidden />
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            onClick={reset}
-            aria-label={t("focusTimer.reset")}
-          >
-            <RotateCcw className="size-3.5" aria-hidden />
-          </Button>
-        </div>
-      </div>
+      <Button
+        type="button"
+        variant="outline"
+        size="icon-sm"
+        onClick={skipPhase}
+        aria-label={t("focusTimer.skip")}
+        className="absolute top-2 left-2"
+      >
+        <SkipForward className="size-3.5" aria-hidden />
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="icon-sm"
+        onClick={reset}
+        aria-label={t("focusTimer.reset")}
+        className="absolute top-2 right-2"
+      >
+        <RotateCcw className="size-3.5" aria-hidden />
+      </Button>
+      <Button
+        type="button"
+        size="icon-sm"
+        onClick={toggle}
+        aria-label={t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
+        className="absolute right-2 bottom-2"
+      >
+        <ToggleIcon className="size-3.5" aria-hidden />
+      </Button>
     </div>
   );
 };
