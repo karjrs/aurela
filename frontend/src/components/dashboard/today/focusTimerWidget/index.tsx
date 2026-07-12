@@ -38,47 +38,45 @@ export const FocusTimerWidget = () => {
 
   return (
     <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm">
-      <svg
-        className="size-20 shrink-0 -rotate-90"
-        viewBox="0 0 100 100"
-        aria-hidden
-      >
-        <circle
-          cx="50"
-          cy="50"
-          r={RADIUS}
-          fill="none"
-          strokeWidth={STROKE_WIDTH}
-          className="stroke-muted-foreground/20"
-        />
-        <circle
-          cx="50"
-          cy="50"
-          r={RADIUS}
-          fill="none"
-          strokeWidth={STROKE_WIDTH}
-          strokeLinecap="round"
-          strokeDasharray={CIRCUMFERENCE}
-          strokeDashoffset={dashOffset}
-          className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
-        />
-      </svg>
+      <div className="relative size-32 shrink-0">
+        <svg className="size-full -rotate-90" viewBox="0 0 100 100" aria-hidden>
+          <circle
+            cx="50"
+            cy="50"
+            r={RADIUS}
+            fill="none"
+            strokeWidth={STROKE_WIDTH}
+            className="stroke-muted-foreground/20"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r={RADIUS}
+            fill="none"
+            strokeWidth={STROKE_WIDTH}
+            strokeLinecap="round"
+            strokeDasharray={CIRCUMFERENCE}
+            strokeDashoffset={dashOffset}
+            className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
+          />
+        </svg>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
-        <div>
-          <p className="font-display text-2xl font-medium text-foreground">
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="font-display text-2xl font-medium text-foreground">
             {formatTime(secondsRemaining)}
-          </p>
-          <p className="text-xs text-muted-foreground">
+          </span>
+          <span className="text-xs text-muted-foreground">
             {t(phase === "work" ? "focusTimer.work" : "focusTimer.break")}
-          </p>
+          </span>
         </div>
+      </div>
 
+      <div className="flex flex-1 flex-col gap-2">
+        <Button type="button" size="sm" onClick={toggle}>
+          <ToggleIcon className="size-3.5" aria-hidden />
+          {t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
+        </Button>
         <div className="flex gap-2">
-          <Button type="button" size="sm" onClick={toggle}>
-            <ToggleIcon className="size-3.5" aria-hidden />
-            {t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
-          </Button>
           <Button
             type="button"
             variant="outline"
