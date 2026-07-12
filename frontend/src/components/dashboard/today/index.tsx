@@ -12,6 +12,7 @@ import { FocusTimerWidget } from "./focusTimerWidget";
 import { Greeting } from "./greeting";
 import { ListView } from "./listView";
 import { NextTaskCard } from "./nextTaskCard";
+import { SleepWidget } from "./sleepWidget";
 import { SunArc } from "./sunArc";
 import { TaskForm } from "./taskForm";
 import { TaskProgressWidget } from "./taskProgressWidget";
@@ -121,6 +122,7 @@ export const DashboardToday = () => {
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
             <WeatherWidget />
+            <SleepWidget />
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
               <FocusTimerWidget />
@@ -132,6 +134,7 @@ export const DashboardToday = () => {
       {!isDesktop && (
         <>
           <WeatherWidget />
+          <SleepWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
             <FocusTimerWidget />
