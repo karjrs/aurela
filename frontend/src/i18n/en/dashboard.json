@@ -50,6 +50,10 @@
     "sleep": {
       "heading": "Sleep"
     },
+    "note": {
+      "heading": "Note",
+      "placeholder": "Jot something down…"
+    },
     "clock": {
       "heading": "Clock"
     },

@@ -50,6 +50,10 @@
     "sleep": {
       "heading": "snu"
     },
+    "note": {
+      "heading": "Notatka",
+      "placeholder": "Zapisz coś na później…"
+    },
     "clock": {
       "heading": "Zegar"
     },
