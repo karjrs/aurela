@@ -13,7 +13,7 @@ export const ProgressRingCard = ({
   const dashOffset = CIRCUMFERENCE * (1 - progress);
 
   return (
-    <div className="relative aspect-square flex-1 rounded-3xl border border-border bg-card p-4 shadow-sm">
+    <div className="relative aspect-square rounded-3xl border border-border bg-card p-4 shadow-sm">
       <svg
         className="size-full -rotate-90"
         viewBox="0 0 100 100"

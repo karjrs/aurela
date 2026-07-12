@@ -1,24 +1,22 @@
 "use client";
 
 import { Button } from "@components/common/ui/button";
-import { useDashboardTasks } from "@hooks/dashboard/useDashboardTasks";
+import { TaskForm } from "@components/dashboard/taskForm";
+import { useDashboardTasksContext } from "@hooks/dashboard/useDashboardTasks/context";
 import { useDesktop } from "@hooks/dashboard/useDesktop";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnalogClockWidget } from "./analogClockWidget";
-import { CalendarView } from "./calendarView";
-import { INITIAL_TASKS } from "./consts";
+import { CalendarCardWidget } from "./calendarCardWidget";
 import { FocusTimerWidget } from "./focusTimerWidget";
 import { Greeting } from "./greeting";
-import { ListView } from "./listView";
 import { NextTaskCard } from "./nextTaskCard";
-import { SleepWidget } from "./sleepWidget";
+import { NoteWidget } from "./noteWidget";
 import { SunArc } from "./sunArc";
-import { TaskForm } from "./taskForm";
+import { TaskListWidget } from "./taskListWidget";
 import { TaskProgressWidget } from "./taskProgressWidget";
-import type { Task, TaskInput, ViewMode } from "./types";
-import { ViewToggle } from "./viewToggle";
+import type { Task, TaskInput } from "./types";
 import { WeatherWidget } from "./weatherWidget";
 
 const HIGHLIGHT_DURATION_MS = 1200;
@@ -27,9 +25,8 @@ export const DashboardToday = () => {
   const t = useTranslations("dashboard.today");
   const isDesktop = useDesktop();
   const { tasks, addTask, updateTask, toggleTaskDone, removeTask } =
-    useDashboardTasks(INITIAL_TASKS);
+    useDashboardTasksContext();
 
-  const [viewMode, setViewMode] = useState<ViewMode>("calendar");
   const [now, setNow] = useState<Date | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -97,14 +94,11 @@ export const DashboardToday = () => {
 
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
-  const showCalendar = viewMode === "calendar";
-  const showList = viewMode === "list";
-
   return (
     <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-page">
       <Greeting now={now} userName="Karol" />
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:items-start">
         <div className="md:col-span-2 flex flex-col gap-4">
           <SunArc
             tasks={sortedTasks}
@@ -115,50 +109,54 @@ export const DashboardToday = () => {
           <NextTaskCard
             tasks={sortedTasks}
             currentHour={currentHour}
+            highlightId={highlightId}
             onToggleDone={toggleTaskDone}
-            onSelectTask={handleSelectTask}
+            onEdit={handleStartEdit}
+            onRemove={removeTask}
+          />
+          <TaskListWidget
+            tasks={sortedTasks}
+            highlightId={highlightId}
+            blockRefs={blockRefs}
+            onToggleDone={toggleTaskDone}
+            onEdit={handleStartEdit}
+            onRemove={removeTask}
           />
         </div>
 
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
-            <WeatherWidget />
-
             <div className="flex gap-4">
+              <CalendarCardWidget now={now} />
               <AnalogClockWidget now={now} tasks={sortedTasks} />
-              <SleepWidget />
             </div>
+
+            <WeatherWidget />
 
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
               <FocusTimerWidget />
             </div>
+
+            <NoteWidget />
           </div>
         )}
       </div>
 
       {!isDesktop && (
         <>
-          <WeatherWidget />
           <div className="flex gap-4">
+            <CalendarCardWidget now={now} />
             <AnalogClockWidget now={now} tasks={sortedTasks} />
-            <SleepWidget />
           </div>
+          <WeatherWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
             <FocusTimerWidget />
           </div>
+          <NoteWidget />
         </>
       )}
-
-      <div className="flex items-center gap-2.5">
-        <h1 className="font-display text-lg font-semibold text-foreground">
-          {t("heading")}
-        </h1>
-        {isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
-      </div>
-
-      {!isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
 
       <Button
         type="button"
@@ -181,30 +179,6 @@ export const DashboardToday = () => {
           initialValues={editingTask}
           onSubmit={handleEditSubmit}
           onCancel={() => setEditingTask(null)}
-        />
-      )}
-
-      {showCalendar && (
-        <CalendarView
-          tasks={sortedTasks}
-          currentHour={currentHour}
-          highlightId={highlightId}
-          blockRefs={blockRefs}
-          onToggleDone={toggleTaskDone}
-          onEdit={handleStartEdit}
-          onRemove={removeTask}
-          onUpdateTiming={(id, patch) => updateTask(id, patch)}
-        />
-      )}
-
-      {showList && (
-        <ListView
-          tasks={sortedTasks}
-          highlightId={highlightId}
-          blockRefs={blockRefs}
-          onToggleDone={toggleTaskDone}
-          onEdit={handleStartEdit}
-          onRemove={removeTask}
         />
       )}
     </div>
