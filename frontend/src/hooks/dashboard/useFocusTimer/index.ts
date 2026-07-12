@@ -48,6 +48,7 @@ export const useFocusTimer = (): FocusTimerState => {
   };
 
   const skipPhase = () => {
+    setIsRunning(false);
     setPhase((currentPhase) => (currentPhase === "work" ? "break" : "work"));
   };
 
