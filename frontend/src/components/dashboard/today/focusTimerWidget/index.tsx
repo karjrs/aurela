@@ -71,7 +71,7 @@ export const FocusTimerWidget = () => {
 
       <Button
         type="button"
-        variant="outline"
+        variant="ghost"
         size="icon-sm"
         onClick={skipPhase}
         aria-label={t("focusTimer.skip")}
@@ -81,7 +81,7 @@ export const FocusTimerWidget = () => {
       </Button>
       <Button
         type="button"
-        variant="outline"
+        variant="ghost"
         size="icon-sm"
         onClick={reset}
         aria-label={t("focusTimer.reset")}
@@ -92,6 +92,7 @@ export const FocusTimerWidget = () => {
       <Button
         type="button"
         size="icon-sm"
+        variant="outline"
         onClick={toggle}
         aria-label={t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
         className="absolute bottom-4 left-4"
