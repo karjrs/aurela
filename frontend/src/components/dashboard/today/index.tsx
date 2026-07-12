@@ -142,7 +142,7 @@ export const DashboardToday = () => {
         </>
       )}
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between">
         <h1 className="font-display text-lg font-semibold text-foreground">
           {t("heading")}
         </h1>
