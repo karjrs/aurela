@@ -1,17 +1,18 @@
 "use client";
 
-import { hourToTime } from "@utils/dateTime";
-import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { ListItem } from "../listView/listItem";
 import { selectNextTask } from "./selectNextTask";
 import type { NextTaskCardProps } from "./types";
 
 export const NextTaskCard = ({
   tasks,
   currentHour,
+  highlightId,
   onToggleDone,
-  onSelectTask,
+  onEdit,
+  onRemove,
 }: NextTaskCardProps) => {
   const t = useTranslations("dashboard.today");
   const nextTask = useMemo(
@@ -26,49 +27,16 @@ export const NextTaskCard = ({
       </p>
 
       {nextTask ? (
-        <div className="mt-2 flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              onToggleDone(nextTask.id);
-            }}
-            aria-label={t(nextTask.done ? "task.markNotDone" : "task.markDone")}
-            className="flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-border bg-transparent text-white"
-          >
-            {nextTask.done && <Check className="size-3.5" aria-hidden />}
-          </button>
-
-          {/* biome-ignore lint/a11y/useSemanticElements: sibling <button> above already covers the toggle action; this row is a separate select/scroll trigger */}
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => onSelectTask(nextTask.id)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                onSelectTask(nextTask.id);
-              }
-            }}
-            className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5"
-          >
-            <div
-              className="flex size-8.5 shrink-0 items-center justify-center rounded-full bg-background text-base"
-              aria-hidden
-            >
-              {nextTask.emoji}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-foreground">
-                {nextTask.title}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {hourToTime(nextTask.hour)}–
-                {hourToTime(nextTask.hour + nextTask.duration)}
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul className="mt-2">
+          <ListItem
+            task={nextTask}
+            highlighted={highlightId === nextTask.id}
+            onRegisterNode={() => {}}
+            onToggleDone={() => onToggleDone(nextTask.id)}
+            onEdit={() => onEdit(nextTask)}
+            onRemove={() => onRemove(nextTask.id)}
+          />
+        </ul>
       ) : (
         <p className="mt-2 text-sm text-muted-foreground">
           {t("nextTask.empty")}

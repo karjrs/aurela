@@ -89,6 +89,9 @@
       "delete": "Delete task",
       "emptyState": "No tasks yet — add your first one below."
     },
+    "taskList": {
+      "heading": "All tasks"
+    },
     "form": {
       "titleLabel": "Task name",
       "titlePlaceholder": "e.g. Morning walk",

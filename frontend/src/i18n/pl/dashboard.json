@@ -89,6 +89,9 @@
       "delete": "Usuń",
       "emptyState": "Brak zadań — dodaj swoje pierwsze poniżej."
     },
+    "taskList": {
+      "heading": "Wszystkie zadania"
+    },
     "form": {
       "titleLabel": "Nazwa zadania",
       "titlePlaceholder": "np. Poranny spacer",
