@@ -140,16 +140,19 @@ export const DashboardToday = () => {
       )}
 
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-lg font-semibold text-foreground">
-          {t("heading")}
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="font-display text-lg font-semibold text-foreground">
+            {t("heading")}
+          </h1>
+          {isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
+        </div>
         <Button type="button" size="sm" onClick={handleStartAdd}>
           <Plus className="size-4" aria-hidden />
           {t("form.addTaskButton")}
         </Button>
       </div>
 
-      <ViewToggle value={viewMode} onChange={setViewMode} />
+      {!isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
 
       {isAdding && (
         <TaskForm
