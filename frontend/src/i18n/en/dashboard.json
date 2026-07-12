@@ -50,6 +50,13 @@
     "progress": {
       "label": "{count, plural, one {plan} other {plans}}"
     },
+    "focusTimer": {
+      "work": "Work",
+      "break": "Break",
+      "start": "Start",
+      "pause": "Pause",
+      "reset": "Reset"
+    },
     "viewToggle": {
       "calendar": "Calendar",
       "list": "List",
