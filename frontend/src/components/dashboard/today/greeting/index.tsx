@@ -5,23 +5,28 @@ import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { GreetingProps } from "./types";
 
-const greetingKey = (hour: number) => {
+const greetingPeriod = (hour: number) => {
   if (hour < 5) return "night";
-  if (hour < 12) return "morning";
+  if (hour < 11) return "morning";
+  if (hour < 14) return "noon";
   if (hour < 18) return "afternoon";
-  return "evening";
+  if (hour < 22) return "evening";
+  return "night";
 };
 
-export const Greeting = ({ now }: GreetingProps) => {
+export const Greeting = ({ now, userName }: GreetingProps) => {
   const t = useTranslations("dashboard.today");
   const hour = now.getHours() + now.getMinutes() / 60;
   const location = useUserLocation();
+
+  const variants = t.raw(`greeting.${greetingPeriod(hour)}`) as string[];
+  const greeting = variants[Math.floor(Math.random() * variants.length)];
 
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
         <p className="font-display text-2xl font-medium text-foreground">
-          {t(`greeting.${greetingKey(hour)}`)}
+          {greeting}, {userName}.
         </p>
         <p className="mt-0.5 text-sm text-muted-foreground">
           {t("dateLabel", { date: now })}

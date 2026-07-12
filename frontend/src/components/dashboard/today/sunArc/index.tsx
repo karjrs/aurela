@@ -193,7 +193,7 @@ export const SunArc = ({
         {tasks.map((task) => {
           const point = pointOnArc(clamp01(task.hour / 24));
           const isHighlighted = highlightId === task.id;
-          const radius = isHighlighted ? 13 : 11;
+          const radius = isHighlighted ? 10 : 8;
 
           return (
             // biome-ignore lint/a11y/useSemanticElements: <button> isn't valid inside <svg>; this SVG <g> is the interactive marker itself
@@ -231,7 +231,7 @@ export const SunArc = ({
               <text
                 x={point.x}
                 y={point.y}
-                fontSize="13"
+                fontSize="8"
                 textAnchor="middle"
                 dominantBaseline="central"
               >

@@ -18,11 +18,19 @@ const now = new Date("2026-07-12T09:00:00");
 const renderGreeting = () =>
   render(
     <NextIntlClientProvider locale="pl" messages={messages}>
-      <Greeting now={now} />
+      <Greeting now={now} userName="Karol" />
     </NextIntlClientProvider>,
   );
 
 describe("Greeting", () => {
+  it("renders the greeting with the user's name", () => {
+    useUserLocationMock.mockReturnValue({ status: "loading" });
+
+    renderGreeting();
+
+    expect(screen.getByText(/, Karol$/)).toBeInTheDocument();
+  });
+
   it("renders nothing extra while location is loading", () => {
     useUserLocationMock.mockReturnValue({ status: "loading" });
 
