@@ -6,4 +6,5 @@ export type FocusTimerState = {
   isRunning: boolean;
   toggle: () => void;
   reset: () => void;
+  skipPhase: () => void;
 };

@@ -71,4 +71,36 @@ describe("useFocusTimer", () => {
     expect(result.current.secondsRemaining).toBe(25 * 60);
     expect(result.current.isRunning).toBe(false);
   });
+
+  it("skipPhase switches to break with its full duration while paused", () => {
+    const { result } = renderHook(() => useFocusTimer());
+
+    act(() => result.current.skipPhase());
+
+    expect(result.current.phase).toBe("break");
+    expect(result.current.secondsRemaining).toBe(5 * 60);
+    expect(result.current.isRunning).toBe(false);
+  });
+
+  it("skipPhase keeps running when the timer was already running", () => {
+    const { result } = renderHook(() => useFocusTimer());
+
+    act(() => result.current.toggle());
+    act(() => vi.advanceTimersByTime(3000));
+    act(() => result.current.skipPhase());
+
+    expect(result.current.phase).toBe("break");
+    expect(result.current.secondsRemaining).toBe(5 * 60);
+    expect(result.current.isRunning).toBe(true);
+  });
+
+  it("skipPhase toggles back to work from break", () => {
+    const { result } = renderHook(() => useFocusTimer());
+
+    act(() => result.current.skipPhase());
+    act(() => result.current.skipPhase());
+
+    expect(result.current.phase).toBe("work");
+    expect(result.current.secondsRemaining).toBe(25 * 60);
+  });
 });

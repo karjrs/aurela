@@ -46,5 +46,9 @@ export const useFocusTimer = (): FocusTimerState => {
     setSecondsRemaining(durationFor(phase));
   };
 
-  return { phase, secondsRemaining, isRunning, toggle, reset };
+  const skipPhase = () => {
+    setPhase((currentPhase) => (currentPhase === "work" ? "break" : "work"));
+  };
+
+  return { phase, secondsRemaining, isRunning, toggle, reset, skipPhase };
 };
