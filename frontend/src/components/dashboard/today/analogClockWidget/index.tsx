@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { isWithinNextHours } from "./isWithinNextHours";
 import { pointOnClock } from "./pointOnClock";
 import type { AnalogClockWidgetProps } from "./types";
+import { useCurrentSeconds } from "./useCurrentSeconds";
 
 const CENTER = 50;
 const FACE_RADIUS = 44;
@@ -11,6 +12,7 @@ const TICK_LENGTH = 4;
 const MINUTE_TICK_LENGTH = 2;
 const HOUR_HAND_LENGTH = 22;
 const MINUTE_HAND_LENGTH = 34;
+const SECOND_HAND_LENGTH = 40;
 const TASK_DOT_RADIUS = FACE_RADIUS;
 const TASK_DOT_SIZE = 2;
 const HOUR_MARK_COUNT = 12;
@@ -19,6 +21,7 @@ const NEXT_HOURS_WINDOW = 12;
 
 export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
   const t = useTranslations("dashboard.today");
+  const seconds = useCurrentSeconds();
 
   const currentHour = now.getHours() + now.getMinutes() / 60;
   const hourHandPoint = pointOnClock(
@@ -29,6 +32,11 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
   const minuteHandPoint = pointOnClock(
     now.getMinutes() / 60,
     MINUTE_HAND_LENGTH,
+    CENTER,
+  );
+  const secondHandPoint = pointOnClock(
+    seconds / 60,
+    SECOND_HAND_LENGTH,
     CENTER,
   );
 
@@ -136,6 +144,15 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
           strokeWidth="2.5"
           strokeLinecap="round"
           className="stroke-foreground"
+        />
+        <line
+          x1={CENTER}
+          y1={CENTER}
+          x2={secondHandPoint.x}
+          y2={secondHandPoint.y}
+          strokeWidth="1"
+          strokeLinecap="round"
+          className="stroke-[color:var(--accent-brand)]"
         />
         <circle
           cx={CENTER}

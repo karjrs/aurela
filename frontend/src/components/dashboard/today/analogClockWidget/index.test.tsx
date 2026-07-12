@@ -1,9 +1,13 @@
 import dashboard from "@i18n/pl/dashboard.json";
 import { render, screen } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { Task } from "../types";
 import { AnalogClockWidget } from ".";
+
+vi.mock("./useCurrentSeconds", () => ({
+  useCurrentSeconds: () => 0,
+}));
 
 const messages = { dashboard };
 
