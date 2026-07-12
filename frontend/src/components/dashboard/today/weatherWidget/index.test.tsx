@@ -29,6 +29,8 @@ const hourly = Array.from({ length: 8 }, (_, i) => ({
   time: `2026-07-12T${10 + i}:00`,
   temperature: 30 + i,
   weatherCode: 1,
+  precipitationProbability: i === 0 ? 40 : 0,
+  precipitation: i === 0 ? 1.2 : 0,
 }));
 
 describe("WeatherWidget", () => {
@@ -84,6 +86,54 @@ describe("WeatherWidget", () => {
     expect(screen.getByText("Warszawa, Polska")).toBeInTheDocument();
     expect(screen.getByText("21°")).toBeInTheDocument();
     expect(screen.getAllByRole("listitem")).toHaveLength(8);
+  });
+
+  it("shows the precipitation chance and amount for hours with rain", () => {
+    useUserLocationMock.mockReturnValue({
+      status: "success",
+      label: "Warszawa, Polska",
+    });
+    useWeatherMock.mockReturnValue({
+      status: "success",
+      data: {
+        current: {
+          time: "2026-07-12T09:00",
+          temperature: 21.4,
+          weatherCode: 1,
+        },
+        hourly,
+      },
+      isFetching: false,
+      refetch: vi.fn(),
+    });
+
+    renderWidget();
+
+    expect(screen.getByText("40% • 1.2mm")).toBeInTheDocument();
+  });
+
+  it("hides the precipitation line for hours with no rain chance", () => {
+    useUserLocationMock.mockReturnValue({
+      status: "success",
+      label: "Warszawa, Polska",
+    });
+    useWeatherMock.mockReturnValue({
+      status: "success",
+      data: {
+        current: {
+          time: "2026-07-12T09:00",
+          temperature: 21.4,
+          weatherCode: 1,
+        },
+        hourly,
+      },
+      isFetching: false,
+      refetch: vi.fn(),
+    });
+
+    renderWidget();
+
+    expect(screen.queryByText(/0% • 0.0mm/)).not.toBeInTheDocument();
   });
 
   it("shows the location error message when location fails", () => {

@@ -2,7 +2,10 @@
 
 import { useUserLocation } from "@hooks/dashboard/useUserLocation";
 import { useWeather } from "@hooks/dashboard/useWeather";
-import type { WeatherCondition } from "@hooks/dashboard/useWeather/types";
+import type {
+  HourlyWeatherCondition,
+  WeatherCondition,
+} from "@hooks/dashboard/useWeather/types";
 import { cn } from "@utils/helpers/cn";
 import { getWeatherIcon } from "@utils/weather";
 import { MapPin, RefreshCw } from "lucide-react";
@@ -27,7 +30,7 @@ const HourlyForecast = ({
   hours,
   label,
 }: {
-  hours: WeatherCondition[];
+  hours: HourlyWeatherCondition[];
   label: string;
 }) => (
   <ul className="flex gap-3 overflow-x-auto pb-1" aria-label={label}>
@@ -45,6 +48,12 @@ const HourlyForecast = ({
           <span className="text-xs font-medium text-foreground">
             {Math.round(hour.temperature)}°
           </span>
+          {hour.precipitationProbability > 0 && (
+            <span className="text-[10px] text-muted-foreground">
+              {Math.round(hour.precipitationProbability)}% •{" "}
+              {hour.precipitation.toFixed(1)}mm
+            </span>
+          )}
         </li>
       );
     })}
