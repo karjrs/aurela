@@ -11,8 +11,10 @@ import { INITIAL_TASKS } from "./consts";
 import { Greeting } from "./greeting";
 import { ListView } from "./listView";
 import { NextTaskCard } from "./nextTaskCard";
+import { PlaceholderProgressWidget } from "./placeholderProgressWidget";
 import { SunArc } from "./sunArc";
 import { TaskForm } from "./taskForm";
+import { TaskProgressWidget } from "./taskProgressWidget";
 import type { Task, TaskInput, ViewMode } from "./types";
 import { ViewToggle } from "./viewToggle";
 import { WeatherWidget } from "./weatherWidget";
@@ -55,7 +57,6 @@ export const DashboardToday = () => {
     () => [...tasks].sort((a, b) => a.hour - b.hour),
     [tasks],
   );
-  const doneCount = tasks.filter((task) => task.done).length;
 
   const handleSelectTask = (id: string) => {
     setHighlightId(id);
@@ -119,6 +120,10 @@ export const DashboardToday = () => {
 
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
+            <div className="flex gap-4">
+              <TaskProgressWidget tasks={sortedTasks} />
+              <PlaceholderProgressWidget />
+            </div>
             <WeatherWidget />
             <ListView
               tasks={sortedTasks}
@@ -132,11 +137,15 @@ export const DashboardToday = () => {
         )}
       </div>
 
-      {!isDesktop && <WeatherWidget />}
-
-      <p className="text-center text-sm text-muted-foreground">
-        {t("completedCount", { completed: doneCount, total: tasks.length })}
-      </p>
+      {!isDesktop && (
+        <>
+          <div className="flex gap-4">
+            <TaskProgressWidget tasks={sortedTasks} />
+            <PlaceholderProgressWidget />
+          </div>
+          <WeatherWidget />
+        </>
+      )}
 
       <div className="flex items-center justify-between">
         <h1 className="font-display text-lg font-semibold text-foreground">
