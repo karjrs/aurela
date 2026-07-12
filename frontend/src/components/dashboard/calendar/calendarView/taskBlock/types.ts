@@ -1,4 +1,4 @@
-import type { Task, TaskInput } from "../../types";
+import type { Task, TaskInput } from "@components/dashboard/today/types";
 
 export type TaskBlockProps = {
   task: Task;

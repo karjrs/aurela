@@ -1,5 +1,5 @@
+import type { Task, TaskInput } from "@components/dashboard/today/types";
 import type { MutableRefObject } from "react";
-import type { Task, TaskInput } from "../types";
 
 export type CalendarViewProps = {
   tasks: Task[];

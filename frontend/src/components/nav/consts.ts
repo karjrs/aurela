@@ -1,6 +1,13 @@
 import { routes } from "@utils/consts/routes";
 import type { Link } from "@utils/types";
-import { Activity, ListChecks, Sun, User, Users } from "lucide-react";
+import {
+  Activity,
+  CalendarDays,
+  ListChecks,
+  Sun,
+  User,
+  Users,
+} from "lucide-react";
 import type { NavItem } from "./types";
 
 export const productItems: Link[] = [
@@ -24,6 +31,11 @@ export const navItems: NavItem[] = [
     label: "tasks",
     href: routes.dashboard.tasks,
     icon: ListChecks,
+  },
+  {
+    label: "calendar",
+    href: routes.dashboard.calendar,
+    icon: CalendarDays,
   },
   {
     label: "today",

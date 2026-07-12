@@ -3,12 +3,15 @@
 import { Field, FieldLabel } from "@components/common/forms/field";
 import { Input } from "@components/common/inputs/input";
 import { Button } from "@components/common/ui/button";
+import {
+  DURATION_OPTIONS,
+  EMOJI_PRESETS,
+} from "@components/dashboard/today/consts";
 import { useDurationLabel } from "@hooks/dashboard/useDurationLabel";
 import { hourToTime, timeToHour } from "@utils/dateTime";
 import { cn } from "@utils/helpers/cn";
 import { useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
-import { DURATION_OPTIONS, EMOJI_PRESETS } from "../consts";
 import { EmojiPicker } from "./emojiPicker";
 import type { TaskFormProps } from "./types";
 

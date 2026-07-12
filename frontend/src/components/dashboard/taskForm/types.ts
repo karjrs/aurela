@@ -1,4 +1,4 @@
-import type { TaskInput } from "../types";
+import type { TaskInput } from "@components/dashboard/today/types";
 
 export type TaskFormProps = {
   initialValues?: TaskInput;

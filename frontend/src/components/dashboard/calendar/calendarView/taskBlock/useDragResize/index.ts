@@ -1,10 +1,14 @@
 "use client";
 
+import {
+  DAY_END,
+  DAY_START,
+  MIN_DURATION,
+} from "@components/dashboard/today/consts";
+import type { Task, TaskInput } from "@components/dashboard/today/types";
 import { snapToQuarterHour } from "@utils/dateTime";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DAY_END, DAY_START, MIN_DURATION } from "../../../consts";
-import type { Task, TaskInput } from "../../../types";
 
 type DragMode = "move" | "resize";
 

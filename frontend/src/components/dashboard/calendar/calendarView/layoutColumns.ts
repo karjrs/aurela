@@ -1,4 +1,4 @@
-import type { Task } from "../types";
+import type { Task } from "@components/dashboard/today/types";
 
 export type ColumnLayout = {
   columnOf: Record<string, number>;

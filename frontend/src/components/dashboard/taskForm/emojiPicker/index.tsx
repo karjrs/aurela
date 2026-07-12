@@ -1,6 +1,6 @@
+import { EMOJI_PRESETS } from "@components/dashboard/today/consts";
 import { cn } from "@utils/helpers/cn";
 import { useTranslations } from "next-intl";
-import { EMOJI_PRESETS } from "../../consts";
 import type { EmojiPickerProps } from "./types";
 
 export const EmojiPicker = ({ value, onChange }: EmojiPickerProps) => {

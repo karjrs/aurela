@@ -108,6 +108,9 @@
     "heading": "Daily Rhythm",
     "placeholder": "This is a placeholder page — the real daily rhythm experience isn't built yet."
   },
+  "calendar": {
+    "heading": "Calendar"
+  },
   "tasks": {
     "heading": "Tasks",
     "placeholder": "This is a placeholder page — the real tasks experience isn't built yet."

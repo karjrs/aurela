@@ -1,8 +1,12 @@
 "use client";
 
+import {
+  DAY_END,
+  DAY_START,
+  HOUR_HEIGHT,
+} from "@components/dashboard/today/consts";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { DAY_END, DAY_START, HOUR_HEIGHT } from "../consts";
 import { layoutColumns } from "./layoutColumns";
 import { TaskBlock } from "./taskBlock";
 import type { CalendarViewProps } from "./types";

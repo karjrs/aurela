@@ -108,6 +108,9 @@
     "heading": "Rytm dnia",
     "placeholder": "To jest strona zastępcza — właściwy rytm dnia nie został jeszcze zbudowany."
   },
+  "calendar": {
+    "heading": "Kalendarz"
+  },
   "tasks": {
     "heading": "Zadania",
     "placeholder": "To jest strona zastępcza — właściwe zadania nie zostały jeszcze zbudowane."

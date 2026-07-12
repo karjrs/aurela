@@ -1,5 +1,5 @@
+import type { Task } from "@components/dashboard/today/types";
 import { describe, expect, it } from "vitest";
-import type { Task } from "../types";
 import { layoutColumns } from "./layoutColumns";
 
 const task = (id: string, hour: number, duration: number): Task => ({

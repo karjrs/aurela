@@ -1,10 +1,10 @@
 "use client";
 
+import { DAY_START, HOUR_HEIGHT } from "@components/dashboard/today/consts";
 import { hourToTime } from "@utils/dateTime";
 import { cn } from "@utils/helpers/cn";
 import { Check, GripVertical, Pencil, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { DAY_START, HOUR_HEIGHT } from "../../consts";
 import type { TaskBlockProps } from "./types";
 import { useDragResize } from "./useDragResize";
 
