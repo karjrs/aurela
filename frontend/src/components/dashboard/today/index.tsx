@@ -2,7 +2,7 @@
 
 import { Button } from "@components/common/ui/button";
 import { useDashboardTasks } from "@hooks/dashboard/useDashboardTasks";
-import { useIsDesktop } from "@hooks/dashboard/useIsDesktop";
+import { useDesktop } from "@hooks/dashboard/useDesktop";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -10,16 +10,18 @@ import { CalendarView } from "./calendarView";
 import { INITIAL_TASKS } from "./consts";
 import { Greeting } from "./greeting";
 import { ListView } from "./listView";
+import { NextTaskCard } from "./nextTaskCard";
 import { SunArc } from "./sunArc";
 import { TaskForm } from "./taskForm";
 import type { Task, TaskInput, ViewMode } from "./types";
 import { ViewToggle } from "./viewToggle";
+import { WeatherWidget } from "./weatherWidget";
 
 const HIGHLIGHT_DURATION_MS = 1200;
 
 export const DashboardToday = () => {
   const t = useTranslations("dashboard.today");
-  const isDesktop = useIsDesktop();
+  const isDesktop = useDesktop();
   const { tasks, addTask, updateTask, toggleTaskDone, removeTask } =
     useDashboardTasks(INITIAL_TASKS);
 
@@ -96,21 +98,28 @@ export const DashboardToday = () => {
   const showList = !isDesktop && viewMode === "list";
 
   return (
-    <div className="mx-auto flex w-full max-w-[480px] flex-col gap-6 px-4 py-8 sm:px-6 md:max-w-6xl md:gap-8">
-      <Greeting now={now} />
+    <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-6xl">
+      <Greeting now={now} userName="Karol" />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 flex flex-col gap-4">
           <SunArc
             tasks={sortedTasks}
             currentHour={currentHour}
             highlightId={highlightId}
             onSelectTask={handleSelectTask}
           />
+          <NextTaskCard
+            tasks={sortedTasks}
+            currentHour={currentHour}
+            onToggleDone={toggleTaskDone}
+            onSelectTask={handleSelectTask}
+          />
         </div>
 
         {isDesktop && (
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 flex flex-col gap-4">
+            <WeatherWidget />
             <ListView
               tasks={sortedTasks}
               highlightId={highlightId}
@@ -122,6 +131,8 @@ export const DashboardToday = () => {
           </div>
         )}
       </div>
+
+      {!isDesktop && <WeatherWidget />}
 
       <p className="text-center text-sm text-muted-foreground">
         {t("completedCount", { completed: doneCount, total: tasks.length })}

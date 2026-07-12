@@ -2,14 +2,50 @@
   "today": {
     "heading": "Panel",
     "greeting": {
-      "morning": "Dzień dobry",
-      "afternoon": "Dzień dobry",
-      "evening": "Dobry wieczór",
-      "night": "Wciąż nie śpisz?"
+      "morning": [
+        "Dzień dobry",
+        "Miłego poranka",
+        "Cześć",
+        "Dzień dobry, słonko już wstało",
+        "Nowy dzień, nowe możliwości"
+      ],
+      "noon": [
+        "Dzień dobry",
+        "Miłego południa",
+        "Jak minął poranek?",
+        "Czas na przerwę?",
+        "Południe już za pasem"
+      ],
+      "afternoon": [
+        "Dobrego popołudnia",
+        "Cześć",
+        "Jak mija dzień?",
+        "Popołudniowa energia",
+        "Trzymasz tempo?"
+      ],
+      "evening": [
+        "Dobry wieczór",
+        "Miłego wieczoru",
+        "Czas zwolnić tempo",
+        "Wieczór już tu",
+        "Jak minął dzień?"
+      ],
+      "night": [
+        "Wciąż nie śpisz?",
+        "Dobranoc niedługo?",
+        "Nocna zmiana?",
+        "Ciii, cicha noc",
+        "Pora na odpoczynek"
+      ]
     },
     "dateLabel": "{date, date, full}",
     "location": {
       "error": "Lokalizacja niedostępna"
+    },
+    "weather": {
+      "refresh": "Odśwież pogodę",
+      "error": "Nie udało się pobrać pogody",
+      "forecastLabel": "Prognoza na kolejne godziny"
     },
     "completedCount": "{completed, plural, =0 {Brak ukończonych zadań} one {# z {total} zadania ukończone} few {# z {total} zadań ukończonych} many {# z {total} zadań ukończonych} other {# z {total} zadania ukończonego}}",
     "viewToggle": {
@@ -21,6 +57,10 @@
       "sunrise": "Wschód słońca",
       "sunset": "Zachód słońca",
       "taskAt": "{title} o {time}"
+    },
+    "nextTask": {
+      "heading": "Następne zadanie",
+      "empty": "Wszystko zrobione 🎉"
     },
     "calendar": {
       "dragHandle": "Przeciągnij, aby zmienić godzinę",

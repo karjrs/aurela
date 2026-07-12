@@ -2,14 +2,50 @@
   "today": {
     "heading": "Dashboard",
     "greeting": {
-      "morning": "Good morning",
-      "afternoon": "Good afternoon",
-      "evening": "Good evening",
-      "night": "Still up?"
+      "morning": [
+        "Good morning",
+        "Have a great morning",
+        "Hey there",
+        "Good morning, rise and shine",
+        "New day, new possibilities"
+      ],
+      "noon": [
+        "Good day",
+        "Enjoy your noon",
+        "How was your morning?",
+        "Time for a break?",
+        "Noon is here"
+      ],
+      "afternoon": [
+        "Good afternoon",
+        "Hey there",
+        "How's the day going?",
+        "Afternoon energy",
+        "Keeping up the pace?"
+      ],
+      "evening": [
+        "Good evening",
+        "Have a nice evening",
+        "Time to slow down",
+        "Evening has arrived",
+        "How was your day?"
+      ],
+      "night": [
+        "Still up?",
+        "Bedtime soon?",
+        "Working the night shift?",
+        "Shh, quiet night",
+        "Time to rest"
+      ]
     },
     "dateLabel": "{date, date, full}",
     "location": {
       "error": "Location unavailable"
+    },
+    "weather": {
+      "refresh": "Refresh weather",
+      "error": "Unable to load weather",
+      "forecastLabel": "Forecast for the next hours"
     },
     "completedCount": "{completed, plural, =0 {No tasks completed yet} one {# of {total} task completed} other {# of {total} tasks completed}}",
     "viewToggle": {
@@ -21,6 +57,10 @@
       "sunrise": "Sunrise",
       "sunset": "Sunset",
       "taskAt": "{title} at {time}"
+    },
+    "nextTask": {
+      "heading": "Next up",
+      "empty": "All done 🎉"
     },
     "calendar": {
       "dragHandle": "Drag to change time",
