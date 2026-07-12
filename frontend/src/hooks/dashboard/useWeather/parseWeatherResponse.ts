@@ -1,4 +1,8 @@
-import type { WeatherCondition, WeatherData } from "./types";
+import type {
+  HourlyWeatherCondition,
+  WeatherCondition,
+  WeatherData,
+} from "./types";
 
 export const HOURLY_FORECAST_COUNT = 8;
 
@@ -8,6 +12,8 @@ type OpenMeteoResponse = {
     time: string[];
     temperature_2m: number[];
     weather_code: number[];
+    precipitation_probability: number[];
+    precipitation: number[];
   };
 };
 
@@ -26,12 +32,14 @@ export const parseWeatherResponse = (
   );
   const from = startIndex === -1 ? raw.hourly.time.length : startIndex;
 
-  const hourly: WeatherCondition[] = raw.hourly.time
+  const hourly: HourlyWeatherCondition[] = raw.hourly.time
     .slice(from, from + HOURLY_FORECAST_COUNT)
     .map((time, i) => ({
       time,
       temperature: raw.hourly.temperature_2m[from + i],
       weatherCode: raw.hourly.weather_code[from + i],
+      precipitationProbability: raw.hourly.precipitation_probability[from + i],
+      precipitation: raw.hourly.precipitation[from + i],
     }));
 
   return { current, hourly };

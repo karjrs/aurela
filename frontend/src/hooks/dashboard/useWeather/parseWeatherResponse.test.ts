@@ -9,6 +9,8 @@ const rawResponse = {
     time: hours.map((h) => `2026-07-12T${String(h).padStart(2, "0")}:00`),
     temperature_2m: hours.map((h) => 15 + h),
     weather_code: hours.map((h) => h % 4),
+    precipitation_probability: hours.map((h) => (h === 10 ? 40 : 0)),
+    precipitation: hours.map((h) => (h === 10 ? 1.2 : 0)),
   },
 };
 
@@ -37,11 +39,15 @@ describe("parseWeatherResponse", () => {
       time: "2026-07-12T10:00",
       temperature: 25,
       weatherCode: 2,
+      precipitationProbability: 40,
+      precipitation: 1.2,
     });
     expect(result.hourly.at(-1)).toEqual({
       time: "2026-07-12T17:00",
       temperature: 32,
       weatherCode: 1,
+      precipitationProbability: 0,
+      precipitation: 0,
     });
   });
 

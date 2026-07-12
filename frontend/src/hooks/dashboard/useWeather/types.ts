@@ -4,7 +4,12 @@ export type WeatherCondition = {
   weatherCode: number;
 };
 
+export type HourlyWeatherCondition = WeatherCondition & {
+  precipitationProbability: number;
+  precipitation: number;
+};
+
 export type WeatherData = {
   current: WeatherCondition;
-  hourly: WeatherCondition[];
+  hourly: HourlyWeatherCondition[];
 };
