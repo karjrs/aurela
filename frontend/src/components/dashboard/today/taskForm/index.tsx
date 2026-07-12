@@ -3,24 +3,14 @@
 import { Field, FieldLabel } from "@components/common/forms/field";
 import { Input } from "@components/common/inputs/input";
 import { Button } from "@components/common/ui/button";
-import { hourToTime, splitDuration, timeToHour } from "@utils/dateTime";
+import { useDurationLabel } from "@hooks/dashboard/useDurationLabel";
+import { hourToTime, timeToHour } from "@utils/dateTime";
 import { cn } from "@utils/helpers/cn";
 import { useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
 import { DURATION_OPTIONS, EMOJI_PRESETS } from "../consts";
 import { EmojiPicker } from "./emojiPicker";
 import type { TaskFormProps } from "./types";
-
-const useDurationLabel = () => {
-  const t = useTranslations("dashboard.today.duration");
-
-  return (durationHours: number) => {
-    const { hours, minutes } = splitDuration(durationHours);
-    if (hours && minutes) return t("hoursMinutes", { hours, minutes });
-    if (hours) return t("hours", { hours });
-    return t("minutes", { minutes });
-  };
-};
 
 export const TaskForm = ({
   initialValues,
