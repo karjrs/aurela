@@ -20,7 +20,7 @@ export const SleepWidget = () => {
       <p className="font-display text-2xl font-medium text-foreground">
         {durationLabel(sleptHours)}
       </p>
-      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted-foreground/20">
         <div
           data-testid="sleep-bar-fill"
           className="h-full rounded-full bg-[color:var(--accent-brand)] transition-[width] duration-500"
