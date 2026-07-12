@@ -8,10 +8,10 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CalendarView } from "./calendarView";
 import { INITIAL_TASKS } from "./consts";
+import { FocusTimerWidget } from "./focusTimerWidget";
 import { Greeting } from "./greeting";
 import { ListView } from "./listView";
 import { NextTaskCard } from "./nextTaskCard";
-import { PlaceholderProgressWidget } from "./placeholderProgressWidget";
 import { SunArc } from "./sunArc";
 import { TaskForm } from "./taskForm";
 import { TaskProgressWidget } from "./taskProgressWidget";
@@ -123,7 +123,7 @@ export const DashboardToday = () => {
             <WeatherWidget />
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
-              <PlaceholderProgressWidget />
+              <FocusTimerWidget />
             </div>
             <ListView
               tasks={sortedTasks}
@@ -142,7 +142,7 @@ export const DashboardToday = () => {
           <WeatherWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
-            <PlaceholderProgressWidget />
+            <FocusTimerWidget />
           </div>
         </>
       )}
