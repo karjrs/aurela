@@ -8,11 +8,13 @@ import type { AnalogClockWidgetProps } from "./types";
 const CENTER = 50;
 const FACE_RADIUS = 44;
 const TICK_LENGTH = 4;
+const MINUTE_TICK_LENGTH = 2;
 const HOUR_HAND_LENGTH = 22;
 const MINUTE_HAND_LENGTH = 34;
 const TASK_DOT_RADIUS = FACE_RADIUS;
 const TASK_DOT_SIZE = 3;
 const HOUR_MARK_COUNT = 12;
+const MINUTE_MARK_COUNT = 60;
 const NEXT_HOURS_WINDOW = 12;
 
 export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
@@ -48,6 +50,30 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
           strokeWidth="2"
           className="stroke-muted-foreground/20"
         />
+
+        {Array.from({ length: MINUTE_MARK_COUNT }, (_, i) => i)
+          .filter((i) => i % (MINUTE_MARK_COUNT / HOUR_MARK_COUNT) !== 0)
+          .map((i) => {
+            const fraction = i / MINUTE_MARK_COUNT;
+            const inner = pointOnClock(
+              fraction,
+              FACE_RADIUS - MINUTE_TICK_LENGTH,
+              CENTER,
+            );
+            const outer = pointOnClock(fraction, FACE_RADIUS, CENTER);
+            return (
+              <line
+                key={fraction}
+                x1={inner.x}
+                y1={inner.y}
+                x2={outer.x}
+                y2={outer.y}
+                strokeWidth="1"
+                strokeLinecap="round"
+                className="stroke-muted-foreground/20"
+              />
+            );
+          })}
 
         {Array.from({ length: HOUR_MARK_COUNT }, (_, i) => {
           const fraction = i / HOUR_MARK_COUNT;
