@@ -6,6 +6,7 @@ import { useDesktop } from "@hooks/dashboard/useDesktop";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AnalogClockWidget } from "./analogClockWidget";
 import { CalendarView } from "./calendarView";
 import { INITIAL_TASKS } from "./consts";
 import { FocusTimerWidget } from "./focusTimerWidget";
@@ -122,6 +123,7 @@ export const DashboardToday = () => {
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
             <WeatherWidget />
+            <AnalogClockWidget now={now} tasks={sortedTasks} />
             <SleepWidget />
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
@@ -134,6 +136,7 @@ export const DashboardToday = () => {
       {!isDesktop && (
         <>
           <WeatherWidget />
+          <AnalogClockWidget now={now} tasks={sortedTasks} />
           <SleepWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
