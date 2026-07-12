@@ -92,6 +92,9 @@
     "taskList": {
       "heading": "Wszystkie zadania"
     },
+    "calendarCard": {
+      "linkLabel": "Otwórz kalendarz"
+    },
     "form": {
       "titleLabel": "Nazwa zadania",
       "titlePlaceholder": "np. Poranny spacer",

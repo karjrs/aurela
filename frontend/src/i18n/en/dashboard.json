@@ -92,6 +92,9 @@
     "taskList": {
       "heading": "All tasks"
     },
+    "calendarCard": {
+      "linkLabel": "Open calendar"
+    },
     "form": {
       "titleLabel": "Task name",
       "titlePlaceholder": "e.g. Morning walk",
