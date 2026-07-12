@@ -122,15 +122,15 @@ export const DashboardToday = () => {
 
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
+            <WeatherWidget />
+
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
               <AnalogClockWidget now={now} tasks={sortedTasks} />
             </div>
-            <WeatherWidget />
+
+            <FocusTimerWidget />
             <SleepWidget />
-            <div className="flex gap-4">
-              <FocusTimerWidget />
-            </div>
           </div>
         )}
       </div>
@@ -143,9 +143,7 @@ export const DashboardToday = () => {
           </div>
           <WeatherWidget />
           <SleepWidget />
-          <div className="flex gap-4">
-            <FocusTimerWidget />
-          </div>
+          <FocusTimerWidget />
         </>
       )}
 
