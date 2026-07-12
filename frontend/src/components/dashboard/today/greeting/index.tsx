@@ -1,7 +1,5 @@
 "use client";
 
-import { useUserLocation } from "@hooks/dashboard/useUserLocation";
-import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { GreetingProps } from "./types";
 
@@ -17,7 +15,6 @@ const greetingPeriod = (hour: number) => {
 export const Greeting = ({ now, userName }: GreetingProps) => {
   const t = useTranslations("dashboard.today");
   const hour = now.getHours() + now.getMinutes() / 60;
-  const location = useUserLocation();
 
   const variants = t.raw(`greeting.${greetingPeriod(hour)}`) as string[];
   const greeting = variants[Math.floor(Math.random() * variants.length)];
@@ -32,17 +29,6 @@ export const Greeting = ({ now, userName }: GreetingProps) => {
           {t("dateLabel", { date: now })}
         </p>
       </div>
-
-      {location.status === "success" && (
-        <p className="flex items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="size-4" aria-hidden />
-          {location.label}
-        </p>
-      )}
-
-      {location.status === "error" && (
-        <p className="text-sm text-muted-foreground">{t("location.error")}</p>
-      )}
     </div>
   );
 };
