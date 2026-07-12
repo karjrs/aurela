@@ -40,7 +40,7 @@ describe("useFocusTimer", () => {
     expect(result.current.secondsRemaining).toBe(25 * 60);
   });
 
-  it("switches to the break phase and keeps running when work reaches zero", () => {
+  it("switches to the break phase and stops when work reaches zero", () => {
     const { result } = renderHook(() => useFocusTimer());
 
     act(() => result.current.toggle());
@@ -48,7 +48,7 @@ describe("useFocusTimer", () => {
 
     expect(result.current.phase).toBe("break");
     expect(result.current.secondsRemaining).toBe(5 * 60);
-    expect(result.current.isRunning).toBe(true);
+    expect(result.current.isRunning).toBe(false);
   });
 
   it("plays a chime when a phase ends", async () => {

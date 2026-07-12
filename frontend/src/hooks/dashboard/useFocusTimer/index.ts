@@ -28,6 +28,7 @@ export const useFocusTimer = (): FocusTimerState => {
         setPhase((currentPhase) =>
           currentPhase === "work" ? "break" : "work",
         );
+        setIsRunning(false);
         return 0;
       });
     }, 1000);

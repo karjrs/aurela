@@ -34,6 +34,7 @@ export const FocusTimerWidget = () => {
     phase === "work"
       ? "stroke-[color:var(--accent-brand)]"
       : "stroke-[color:var(--accent)]";
+  const ToggleIcon = isRunning ? Pause : Play;
 
   return (
     <div className="relative aspect-square flex-1 rounded-3xl border border-border bg-card p-4 shadow-sm">
@@ -74,7 +75,7 @@ export const FocusTimerWidget = () => {
         size="icon-sm"
         onClick={skipPhase}
         aria-label={t("focusTimer.skip")}
-        className="absolute top-2 left-2"
+        className="absolute bottom-4 right-4"
       >
         <SkipForward className="size-3.5" aria-hidden />
       </Button>
@@ -84,7 +85,7 @@ export const FocusTimerWidget = () => {
         size="icon-sm"
         onClick={reset}
         aria-label={t("focusTimer.reset")}
-        className="absolute top-2 right-2"
+        className="absolute top-4 right-4"
       >
         <RotateCcw className="size-3.5" aria-hidden />
       </Button>
@@ -92,21 +93,10 @@ export const FocusTimerWidget = () => {
         type="button"
         size="icon-sm"
         onClick={toggle}
-        disabled={isRunning}
-        aria-label={t("focusTimer.start")}
-        className="absolute bottom-2 left-2"
+        aria-label={t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
+        className="absolute bottom-4 left-4"
       >
-        <Play className="size-3.5" aria-hidden />
-      </Button>
-      <Button
-        type="button"
-        size="icon-sm"
-        onClick={toggle}
-        disabled={!isRunning}
-        aria-label={t("focusTimer.pause")}
-        className="absolute right-2 bottom-2"
-      >
-        <Pause className="size-3.5" aria-hidden />
+        <ToggleIcon className="size-3.5" aria-hidden />
       </Button>
     </div>
   );
