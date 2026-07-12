@@ -1,12 +1,13 @@
 "use client";
 
+import { Button } from "@components/common/ui/button";
 import {
   BREAK_DURATION_SECONDS,
   useFocusTimer,
   WORK_DURATION_SECONDS,
 } from "@hooks/dashboard/useFocusTimer";
 import type { FocusPhase } from "@hooks/dashboard/useFocusTimer/types";
-import { RotateCcw } from "lucide-react";
+import { Pause, Play, RotateCcw, SkipForward } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const RADIUS = 42;
@@ -24,7 +25,8 @@ const durationFor = (phase: FocusPhase) =>
 
 export const FocusTimerWidget = () => {
   const t = useTranslations("dashboard.today");
-  const { phase, secondsRemaining, isRunning, toggle, reset } = useFocusTimer();
+  const { phase, secondsRemaining, isRunning, toggle, reset, skipPhase } =
+    useFocusTimer();
 
   const progress = secondsRemaining / durationFor(phase);
   const dashOffset = CIRCUMFERENCE * (1 - progress);
@@ -32,55 +34,71 @@ export const FocusTimerWidget = () => {
     phase === "work"
       ? "stroke-[color:var(--accent-brand)]"
       : "stroke-[color:var(--accent)]";
+  const ToggleIcon = isRunning ? Pause : Play;
 
   return (
-    <div className="relative aspect-square flex-1 rounded-3xl border border-border bg-card p-4 shadow-sm">
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
-        className="absolute inset-4"
+    <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm">
+      <svg
+        className="size-20 shrink-0 -rotate-90"
+        viewBox="0 0 100 100"
+        aria-hidden
       >
-        <svg className="size-full -rotate-90" viewBox="0 0 100 100" aria-hidden>
-          <circle
-            cx="50"
-            cy="50"
-            r={RADIUS}
-            fill="none"
-            strokeWidth={STROKE_WIDTH}
-            className="stroke-muted-foreground/20"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r={RADIUS}
-            fill="none"
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-            strokeDasharray={CIRCUMFERENCE}
-            strokeDashoffset={dashOffset}
-            className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
-          />
-        </svg>
-      </button>
+        <circle
+          cx="50"
+          cy="50"
+          r={RADIUS}
+          fill="none"
+          strokeWidth={STROKE_WIDTH}
+          className="stroke-muted-foreground/20"
+        />
+        <circle
+          cx="50"
+          cy="50"
+          r={RADIUS}
+          fill="none"
+          strokeWidth={STROKE_WIDTH}
+          strokeLinecap="round"
+          strokeDasharray={CIRCUMFERENCE}
+          strokeDashoffset={dashOffset}
+          className={`${phaseColorClass} transition-[stroke-dashoffset] duration-500`}
+        />
+      </svg>
 
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-2xl font-medium text-foreground">
-          {formatTime(secondsRemaining)}
-        </span>
-        <span className="text-xs text-muted-foreground">
-          {t(phase === "work" ? "focusTimer.work" : "focusTimer.break")}
-        </span>
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <div>
+          <p className="font-display text-2xl font-medium text-foreground">
+            {formatTime(secondsRemaining)}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t(phase === "work" ? "focusTimer.work" : "focusTimer.break")}
+          </p>
+        </div>
+
+        <div className="flex gap-2">
+          <Button type="button" size="sm" onClick={toggle}>
+            <ToggleIcon className="size-3.5" aria-hidden />
+            {t(isRunning ? "focusTimer.pause" : "focusTimer.start")}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-sm"
+            onClick={skipPhase}
+            aria-label={t("focusTimer.skip")}
+          >
+            <SkipForward className="size-3.5" aria-hidden />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-sm"
+            onClick={reset}
+            aria-label={t("focusTimer.reset")}
+          >
+            <RotateCcw className="size-3.5" aria-hidden />
+          </Button>
+        </div>
       </div>
-
-      <button
-        type="button"
-        onClick={reset}
-        aria-label={t("focusTimer.reset")}
-        className="absolute top-2 right-2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted"
-      >
-        <RotateCcw className="size-3.5" aria-hidden />
-      </button>
     </div>
   );
 };

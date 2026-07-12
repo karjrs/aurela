@@ -31,6 +31,7 @@ describe("FocusTimerWidget", () => {
       isRunning: false,
       toggle: vi.fn(),
       reset: vi.fn(),
+      skipPhase: vi.fn(),
     });
 
     renderWidget();
@@ -47,6 +48,7 @@ describe("FocusTimerWidget", () => {
       isRunning: true,
       toggle: vi.fn(),
       reset: vi.fn(),
+      skipPhase: vi.fn(),
     });
 
     renderWidget();
@@ -56,7 +58,7 @@ describe("FocusTimerWidget", () => {
     expect(screen.getByRole("button", { name: "Pauza" })).toBeInTheDocument();
   });
 
-  it("calls toggle when the ring button is clicked", () => {
+  it("calls toggle when the start/pause button is clicked", () => {
     const toggle = vi.fn();
     useFocusTimerMock.mockReturnValue({
       phase: "work",
@@ -64,6 +66,7 @@ describe("FocusTimerWidget", () => {
       isRunning: false,
       toggle,
       reset: vi.fn(),
+      skipPhase: vi.fn(),
     });
 
     renderWidget();
@@ -81,6 +84,7 @@ describe("FocusTimerWidget", () => {
       isRunning: false,
       toggle: vi.fn(),
       reset,
+      skipPhase: vi.fn(),
     });
 
     renderWidget();
@@ -88,5 +92,23 @@ describe("FocusTimerWidget", () => {
     fireEvent.click(screen.getByRole("button", { name: "Resetuj" }));
 
     expect(reset).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls skipPhase when the skip button is clicked", () => {
+    const skipPhase = vi.fn();
+    useFocusTimerMock.mockReturnValue({
+      phase: "work",
+      secondsRemaining: 25 * 60,
+      isRunning: false,
+      toggle: vi.fn(),
+      reset: vi.fn(),
+      skipPhase,
+    });
+
+    renderWidget();
+
+    fireEvent.click(screen.getByRole("button", { name: "Pomiń" }));
+
+    expect(skipPhase).toHaveBeenCalledTimes(1);
   });
 });
