@@ -88,6 +88,31 @@ describe("WeatherWidget", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(8);
   });
 
+  it("formats hourly forecast times in 24-hour format for the Polish locale", () => {
+    useUserLocationMock.mockReturnValue({
+      status: "success",
+      label: "Warszawa, Polska",
+    });
+    useWeatherMock.mockReturnValue({
+      status: "success",
+      data: {
+        current: {
+          time: "2026-07-12T09:00",
+          temperature: 21.4,
+          weatherCode: 1,
+        },
+        hourly,
+      },
+      isFetching: false,
+      refetch: vi.fn(),
+    });
+
+    renderWidget();
+
+    expect(screen.getByText("10:00")).toBeInTheDocument();
+    expect(screen.queryByText(/AM|PM/)).not.toBeInTheDocument();
+  });
+
   it("shows the precipitation chance and amount for hours with rain", () => {
     useUserLocationMock.mockReturnValue({
       status: "success",

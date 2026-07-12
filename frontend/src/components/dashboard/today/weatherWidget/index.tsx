@@ -9,10 +9,13 @@ import type {
 import { cn } from "@utils/helpers/cn";
 import { getWeatherIcon } from "@utils/weather";
 import { MapPin, RefreshCw } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
-const formatHour = (iso: string) =>
-  new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const formatHour = (iso: string, locale: string) =>
+  new Date(iso).toLocaleTimeString(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
 const CurrentWeather = ({ condition }: { condition: WeatherCondition }) => {
   const Icon = getWeatherIcon(condition.weatherCode);
@@ -32,33 +35,37 @@ const HourlyForecast = ({
 }: {
   hours: HourlyWeatherCondition[];
   label: string;
-}) => (
-  <ul className="flex gap-3 overflow-x-auto pb-1" aria-label={label}>
-    {hours.map((hour) => {
-      const Icon = getWeatherIcon(hour.weatherCode);
-      return (
-        <li
-          key={hour.time}
-          className="flex shrink-0 flex-col items-center gap-1 rounded-2xl px-2 py-1.5 text-center"
-        >
-          <span className="text-xs text-muted-foreground">
-            {formatHour(hour.time)}
-          </span>
-          <Icon className="size-5 text-muted-foreground" aria-hidden />
-          <span className="text-xs font-medium text-foreground">
-            {Math.round(hour.temperature)}°
-          </span>
-          {hour.precipitationProbability > 0 && (
-            <span className="text-[10px] text-muted-foreground">
-              {Math.round(hour.precipitationProbability)}% •{" "}
-              {hour.precipitation.toFixed(1)}mm
+}) => {
+  const locale = useLocale();
+
+  return (
+    <ul className="flex gap-3 overflow-x-auto pb-1" aria-label={label}>
+      {hours.map((hour) => {
+        const Icon = getWeatherIcon(hour.weatherCode);
+        return (
+          <li
+            key={hour.time}
+            className="flex shrink-0 flex-col items-center gap-1 rounded-2xl px-2 py-1.5 text-center"
+          >
+            <span className="text-xs text-muted-foreground">
+              {formatHour(hour.time, locale)}
             </span>
-          )}
-        </li>
-      );
-    })}
-  </ul>
-);
+            <Icon className="size-5 text-muted-foreground" aria-hidden />
+            <span className="text-xs font-medium text-foreground">
+              {Math.round(hour.temperature)}°
+            </span>
+            {hour.precipitationProbability > 0 && (
+              <span className="text-[10px] text-muted-foreground">
+                {Math.round(hour.precipitationProbability)}% •{" "}
+                {hour.precipitation.toFixed(1)}mm
+              </span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export const WeatherWidget = () => {
   const t = useTranslations("dashboard.today");
