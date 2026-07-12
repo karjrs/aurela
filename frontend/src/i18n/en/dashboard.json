@@ -8,6 +8,9 @@
       "night": "Still up?"
     },
     "dateLabel": "{date, date, full}",
+    "location": {
+      "error": "Location unavailable"
+    },
     "completedCount": "{completed, plural, =0 {No tasks completed yet} one {# of {total} task completed} other {# of {total} tasks completed}}",
     "viewToggle": {
       "calendar": "Calendar",

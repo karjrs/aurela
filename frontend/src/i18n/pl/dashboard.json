@@ -8,6 +8,9 @@
       "night": "Wciąż nie śpisz?"
     },
     "dateLabel": "{date, date, full}",
+    "location": {
+      "error": "Lokalizacja niedostępna"
+    },
     "completedCount": "{completed, plural, =0 {Brak ukończonych zadań} one {# z {total} zadania ukończone} few {# z {total} zadań ukończonych} many {# z {total} zadań ukończonych} other {# z {total} zadania ukończonego}}",
     "viewToggle": {
       "calendar": "Kalendarz",
