@@ -47,7 +47,9 @@
       "error": "Unable to load weather",
       "forecastLabel": "Forecast for the next hours"
     },
-    "completedCount": "{completed, plural, =0 {No tasks completed yet} one {# of {total} task completed} other {# of {total} tasks completed}}",
+    "progress": {
+      "label": "{count, plural, one {plan} other {plans}}"
+    },
     "viewToggle": {
       "calendar": "Calendar",
       "list": "List",

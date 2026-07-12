@@ -47,7 +47,9 @@
       "error": "Nie udało się pobrać pogody",
       "forecastLabel": "Prognoza na kolejne godziny"
     },
-    "completedCount": "{completed, plural, =0 {Brak ukończonych zadań} one {# z {total} zadania ukończone} few {# z {total} zadań ukończonych} many {# z {total} zadań ukończonych} other {# z {total} zadania ukończonego}}",
+    "progress": {
+      "label": "{count, plural, one {plan} few {plany} many {planów} other {planu}}"
+    },
     "viewToggle": {
       "calendar": "Kalendarz",
       "list": "Lista",
