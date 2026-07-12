@@ -43,7 +43,7 @@ export const AnalogClockWidget = ({ now, tasks }: AnalogClockWidgetProps) => {
   return (
     <section
       aria-label={t("clock.heading")}
-      className="flex aspect-square flex-col items-center justify-center gap-3 rounded-3xl border border-border bg-card p-4 shadow-sm"
+      className="flex aspect-square flex-1 flex-col items-center justify-center gap-3 rounded-3xl border border-border bg-card p-4 shadow-sm"
     >
       <svg viewBox="0 0 100 100" aria-hidden className="w-full flex-1">
         <circle

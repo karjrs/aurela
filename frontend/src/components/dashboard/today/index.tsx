@@ -101,7 +101,7 @@ export const DashboardToday = () => {
   const showList = viewMode === "list";
 
   return (
-    <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-6xl">
+    <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-7xl">
       <Greeting now={now} userName="Karol" />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
@@ -122,11 +122,13 @@ export const DashboardToday = () => {
 
         {isDesktop && (
           <div className="md:col-span-1 flex flex-col gap-4">
-            <WeatherWidget />
-            <AnalogClockWidget now={now} tasks={sortedTasks} />
-            <SleepWidget />
             <div className="flex gap-4">
               <TaskProgressWidget tasks={sortedTasks} />
+              <AnalogClockWidget now={now} tasks={sortedTasks} />
+            </div>
+            <WeatherWidget />
+            <SleepWidget />
+            <div className="flex gap-4">
               <FocusTimerWidget />
             </div>
           </div>
@@ -135,11 +137,13 @@ export const DashboardToday = () => {
 
       {!isDesktop && (
         <>
-          <WeatherWidget />
-          <AnalogClockWidget now={now} tasks={sortedTasks} />
-          <SleepWidget />
           <div className="flex gap-4">
             <TaskProgressWidget tasks={sortedTasks} />
+            <AnalogClockWidget now={now} tasks={sortedTasks} />
+          </div>
+          <WeatherWidget />
+          <SleepWidget />
+          <div className="flex gap-4">
             <FocusTimerWidget />
           </div>
         </>
