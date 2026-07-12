@@ -13,7 +13,7 @@ export const SleepWidget = () => {
   const progress = clamp01(sleptHours / maxHours);
 
   return (
-    <div className="flex flex-col gap-3 rounded-3xl border border-border p-4 shadow-sm">
+    <div className="flex flex-col gap-3 rounded-3xl border border-border bg-card p-4 shadow-sm">
       <p className="text-xs font-semibold text-muted-foreground">
         {t("sleep.heading")}
       </p>
