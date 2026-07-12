@@ -47,6 +47,9 @@
       "error": "Nie udało się pobrać pogody",
       "forecastLabel": "Prognoza na kolejne godziny"
     },
+    "sleep": {
+      "heading": "Sen"
+    },
     "progress": {
       "label": "{count, plural, one {plan} few {plany} many {planów} other {planu}}"
     },

@@ -47,6 +47,9 @@
       "error": "Unable to load weather",
       "forecastLabel": "Forecast for the next hours"
     },
+    "sleep": {
+      "heading": "Sleep"
+    },
     "progress": {
       "label": "{count, plural, one {plan} other {plans}}"
     },
