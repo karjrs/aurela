@@ -61,7 +61,8 @@
       "break": "Przerwa",
       "start": "Start",
       "pause": "Pauza",
-      "reset": "Resetuj"
+      "reset": "Resetuj",
+      "skip": "Pomiń"
     },
     "viewToggle": {
       "calendar": "Kalendarz",

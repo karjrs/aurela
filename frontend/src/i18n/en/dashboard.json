@@ -61,7 +61,8 @@
       "break": "Break",
       "start": "Start",
       "pause": "Pause",
-      "reset": "Reset"
+      "reset": "Reset",
+      "skip": "Skip"
     },
     "viewToggle": {
       "calendar": "Calendar",
