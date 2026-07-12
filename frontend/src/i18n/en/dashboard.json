@@ -50,6 +50,9 @@
     "sleep": {
       "heading": "Sleep"
     },
+    "clock": {
+      "heading": "Clock"
+    },
     "progress": {
       "label": "{count, plural, one {plan} other {plans}}"
     },
