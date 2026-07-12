@@ -95,8 +95,8 @@ export const DashboardToday = () => {
 
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
-  const showCalendar = isDesktop || viewMode === "calendar";
-  const showList = !isDesktop && viewMode === "list";
+  const showCalendar = viewMode === "calendar";
+  const showList = viewMode === "list";
 
   return (
     <div className="mx-auto flex w-full flex-col gap-6 py-6 max-w-6xl">
@@ -125,14 +125,6 @@ export const DashboardToday = () => {
               <TaskProgressWidget tasks={sortedTasks} />
               <FocusTimerWidget />
             </div>
-            <ListView
-              tasks={sortedTasks}
-              highlightId={highlightId}
-              blockRefs={blockRefs}
-              onToggleDone={toggleTaskDone}
-              onEdit={handleStartEdit}
-              onRemove={removeTask}
-            />
           </div>
         )}
       </div>
@@ -157,7 +149,7 @@ export const DashboardToday = () => {
         </Button>
       </div>
 
-      {!isDesktop && <ViewToggle value={viewMode} onChange={setViewMode} />}
+      <ViewToggle value={viewMode} onChange={setViewMode} />
 
       {isAdding && (
         <TaskForm
