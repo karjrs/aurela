@@ -8,12 +8,11 @@
   "profile": "Profile",
   "howItWorks": "How it works",
   "about": "About",
+  "privacy": "Privacy Policy",
+  "terms": "Terms of Service",
   "items": {
     "product": "Product",
-    "legal": {
-      "title": "Legal",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
-    }
+    "dashboard": "Dashboard",
+    "legal": "Legal"
   }
 }

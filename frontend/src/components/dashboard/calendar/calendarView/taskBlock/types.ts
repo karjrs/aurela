@@ -1,11 +1,9 @@
-import type { Task, TaskInput } from "@components/dashboard/today/types";
+import type { Task, TaskInput } from "@components/dashboard/types";
 
-export type TaskBlockProps = {
+export type DashboardCalendarViewTaskBlockProps = {
   task: Task;
-  highlighted: boolean;
   column: number;
   columnCount: number;
-  onRegisterNode: (node: HTMLDivElement | null) => void;
   onToggleDone: () => void;
   onEdit: () => void;
   onRemove: () => void;

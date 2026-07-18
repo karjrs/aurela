@@ -1,125 +1,159 @@
 {
-  "today": {
-    "heading": "Dashboard",
-    "greeting": {
-      "morning": [
-        "Good morning",
-        "Have a great morning",
-        "Hey there",
-        "Good morning, rise and shine",
-        "New day, new possibilities"
-      ],
-      "noon": [
-        "Good day",
-        "Enjoy your noon",
-        "How was your morning?",
-        "Time for a break?",
-        "Noon is here"
-      ],
-      "afternoon": [
-        "Good afternoon",
-        "Hey there",
-        "How's the day going?",
-        "Afternoon energy",
-        "Keeping up the pace?"
-      ],
-      "evening": [
-        "Good evening",
-        "Have a nice evening",
-        "Time to slow down",
-        "Evening has arrived",
-        "How was your day?"
-      ],
-      "night": [
-        "Still up?",
-        "Bedtime soon?",
-        "Working the night shift?",
-        "Shh, quiet night",
-        "Time to rest"
-      ]
-    },
-    "dateLabel": "{date, date, full}",
-    "location": {
-      "error": "Location unavailable"
-    },
-    "weather": {
-      "refresh": "Refresh weather",
-      "error": "Unable to load weather",
-      "forecastLabel": "Forecast for the next hours"
-    },
-    "sleep": {
-      "heading": "Sleep"
-    },
-    "note": {
-      "heading": "Note",
-      "placeholder": "Jot something down…"
-    },
-    "clock": {
-      "heading": "Clock"
-    },
-    "progress": {
-      "label": "{count, plural, one {task} other {tasks}}"
-    },
-    "focusTimer": {
-      "work": "Work",
-      "break": "Break",
-      "start": "Start",
-      "pause": "Pause",
-      "reset": "Reset",
-      "skip": "Skip"
-    },
-    "viewToggle": {
-      "calendar": "Calendar",
-      "list": "List",
-      "landmark": "View mode"
-    },
-    "arc": {
-      "sunrise": "Sunrise",
-      "sunset": "Sunset",
-      "taskAt": "{title} at {time}"
-    },
-    "nextTask": {
-      "heading": "Next up",
-      "empty": "All done 🎉"
-    },
-    "calendar": {
-      "dragHandle": "Drag to change time",
-      "resizeHandle": "Drag to change duration"
-    },
-    "task": {
-      "markDone": "Mark as done",
-      "markNotDone": "Mark as not done",
-      "edit": "Edit task",
-      "delete": "Delete task",
-      "emptyState": "No tasks yet — add your first one below."
-    },
-    "taskList": {
-      "heading": "All tasks"
-    },
-    "calendarCard": {
-      "linkLabel": "Open calendar"
-    },
-    "form": {
-      "titleLabel": "Task name",
-      "titlePlaceholder": "e.g. Morning walk",
-      "emojiLabel": "Icon",
-      "timeLabel": "Start time",
-      "durationLabel": "Duration",
-      "addButton": "Add",
-      "addTaskButton": "Add task"
-    },
-    "duration": {
-      "minutes": "{minutes} min",
-      "hoursMinutes": "{hours} h {minutes} min",
-      "hours": "{hours} h"
-    }
+  "heading": "Dashboard",
+  "greeting": {
+    "morning": [
+      "Good morning, {name}.",
+      "Have a great morning, {name}.",
+      "Hey there.",
+      "Good morning, rise and shine.",
+      "New day, new possibilities, {name}.",
+      "Take it slow, {name}, the day's just starting.",
+      "Coffee's waiting, {name}.",
+      "Wishing you a calm morning.",
+      "Welcome, {name}.",
+      "Fresh day, fresh start.",
+      "Morning light is here, {name}.",
+      "Start whenever you're ready, {name}.",
+      "Tea or coffee, {name}?",
+      "The day is just getting started.",
+      "A warm morning to you, {name}."
+    ],
+    "noon": [
+      "Good day, {name}.",
+      "Enjoy your noon.",
+      "How was your morning, {name}?",
+      "Time for a break?",
+      "Noon is here.",
+      "Wishing you a calm noon, {name}.",
+      "Moment to breathe?",
+      "Halfway through the day, {name}.",
+      "Good to see you.",
+      "Take it at your own pace, {name}.",
+      "The sun is high overhead, {name}.",
+      "A moment for yourself?",
+      "The day is in full swing, {name}.",
+      "Slow down if you need to.",
+      "Have a lovely day, {name}."
+    ],
+    "afternoon": [
+      "Good afternoon, {name}.",
+      "Hey there, {name}.",
+      "How's the day going?",
+      "Afternoon energy.",
+      "A calm afternoon, {name}.",
+      "Wishing you a calm afternoon.",
+      "How's it going, {name}?",
+      "Take a moment?",
+      "The day rolls on, {name}.",
+      "Nice of you to stop by.",
+      "Afternoon light, {name}.",
+      "One thing at a time, {name}.",
+      "Good to see you at this hour.",
+      "The rest of the day is yours, {name}.",
+      "The afternoon calls for calm."
+    ],
+    "evening": [
+      "Good evening, {name}.",
+      "Have a nice evening.",
+      "Time to slow down, {name}.",
+      "Evening has arrived.",
+      "How was your day, {name}?",
+      "Wishing you a calm evening.",
+      "Quiet evening, {name}.",
+      "The day is winding down.",
+      "Time for yourself, {name}.",
+      "Good to see you this evening.",
+      "The evening light is fading slowly, {name}.",
+      "The day was what it was, {name}.",
+      "Soft evening light.",
+      "The rest of the evening is yours, {name}.",
+      "A good time to rest."
+    ],
+    "night": [
+      "Good to see you at this hour, {name}.",
+      "Bedtime soon?",
+      "The moon is up already.",
+      "Shh, quiet night.",
+      "Time to rest, {name}.",
+      "It's quiet at this hour.",
+      "Sleep well, {name}.",
+      "The stars are out.",
+      "A moment of quiet, {name}.",
+      "Rest at your own pace, {name}.",
+      "The world slows down, {name}.",
+      "Goodnight, whenever it comes.",
+      "Quiet suits calm, {name}.",
+      "Almost bedtime.",
+      "Goodnight, {name}, see you tomorrow."
+    ]
+  },
+  "location": {
+    "error": "Location unavailable"
+  },
+  "weather": {
+    "refresh": "Refresh weather",
+    "error": "Unable to load weather",
+    "forecastLabel": "Forecast for the next hours"
+  },
+  "sleep": {
+    "heading": "Sleep"
+  },
+  "note": {
+    "heading": "Note",
+    "placeholder": "Jot something down…"
+  },
+  "clock": {
+    "heading": "Clock"
+  },
+  "progress": {
+    "label": "{count, plural, one {task} other {tasks}}"
+  },
+  "focus": {
+    "work": "Work",
+    "break": "Break",
+    "start": "Start",
+    "pause": "Pause",
+    "reset": "Reset",
+    "skip": "Skip"
+  },
+  "viewToggle": {
+    "calendar": "Calendar",
+    "list": "List",
+    "landmark": "View mode"
+  },
+  "arc": {
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "taskAt": "{title} at {time}"
+  },
+  "nextTask": {
+    "heading": "Next up",
+    "empty": "All done 🎉"
+  },
+  "task": {
+    "markDone": "Mark as done",
+    "markNotDone": "Mark as not done",
+    "edit": "Edit task",
+    "delete": "Delete task",
+    "emptyState": "No tasks yet — add your first one below."
+  },
+  "taskList": {
+    "heading": "All tasks"
+  },
+  "calendarCard": {
+    "linkLabel": "Open calendar"
+  },
+  "form": {
+    "addTaskButton": "Add task"
   },
   "dailyRhythm": {
     "heading": "Daily Rhythm",
     "placeholder": "This is a placeholder page — the real daily rhythm experience isn't built yet."
   },
   "calendar": {
-    "heading": "Calendar"
+    "heading": "Calendar",
+    "dragHandle": "Drag to change time",
+    "resizeHandle": "Drag to change duration"
   },
   "tasks": {
     "heading": "Tasks",

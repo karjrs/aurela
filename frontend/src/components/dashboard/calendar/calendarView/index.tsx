@@ -1,29 +1,23 @@
 "use client";
 
-import {
-  DAY_END,
-  DAY_START,
-  HOUR_HEIGHT,
-} from "@components/dashboard/today/consts";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { DAY_END, DAY_START, HOUR_HEIGHT } from "./consts";
 import { layoutColumns } from "./layoutColumns";
-import { TaskBlock } from "./taskBlock";
-import type { CalendarViewProps } from "./types";
+import { DashboardCalendarViewTaskBlock } from "./taskBlock";
+import type { DashboardCalendarViewProps } from "./types";
 
 const SPAN = DAY_END - DAY_START;
 
-export const CalendarView = ({
+export const DashboardCalendarView = ({
   tasks,
   currentHour,
-  highlightId,
-  blockRefs,
   onToggleDone,
   onEdit,
   onRemove,
   onUpdateTiming,
-}: CalendarViewProps) => {
-  const t = useTranslations("dashboard.today.calendar");
+}: DashboardCalendarViewProps) => {
+  const t = useTranslations("dashboard.calendar");
   const gridHeight = SPAN * HOUR_HEIGHT;
   const { columnOf, columnCountOf } = useMemo(
     () => layoutColumns(tasks),
@@ -74,15 +68,11 @@ export const CalendarView = ({
           )}
 
           {tasks.map((task) => (
-            <TaskBlock
+            <DashboardCalendarViewTaskBlock
               key={task.id}
               task={task}
-              highlighted={highlightId === task.id}
               column={columnOf[task.id] ?? 0}
               columnCount={columnCountOf[task.id] ?? 1}
-              onRegisterNode={(node) => {
-                blockRefs.current[task.id] = node;
-              }}
               onToggleDone={() => onToggleDone(task.id)}
               onEdit={() => onEdit(task)}
               onRemove={() => onRemove(task.id)}

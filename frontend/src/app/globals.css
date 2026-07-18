@@ -195,8 +195,20 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-sky-top: var(--sky-top);
+  --color-sky-bottom: var(--sky-bottom);
+  --color-horizon: var(--horizon);
+  --color-night-arc: var(--night-arc);
+  --color-accent-brand: var(--accent-brand);
+  --color-accent-brand-soft: var(--accent-brand-soft);
+  --color-elevated: var(--bg-elevated);
   --background-image-aurela:
     var(--bg-accent-left), var(--bg-accent-right), var(--bg-gradient);
+  --background-image-widget: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-bottom) 100%
+  );
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

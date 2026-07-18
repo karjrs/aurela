@@ -4,9 +4,9 @@ import {
   DAY_END,
   DAY_START,
   MIN_DURATION,
-} from "@components/dashboard/today/consts";
-import type { Task, TaskInput } from "@components/dashboard/today/types";
-import { snapToQuarterHour } from "@utils/dateTime";
+} from "@components/dashboard/calendar/calendarView/consts";
+import type { Task, TaskInput } from "@components/dashboard/types";
+import { atHour, hourOfDay, snapToQuarterHour } from "@utils/dateTime";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -65,7 +65,10 @@ export const useDragResize = (
 
     const handleUp = () => {
       if (sessionRef.current && previewRef.current) {
-        onUpdateTiming(previewRef.current);
+        onUpdateTiming({
+          hour: atHour(previewRef.current.hour, task.hour),
+          duration: previewRef.current.duration,
+        });
       }
       sessionRef.current = null;
       previewRef.current = null;
@@ -79,7 +82,7 @@ export const useDragResize = (
       window.removeEventListener("pointermove", handleMove);
       window.removeEventListener("pointerup", handleUp);
     };
-  }, [hourHeight, onUpdateTiming]);
+  }, [hourHeight, onUpdateTiming, task.hour]);
 
   const beginDrag = useCallback(
     (event: ReactPointerEvent, mode: DragMode) => {
@@ -88,7 +91,7 @@ export const useDragResize = (
       sessionRef.current = {
         mode,
         startY: event.clientY,
-        hour: task.hour,
+        hour: hourOfDay(task.hour),
         duration: task.duration,
       };
       setIsDragging(true);
@@ -98,7 +101,7 @@ export const useDragResize = (
 
   return {
     isDragging,
-    hour: preview?.hour ?? task.hour,
+    hour: preview?.hour ?? hourOfDay(task.hour),
     duration: preview?.duration ?? task.duration,
     beginMove: (event: ReactPointerEvent) => beginDrag(event, "move"),
     beginResize: (event: ReactPointerEvent) => beginDrag(event, "resize"),

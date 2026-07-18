@@ -1,20 +1,23 @@
-import type { Task } from "@components/dashboard/today/types";
+import type { Task } from "@components/dashboard/types";
+import { hourOfDay } from "@utils/dateTime";
 
 export type ColumnLayout = {
   columnOf: Record<string, number>;
   columnCountOf: Record<string, number>;
 };
 
+type TaskInterval = { id: string; hour: number; end: number };
+
 export const layoutColumns = (sortedTasks: Task[]): ColumnLayout => {
-  const withEnd = sortedTasks.map((task) => ({
-    ...task,
-    end: task.hour + task.duration,
-  }));
+  const withEnd: TaskInterval[] = sortedTasks.map((task) => {
+    const hour = hourOfDay(task.hour);
+    return { id: task.id, hour, end: hour + task.duration };
+  });
 
   const columnOf: Record<string, number> = {};
   const columnCountOf: Record<string, number> = {};
 
-  let cluster: (Task & { end: number })[] = [];
+  let cluster: TaskInterval[] = [];
   let clusterEnd = Number.NEGATIVE_INFINITY;
 
   const flush = () => {

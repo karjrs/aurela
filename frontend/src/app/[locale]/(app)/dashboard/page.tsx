@@ -1,5 +1,5 @@
 import type { PageProps } from "@components/common/page/types";
-import { DashboardToday } from "@components/dashboard/today";
+import { Dashboard } from "@root/components/dashboard";
 import { setRequestLocale } from "next-intl/server";
 
 const DashboardPage = async ({ params }: PageProps) => {
@@ -7,7 +7,7 @@ const DashboardPage = async ({ params }: PageProps) => {
 
   setRequestLocale(locale);
 
-  return <DashboardToday />;
+  return <Dashboard />;
 };
 
 export default DashboardPage;

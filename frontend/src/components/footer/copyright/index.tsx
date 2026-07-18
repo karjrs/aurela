@@ -5,7 +5,7 @@ export const Copyright = async () => {
   const t = await getTranslations("footer");
 
   return (
-    <div className="mt-10 border-t border-border pt-6">
+    <div className="py-6 px-4">
       <p className="text-sm text-muted-foreground">
         {t("copyright", { year })}
       </p>

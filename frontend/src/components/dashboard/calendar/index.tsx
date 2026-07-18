@@ -1,57 +1,23 @@
 "use client";
 
-import { Button } from "@components/common/ui/button";
-import { CalendarView } from "@components/dashboard/calendar/calendarView";
-import { TaskForm } from "@components/dashboard/taskForm";
-import type { Task, TaskInput } from "@components/dashboard/today/types";
-import { useDashboardTasksContext } from "@hooks/dashboard/useDashboardTasks/context";
-import { Plus } from "lucide-react";
+import { DashboardCalendarView } from "@components/dashboard/calendar/calendarView";
+import { INITIAL_TASKS } from "@components/dashboard/consts";
+import { useDashboardTasks } from "@hooks/dashboard/useDashboardTasks";
+import { useNow } from "@hooks/dashboard/useNow";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
+import { DashboardFab } from "../fab";
 
 export const DashboardCalendar = () => {
   const t = useTranslations("dashboard.calendar");
-  const tToday = useTranslations("dashboard.today");
-  const { tasks, addTask, updateTask, toggleTaskDone, removeTask } =
-    useDashboardTasksContext();
-
-  const [now, setNow] = useState<Date | null>(null);
-  const [isAdding, setIsAdding] = useState(false);
-  const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [highlightId] = useState<string | null>(null);
-
-  const blockRefs = useRef<Record<string, HTMLElement | null>>({});
-
-  useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 30000);
-    return () => clearInterval(id);
-  }, []);
+  const { tasks, updateTask, toggleTaskDone, removeTask } =
+    useDashboardTasks(INITIAL_TASKS);
+  const now = useNow();
 
   const sortedTasks = useMemo(
-    () => [...tasks].sort((a, b) => a.hour - b.hour),
+    () => [...tasks].sort((a, b) => a.hour.getTime() - b.hour.getTime()),
     [tasks],
   );
-
-  const handleAddSubmit = (input: TaskInput) => {
-    addTask(input);
-    setIsAdding(false);
-  };
-
-  const handleEditSubmit = (input: TaskInput) => {
-    if (editingTask) updateTask(editingTask.id, input);
-    setEditingTask(null);
-  };
-
-  const handleStartEdit = (task: Task) => {
-    setIsAdding(false);
-    setEditingTask(task);
-  };
-
-  const handleStartAdd = () => {
-    setEditingTask(null);
-    setIsAdding(true);
-  };
 
   if (!now) return null;
 
@@ -63,37 +29,13 @@ export const DashboardCalendar = () => {
         {t("heading")}
       </h1>
 
-      <Button
-        type="button"
-        onClick={handleStartAdd}
-        aria-label={tToday("form.addTaskButton")}
-        className="fixed right-4 bottom-20 z-30 size-14 rounded-full shadow-lg md:right-6 md:bottom-6"
-      >
-        <Plus className="size-6" aria-hidden />
-      </Button>
+      <DashboardFab onClick={() => {}} />
 
-      {isAdding && (
-        <TaskForm
-          onSubmit={handleAddSubmit}
-          onCancel={() => setIsAdding(false)}
-        />
-      )}
-
-      {editingTask && (
-        <TaskForm
-          initialValues={editingTask}
-          onSubmit={handleEditSubmit}
-          onCancel={() => setEditingTask(null)}
-        />
-      )}
-
-      <CalendarView
+      <DashboardCalendarView
         tasks={sortedTasks}
         currentHour={currentHour}
-        highlightId={highlightId}
-        blockRefs={blockRefs}
         onToggleDone={toggleTaskDone}
-        onEdit={handleStartEdit}
+        onEdit={() => {}}
         onRemove={removeTask}
         onUpdateTiming={(id, patch) => updateTask(id, patch)}
       />

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "@i18n/navigation";
 import { Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-export const Language = (props: ButtonProps) => {
+export const HeaderLanguage = (props: ButtonProps) => {
   const t = useTranslations("header.language");
   const locale = useLocale();
   const pathname = usePathname();

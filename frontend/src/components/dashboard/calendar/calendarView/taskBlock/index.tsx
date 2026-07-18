@@ -1,25 +1,23 @@
 "use client";
 
-import { DAY_START, HOUR_HEIGHT } from "@components/dashboard/today/consts";
 import { hourToTime } from "@utils/dateTime";
 import { cn } from "@utils/helpers/cn";
 import { Check, GripVertical, Pencil, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { TaskBlockProps } from "./types";
+import { DAY_START, HOUR_HEIGHT } from "../consts";
+import type { DashboardCalendarViewTaskBlockProps } from "./types";
 import { useDragResize } from "./useDragResize";
 
-export const TaskBlock = ({
+export const DashboardCalendarViewTaskBlock = ({
   task,
-  highlighted,
   column,
   columnCount,
-  onRegisterNode,
   onToggleDone,
   onEdit,
   onRemove,
   onUpdateTiming,
-}: TaskBlockProps) => {
-  const t = useTranslations("dashboard.today");
+}: DashboardCalendarViewTaskBlockProps) => {
+  const t = useTranslations("dashboard");
   const { isDragging, hour, duration, beginMove, beginResize } = useDragResize(
     task,
     HOUR_HEIGHT,
@@ -32,11 +30,9 @@ export const TaskBlock = ({
 
   return (
     <div
-      ref={onRegisterNode}
       className={cn(
-        "absolute flex flex-col overflow-hidden rounded-xl border p-1.5 transition-shadow",
-        task.done ? "bg-[color:var(--accent-brand-soft)]" : "bg-card",
-        highlighted ? "border-primary" : "border-border",
+        "absolute flex flex-col overflow-hidden rounded-xl border border-border p-1.5 transition-shadow",
+        task.done ? "bg-accent-brand-soft" : "bg-card",
         isDragging ? "z-5 opacity-85 shadow-lg" : "z-2 shadow-xs",
       )}
       style={{

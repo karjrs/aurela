@@ -1,11 +1,12 @@
-import type { Task } from "@components/dashboard/today/types";
+import type { Task } from "@components/dashboard/types";
+import { atHour } from "@utils/dateTime";
 import { describe, expect, it } from "vitest";
 import { layoutColumns } from "./layoutColumns";
 
 const task = (id: string, hour: number, duration: number): Task => ({
   id,
   title: id,
-  hour,
+  hour: atHour(hour),
   duration,
   done: false,
   emoji: "🙂",

@@ -1,17 +1,10 @@
 "use client";
 
-import type { Task, TaskInput } from "@components/dashboard/today/types";
+import type { Task, TaskInput } from "@components/dashboard/types";
 import { useCallback, useState } from "react";
 
 export const useDashboardTasks = (initialTasks: Task[] = []) => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
-
-  const addTask = useCallback((input: TaskInput) => {
-    setTasks((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), done: false, ...input },
-    ]);
-  }, []);
 
   const updateTask = useCallback((id: string, input: Partial<TaskInput>) => {
     setTasks((prev) =>
@@ -31,5 +24,5 @@ export const useDashboardTasks = (initialTasks: Task[] = []) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }, []);
 
-  return { tasks, addTask, updateTask, toggleTaskDone, removeTask };
+  return { tasks, updateTask, toggleTaskDone, removeTask };
 };

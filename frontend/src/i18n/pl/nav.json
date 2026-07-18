@@ -10,8 +10,9 @@
   "about": "O nas",
   "items": {
     "product": "Produkt",
+    "dashboard": "Panel",
+    "legalTitle": "Informacje prawne",
     "legal": {
-      "title": "Informacje prawne",
       "privacy": "Polityka prywatności",
       "terms": "Regulamin"
     }
