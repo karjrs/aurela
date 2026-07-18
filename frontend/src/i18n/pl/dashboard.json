@@ -1,11 +1,159 @@
 {
-  "today": {
-    "heading": "Panel",
-    "placeholder": "To jest strona zastępcza — właściwy panel nie został jeszcze zbudowany."
+  "heading": "Panel",
+  "greeting": {
+    "morning": [
+      "Dzień dobry, {name}.",
+      "Miłego poranka, {name}.",
+      "Cześć.",
+      "Dzień dobry, słonko już wstało.",
+      "Nowy dzień, nowe możliwości, {name}.",
+      "Powoli, {name}, dzień dopiero się zaczyna.",
+      "Kawa czeka, {name}.",
+      "Spokojnego poranka.",
+      "Witaj, {name}.",
+      "Świeży dzień, świeży start.",
+      "Poranne światło już tu, {name}.",
+      "Zacznij w swoim czasie, {name}.",
+      "Herbata czy kawa, {name}?",
+      "Dzień dopiero raczkuje.",
+      "Ciepłego poranka, {name}."
+    ],
+    "noon": [
+      "Dzień dobry, {name}.",
+      "Miłego południa.",
+      "Jak minął poranek, {name}?",
+      "Czas na przerwę?",
+      "Południe już za pasem.",
+      "Spokojnego południa, {name}.",
+      "Chwila oddechu?",
+      "Połowa dnia za Tobą, {name}.",
+      "Miło Cię widzieć.",
+      "Wszystko w swoim tempie, {name}.",
+      "Słońce wysoko nad głową, {name}.",
+      "Chwila dla siebie?",
+      "Dzień w pełni, {name}.",
+      "Zwolnij, jeśli potrzebujesz.",
+      "Miłego dnia, {name}."
+    ],
+    "afternoon": [
+      "Dobrego popołudnia, {name}.",
+      "Cześć, {name}.",
+      "Jak mija dzień?",
+      "Popołudniowa energia.",
+      "Popołudniowy spokój, {name}.",
+      "Spokojnego popołudnia.",
+      "Jak tam, {name}?",
+      "Zwolnij na chwilę?",
+      "Dzień płynie dalej, {name}.",
+      "Miło, że zaglądasz.",
+      "Popołudniowe światło, {name}.",
+      "Wszystko po kolei, {name}.",
+      "Dobrze Cię widzieć o tej porze.",
+      "Reszta dnia należy do Ciebie, {name}.",
+      "Popołudnie sprzyja spokojowi."
+    ],
+    "evening": [
+      "Dobry wieczór, {name}.",
+      "Miłego wieczoru.",
+      "Czas zwolnić tempo, {name}.",
+      "Wieczór już tu.",
+      "Jak minął dzień, {name}?",
+      "Spokojnego wieczoru.",
+      "Cichy wieczór, {name}.",
+      "Dzień powoli się kończy.",
+      "Czas dla siebie, {name}.",
+      "Miło Cię widzieć wieczorem.",
+      "Wieczorne światło gaśnie powoli, {name}.",
+      "Dzień był, jaki był, {name}.",
+      "Miękkie światła wieczoru.",
+      "Reszta wieczoru w Twoich rękach, {name}.",
+      "Dobry czas na odpoczynek."
+    ],
+    "night": [
+      "Miło, że tu zaglądasz, {name}.",
+      "Dobranoc niedługo?",
+      "Księżyc już czuwa.",
+      "Ciii, cicha noc.",
+      "Pora na odpoczynek, {name}.",
+      "Cicho tu o tej porze.",
+      "Spokojnej nocy, {name}.",
+      "Gwiazdy już na niebie.",
+      "Chwila ciszy, {name}.",
+      "Odpoczywaj w swoim tempie, {name}.",
+      "Świat zwalnia, {name}.",
+      "Dobranoc, kiedykolwiek przyjdzie.",
+      "Cisza sprzyja spokojowi, {name}.",
+      "Jeszcze chwila i dobranoc.",
+      "Dobranoc, {name}, do jutra."
+    ]
+  },
+  "location": {
+    "error": "Lokalizacja niedostępna"
+  },
+  "weather": {
+    "refresh": "Odśwież pogodę",
+    "error": "Nie udało się pobrać pogody",
+    "forecastLabel": "Prognoza na kolejne godziny"
+  },
+  "sleep": {
+    "heading": "snu"
+  },
+  "note": {
+    "heading": "Notatka",
+    "placeholder": "Zapisz coś na później…"
+  },
+  "clock": {
+    "heading": "Zegar"
+  },
+  "progress": {
+    "label": "{count, plural, one {zadanie} few {zadania} many {zadań} other {zadania}}"
+  },
+  "focus": {
+    "work": "Praca",
+    "break": "Przerwa",
+    "start": "Start",
+    "pause": "Pauza",
+    "reset": "Resetuj",
+    "skip": "Pomiń"
+  },
+  "viewToggle": {
+    "calendar": "Kalendarz",
+    "list": "Lista",
+    "landmark": "Tryb widoku"
+  },
+  "arc": {
+    "sunrise": "Wschód słońca",
+    "sunset": "Zachód słońca",
+    "taskAt": "{title} o {time}"
+  },
+  "nextTask": {
+    "heading": "Następne zadanie",
+    "empty": "Wszystko zrobione 🎉"
+  },
+  "task": {
+    "markDone": "Oznacz jako ukończone",
+    "markNotDone": "Oznacz jako nieukończone",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "emptyState": "Brak zadań — dodaj swoje pierwsze poniżej."
+  },
+  "taskList": {
+    "heading": "Wszystkie zadania"
+  },
+  "calendarCard": {
+    "linkLabel": "Otwórz kalendarz"
+  },
+  "form": {
+    "addTaskButton": "Dodaj zadanie"
   },
   "dailyRhythm": {
     "heading": "Rytm dnia",
     "placeholder": "To jest strona zastępcza — właściwy rytm dnia nie został jeszcze zbudowany."
+  },
+  "calendar": {
+    "heading": "Kalendarz",
+    "dragHandle": "Przeciągnij, aby zmienić godzinę",
+    "resizeHandle": "Przeciągnij, aby zmienić czas trwania"
   },
   "tasks": {
     "heading": "Zadania",

@@ -1,6 +1,6 @@
+import type { NavItemProps } from "@components/nav/types";
 import { Link } from "@i18n/navigation";
 import { useTranslations } from "next-intl";
-import type { NavItemProps } from "../../types";
 import { variants } from "./consts";
 
 export const MobileNavFab = ({ item, active }: NavItemProps) => {
@@ -14,9 +14,7 @@ export const MobileNavFab = ({ item, active }: NavItemProps) => {
       aria-current={active ? "page" : undefined}
       className="flex flex-1 items-center justify-center"
     >
-      <span className={variants({ active })}>
-        <Icon />
-      </span>
+      <span className={variants({ active })}>{Icon && <Icon />}</span>
     </Link>
   );
 };

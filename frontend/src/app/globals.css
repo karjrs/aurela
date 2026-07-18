@@ -71,9 +71,12 @@
 
   --font-display: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
+
+  --container-page: var(--page-width);
 }
 
 :root {
+  --page-width: 90rem;
   --radius: 0.5rem;
   --background: var(--color-sand-50);
   --foreground: var(--color-navy-900);
@@ -117,6 +120,10 @@
   --focus-ring: var(--color-coral-400);
   --logo-hill-from: var(--color-sand-300);
   --logo-hill-to: var(--color-sand-100);
+  --sky-top: #f6ecd3;
+  --sky-bottom: #fdf9ef;
+  --horizon: var(--color-sand-300);
+  --night-arc: var(--color-sand-400);
 }
 
 .dark {
@@ -162,6 +169,10 @@
   --focus-ring: var(--color-coral-300);
   --logo-hill-from: var(--color-navy-600);
   --logo-hill-to: var(--color-navy-800);
+  --sky-top: #241f3d;
+  --sky-bottom: #3e3a66;
+  --horizon: var(--color-navy-700);
+  --night-arc: var(--color-navy-700);
 }
 
 @theme inline {
@@ -184,8 +195,20 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-sky-top: var(--sky-top);
+  --color-sky-bottom: var(--sky-bottom);
+  --color-horizon: var(--horizon);
+  --color-night-arc: var(--night-arc);
+  --color-accent-brand: var(--accent-brand);
+  --color-accent-brand-soft: var(--accent-brand-soft);
+  --color-elevated: var(--bg-elevated);
   --background-image-aurela:
     var(--bg-accent-left), var(--bg-accent-right), var(--bg-gradient);
+  --background-image-widget: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-bottom) 100%
+  );
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

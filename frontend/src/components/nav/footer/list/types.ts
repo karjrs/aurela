@@ -1,5 +1,5 @@
 import type { Link } from "@utils/types";
 
-export type NavListProps = {
+export type FooterNavListProps = {
   items: Link[];
 };

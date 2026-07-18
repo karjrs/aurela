@@ -26,7 +26,7 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
       suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-foreground bg-aurela">
+      <body className="min-h-full flex flex-col font-body text-foreground bg-aurela bg-fixed">
         <Providers locale={locale} messages={messages}>
           <main className="flex-1">{children}</main>
         </Providers>

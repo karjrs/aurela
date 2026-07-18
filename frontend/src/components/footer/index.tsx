@@ -3,9 +3,9 @@ import { Brand } from "./brand";
 import { Copyright } from "./copyright";
 
 export const Footer = () => (
-  <footer className="border-t border-border">
-    <div className="mx-auto w-full max-w-6xl px-4 py-12">
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-[2fr_1fr_1fr]">
+  <footer>
+    <div className="flex flex-col mx-auto w-full max-w-page">
+      <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between py-12 px-4 border-y border-border">
         <Brand />
         <FooterNav />
       </div>

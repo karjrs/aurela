@@ -1,9 +1,11 @@
-import { Link } from "@i18n/navigation";
-import { getTranslations } from "next-intl/server";
-import type { NavListProps } from "./types";
+"use client";
 
-export const NavList = async ({ items }: NavListProps) => {
-  const t = await getTranslations("nav");
+import { Link } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
+import type { FooterNavListProps } from "./types";
+
+export const FooterNavList = ({ items }: FooterNavListProps) => {
+  const t = useTranslations("nav");
 
   return (
     <ul className="flex flex-col gap-2">

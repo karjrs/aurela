@@ -1,24 +1,24 @@
-import { getTranslations } from "next-intl/server";
-import { legalItems, productItems } from "../consts";
-import { NavList } from "./list";
+"use client";
 
-export const FooterNav = async () => {
-  const t = await getTranslations("nav");
+import { useDashboardRoute } from "@root/hooks/nav/useDashboardRoute";
+import { cn } from "@utils/helpers/cn";
+import { useTranslations } from "next-intl";
+import { dashboardItems, legalItems, productItems } from "../consts";
+import { FooterNavSection } from "./section";
+
+export const FooterNav = () => {
+  const t = useTranslations("nav.items");
+  const isDashboard = useDashboardRoute();
 
   return (
-    <>
-      <div className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-foreground">
-          {t("items.product")}
-        </h2>
-        <NavList items={productItems} />
-      </div>
-      <div className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-foreground">
-          {t("items.legal.title")}
-        </h2>
-        <NavList items={legalItems} />
-      </div>
-    </>
+    <div
+      className={cn("grid grid-cols-2 gap-16", isDashboard && "sm:grid-cols-3")}
+    >
+      <FooterNavSection title={t("product")} items={productItems} />
+      {isDashboard && (
+        <FooterNavSection title={t("dashboard")} items={dashboardItems} />
+      )}
+      <FooterNavSection title={t("legal")} items={legalItems} />
+    </div>
   );
 };

@@ -3,14 +3,16 @@
   "today": "Dziś",
   "dailyRhythm": "Rytm dnia",
   "tasks": "Zadania",
+  "calendar": "Kalendarz",
   "community": "Społeczność",
   "profile": "Profil",
   "howItWorks": "Jak to działa",
   "about": "O nas",
   "items": {
     "product": "Produkt",
+    "dashboard": "Panel",
+    "legalTitle": "Informacje prawne",
     "legal": {
-      "title": "Informacje prawne",
       "privacy": "Polityka prywatności",
       "terms": "Regulamin"
     }

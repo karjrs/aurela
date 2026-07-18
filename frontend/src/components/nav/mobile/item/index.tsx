@@ -1,6 +1,6 @@
+import type { NavItemProps } from "@components/nav/types";
 import { Link } from "@i18n/navigation";
 import { useTranslations } from "next-intl";
-import type { NavItemProps } from "../../types";
 import { variants } from "./consts";
 
 export const MobileNavItem = ({ item, active }: NavItemProps) => {
@@ -13,7 +13,7 @@ export const MobileNavItem = ({ item, active }: NavItemProps) => {
       aria-current={active ? "page" : undefined}
       className={variants({ active })}
     >
-      <Icon />
+      {Icon && <Icon />}
       <span>{t(label)}</span>
     </Link>
   );

@@ -1,17 +1,24 @@
-import { Button } from "@components/common/ui/button";
-import { Link } from "@i18n/navigation";
-import { getTranslations } from "next-intl/server";
-import { productItems } from "../consts";
+"use client";
 
-export const HeaderNav = async () => {
-  const t = await getTranslations("nav");
+import { useActiveRoute } from "@hooks/nav/useActiveRoute";
+import { useDashboardRoute } from "@root/hooks/nav/useDashboardRoute";
+import { dashboardItems, productItems } from "../consts";
+import { HeaderNavItem } from "./item";
+
+export const HeaderNav = () => {
+  const isDashboard = useDashboardRoute();
+  const { isActive } = useActiveRoute();
+
+  const items = isDashboard ? dashboardItems : productItems;
 
   return (
     <nav className="hidden items-center justify-center gap-1 md:flex">
-      {productItems.map(({ label, href }) => (
-        <Button key={label} asChild variant="ghost" size="sm">
-          <Link href={href}>{t(label)}</Link>
-        </Button>
+      {items.map((item) => (
+        <HeaderNavItem
+          key={item.label}
+          item={item}
+          active={isDashboard && isActive(item.href, item.exact)}
+        />
       ))}
     </nav>
   );

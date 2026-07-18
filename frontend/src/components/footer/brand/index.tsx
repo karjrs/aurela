@@ -1,4 +1,4 @@
-import { Logo } from "@root/components/header/logo";
+import { Logo } from "@components/logo";
 import { getTranslations } from "next-intl/server";
 import { Social } from "../social";
 

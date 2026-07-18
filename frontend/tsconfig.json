@@ -27,7 +27,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@i18n/*": ["./src/i18n/*"],
       "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@widget/*": ["./src/components/dashboard/widget/variants/*"]
     }
   },
   "include": [
